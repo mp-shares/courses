@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第十四课·班修练习｜需求 · 念死 · 自利利他</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2a2118;
+    --ink-light: #6b5f52;
+    --ink-faint: #a89880;
+    --paper: #faf7f2;
+    --paper-warm: #f3ede3;
+    --paper-line: #e2d9cc;
+    --accent: #7b5e3a;
+    --accent-soft: #c4a882;
+    --green: #5a7a52;
+    --dusk: #4a4560;
+    --shadow: rgba(42,33,24,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #ede7dc;
+    font-family: 'Noto Sans SC', sans-serif;
+    color: var(--ink);
+    padding: 24px 16px 60px;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(196,168,130,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(74,69,96,0.07) 0%, transparent 60%);
+  }
+  .page {
+    max-width: 940px; margin: 0 auto; background: var(--paper);
+    box-shadow: 0 2px 4px var(--shadow), 0 8px 24px rgba(42,33,24,0.12), 0 24px 60px rgba(42,33,24,0.08);
+    position: relative; overflow: hidden;
+  }
+  .page-inner { padding: 30px 38px 40px; }
+
+  /* ---------- header ---------- */
+  .header { text-align: center; padding-bottom: 14px; border-bottom: 1.5px solid var(--paper-line); margin-bottom: 6px; }
+  .header-stage { font-size: 10px; letter-spacing: 0.28em; color: var(--accent-soft); margin-bottom: 6px; }
+  .header h1 { font-family: 'Noto Serif SC', serif; font-size: 23px; font-weight: 600; letter-spacing: 0.06em; line-height: 1.4; }
+  .header-sub { font-size: 12px; color: var(--ink-light); letter-spacing: 0.1em; margin-top: 6px; }
+  .header-time { font-size: 10.5px; color: var(--ink-faint); letter-spacing: 0.14em; margin-top: 7px; }
+
+  .meta-row { display: flex; gap: 26px; justify-content: flex-end; margin: 14px 0 18px; flex-wrap: wrap; }
+  .meta-item { display: flex; align-items: center; gap: 7px; }
+  .meta-item label { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.12em; }
+  .meta-input { background: transparent; border: none; border-bottom: 1px solid var(--paper-line);
+    padding: 2px 4px; font-family: inherit; font-size: 12.5px; color: var(--ink); width: 110px; outline: none; }
+  .meta-input:focus { border-bottom-color: var(--accent-soft); }
+
+  .intro { font-size: 12.5px; line-height: 1.85; color: var(--ink-light);
+    background: var(--paper-warm); border-left: 3px solid var(--accent-soft);
+    padding: 12px 16px; margin-bottom: 26px; }
+  .intro b { color: var(--accent); font-weight: 500; }
+
+  /* ---------- step heads ---------- */
+  .step { margin-bottom: 30px; }
+  .step-head { display: flex; align-items: baseline; gap: 11px; margin-bottom: 5px; }
+  .step-num { font-family: 'Noto Serif SC', serif; font-size: 11px; letter-spacing: 0.2em;
+    color: #fff; background: var(--accent); padding: 3px 9px; flex-shrink: 0; }
+  .step-title { font-family: 'Noto Serif SC', serif; font-size: 16.5px; font-weight: 600; letter-spacing: 0.05em; }
+  .step-mins { font-size: 10.5px; color: var(--ink-faint); letter-spacing: 0.1em; margin-left: auto; flex-shrink: 0; }
+  .step-note { font-size: 11.5px; color: var(--ink-light); line-height: 1.75; margin: 6px 0 13px; padding-left: 2px; }
+
+  /* ---------- grid table ---------- */
+  .tbl { border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
+  .tr { display: grid; border-bottom: 1px solid var(--paper-line); }
+  .tr:last-child { border-bottom: none; }
+  .t1 .tr { grid-template-columns: 152px 1fr 106px 1fr; }
+  .t2 .tr { grid-template-columns: 152px 1fr 106px 1fr 1fr; }
+  .th { background: var(--paper-warm); font-size: 11.5px; font-weight: 500; color: var(--accent);
+    letter-spacing: 0.04em; padding: 9px 11px; line-height: 1.55; border-right: 1px solid var(--paper-line); }
+  .th:last-child { border-right: none; }
+  .th small { display: block; font-size: 10px; color: var(--ink-faint); font-weight: 300; letter-spacing: 0; margin-top: 3px; line-height: 1.5; }
+  .td { padding: 10px 11px; border-right: 1px solid var(--paper-line); }
+  .td:last-child { border-right: none; }
+
+  .rowname { font-family: 'Noto Serif SC', serif; font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+  .rowhint { font-size: 10px; color: var(--ink-faint); line-height: 1.65; margin-top: 6px; }
+  .rowhint em { font-style: normal; color: var(--accent); }
+
+  .cell {
+    min-height: 74px; font-size: 12.5px; line-height: 1.8; color: var(--ink);
+    outline: none; padding: 2px 1px;
+    background-image: repeating-linear-gradient(transparent, transparent 21px, rgba(180,160,130,0.22) 21px, rgba(180,160,130,0.22) 22px);
+  }
+  .cell:focus { background-color: rgba(196,168,130,0.09); }
+  .cell.empty::before { content: attr(data-ph); color: var(--ink-faint); font-size: 10.5px; opacity: 0.85; }
+
+  .pct-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-height: 74px; }
+  .pct { width: 56px; text-align: center; font-family: 'Noto Serif SC', serif; font-size: 19px; color: var(--accent);
+    background: transparent; border: none; border-bottom: 1.5px solid var(--paper-line); padding: 3px 0; outline: none; }
+  .pct:focus { border-bottom-color: var(--accent-soft); }
+  .pct-unit { font-size: 10px; color: var(--ink-faint); }
+  .pct-ref { font-size: 9.5px; color: var(--ink-faint); letter-spacing: 0.03em; margin-top: 2px; }
+
+  /* ---------- mirrored cells ---------- */
+  .cell.mirrored { background-color: rgba(196,168,130,0.13); }
+  .synbar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    font-size: 10.5px; color: var(--ink-faint); line-height: 1.7; margin: 9px 0 3px; }
+  .resync { font-family: inherit; font-size: 10.5px; color: var(--accent); background: transparent;
+    border: 1px solid var(--paper-line); padding: 4px 11px; cursor: pointer; white-space: nowrap; transition: all .18s; }
+  .resync:hover { background: var(--paper-warm); border-color: var(--accent-soft); }
+
+  .sumbar { display: flex; align-items: center; justify-content: flex-end; gap: 9px;
+    font-size: 11.5px; color: var(--ink-light); padding: 8px 12px 0; }
+  .sumval { font-family: 'Noto Serif SC', serif; font-size: 15px; color: var(--accent); }
+  .sumbar.warn .sumval { color: #a8503a; }
+  .sumbar .hint { font-size: 10.5px; color: var(--ink-faint); }
+
+  .after-note { font-size: 12.5px; line-height: 1.95; color: var(--ink-light);
+    margin-top: 14px; padding: 11px 0 0; border-top: 1px dotted var(--paper-line); }
+  .after-note b { color: var(--accent); font-weight: 500; }
+
+  /* ---------- meditation ---------- */
+  .medit { background: linear-gradient(170deg, #3f3a52 0%, #4a4560 55%, #565073 100%);
+    color: #ece8f2; padding: 30px 34px 26px; margin: 34px 0; position: relative; }
+  .medit::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(236,232,242,0.16); pointer-events: none; }
+  .medit-label { font-size: 10px; letter-spacing: 0.3em; color: rgba(236,232,242,0.55); text-align: center; margin-bottom: 4px; }
+  .medit h2 { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 400; letter-spacing: 0.12em; text-align: center; margin-bottom: 20px; }
+  .medit ul { list-style: none; max-width: 560px; margin: 0 auto; }
+  .medit li { font-family: 'Noto Serif SC', serif; font-size: 14.5px; line-height: 2.1; letter-spacing: 0.04em;
+    padding-left: 20px; position: relative; }
+  .medit li::before { content: '·'; position: absolute; left: 6px; color: rgba(236,232,242,0.5); }
+  .medit li.key { color: #f0dfae; }
+  .medit-foot { text-align: center; font-size: 11px; color: rgba(236,232,242,0.6); line-height: 1.9; margin-top: 20px; letter-spacing: 0.05em; }
+  .timer { display: flex; align-items: center; justify-content: center; gap: 11px; margin-top: 16px; flex-wrap: wrap; }
+  .timer .tstart { font-family: inherit; font-size: 11px; letter-spacing: 0.1em; color: #fff;
+    background: transparent; border: 1px solid rgba(255,255,255,0.38); padding: 5px 15px; cursor: pointer; transition: all .2s; }
+  .timer .tstart:hover { background: rgba(255,255,255,0.14); }
+  .timer-disp { font-family: 'Noto Serif SC', serif; font-size: 17px; color: #f0dfae; letter-spacing: 0.06em; min-width: 52px; text-align: center; }
+  .timer-set { display: flex; }
+  .tchip { font-family: inherit; font-size: 10.5px; letter-spacing: 0.04em; color: rgba(255,255,255,0.62);
+    background: transparent; border: 1px solid rgba(255,255,255,0.24); border-right: none;
+    padding: 4px 10px; cursor: pointer; transition: all .18s; }
+  .tchip:last-child { border-right: 1px solid rgba(255,255,255,0.24); }
+  .tchip:hover { color: #fff; background: rgba(255,255,255,0.12); }
+  .tchip.active { color: #2a2118; background: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.85); }
+
+  /* ---------- compare ---------- */
+  .cmp { border: 1px solid var(--paper-line); background: var(--paper-warm); padding: 15px 18px; margin-top: 16px; }
+  .cmp-title { font-family: 'Noto Serif SC', serif; font-size: 12.5px; color: var(--accent); margin-bottom: 3px; letter-spacing: 0.06em; }
+  .cmp-note { font-size: 10px; color: var(--ink-faint); margin-bottom: 10px; letter-spacing: 0.02em; }
+  .cmp-row { display: grid; grid-template-columns: 1fr 62px 26px 62px 92px; align-items: center; gap: 6px;
+    font-size: 12px; padding: 6px 0; border-bottom: 1px dotted var(--paper-line); }
+  .cmp-row:last-child { border-bottom: none; }
+  .cmp-row .nm { color: var(--ink-light); }
+  .cmp-row .v { text-align: center; font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--ink-light); }
+  .cmp-row .ar { text-align: center; color: var(--ink-faint); font-size: 11px; }
+  .cmp-row .v2 { text-align: center; font-family: 'Noto Serif SC', serif; font-size: 15px; color: var(--accent); }
+  .cmp-row .dt { text-align: right; font-size: 11.5px; }
+  .dt.up { color: var(--green); }
+  .dt.down { color: #a8503a; }
+  .dt.same { color: var(--ink-faint); }
+
+  /* ---------- closing ---------- */
+  .close-q { font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--ink); margin-bottom: 9px; letter-spacing: 0.04em; }
+  .close-area { min-height: 82px; font-size: 12.5px; line-height: 2; outline: none; padding: 4px 2px;
+    background-image: repeating-linear-gradient(transparent, transparent 23px, rgba(180,160,130,0.22) 23px, rgba(180,160,130,0.22) 24px); }
+  .close-area.empty::before { content: attr(data-ph); color: var(--ink-faint); font-size: 11px; }
+  .aside { font-size: 11px; color: var(--ink-light); line-height: 1.85; background: var(--paper-warm);
+    border-left: 3px solid var(--accent-soft); padding: 10px 14px; margin-top: 16px; }
+  .aside b { color: var(--accent); font-weight: 500; }
+
+  /* ---------- volunteer notes ---------- */
+  details.vol { margin-top: 40px; border-top: 1.5px solid var(--paper-line); padding-top: 18px; }
+  details.vol summary { font-family: 'Noto Serif SC', serif; font-size: 13px; color: var(--accent);
+    cursor: pointer; letter-spacing: 0.08em; outline: none; }
+  .vol-body { font-size: 11.5px; line-height: 1.95; color: var(--ink-light); margin-top: 14px; }
+  .vol-body h4 { font-family: 'Noto Serif SC', serif; font-size: 12.5px; color: var(--ink); margin: 15px 0 6px; letter-spacing: 0.05em; }
+  .vol-body ul { padding-left: 19px; }
+  .vol-body li { margin-bottom: 5px; }
+  .vol-body .quote { border-left: 2px solid var(--accent-soft); padding-left: 11px; color: var(--ink-light); margin: 7px 0; font-size: 11px; }
+  .timeline { display: flex; flex-wrap: wrap; gap: 6px; margin: 9px 0 4px; }
+  .timeline span { background: var(--paper-warm); border: 1px solid var(--paper-line); padding: 4px 9px; font-size: 10.5px; color: var(--ink-light); }
+
+  .save-notice { text-align: center; font-size: 10px; color: var(--ink-faint); margin-top: 26px; letter-spacing: 0.08em; }
+
+  /* ---------- tabs ---------- */
+  .tabs { display: flex; gap: 0; border-bottom: 1.5px solid var(--ink); margin: 4px 0 0; }
+  .tab { flex: 1; font-family: 'Noto Serif SC', serif; font-size: 13px; letter-spacing: 0.1em;
+    color: var(--ink-faint); background: transparent; border: 1px solid var(--paper-line);
+    border-bottom: none; padding: 11px 8px 10px; cursor: pointer; transition: all .18s;
+    margin-bottom: -1.5px; }
+  .tab + .tab { border-left: none; }
+  .tab:hover { color: var(--accent); background: rgba(196,168,130,0.08); }
+  .tab.active { color: var(--accent); background: var(--paper-warm);
+    border-color: var(--ink); border-bottom: 1.5px solid var(--paper-warm); font-weight: 600; }
+  .pane { display: none; }
+  .pane.active { display: block; }
+  .pane-title { display: none; margin: 0 0 8px; text-align: center; }
+  .pane-title span { font-family: 'Noto Serif SC', serif; font-size: 15px; letter-spacing: 0.22em; color: var(--accent); }
+  .psub { text-align: center; font-size: 11.5px; color: var(--ink-faint); letter-spacing: 0.1em; margin: 16px 0 26px; }
+
+  /* ---------- 2x2 quadrant ---------- */
+  .quad { border: 1.5px solid var(--ink); margin-top: 4px; }
+  .quad-head { display: grid; grid-template-columns: 62px 1fr 1fr; border-bottom: 1.5px solid var(--ink); }
+  .quad-head div { padding: 7px 10px; text-align: center; font-family: 'Noto Serif SC', serif;
+    font-size: 12.5px; letter-spacing: 0.16em; color: var(--accent); background: var(--paper-warm);
+    border-right: 1px solid var(--paper-line); }
+  .quad-head div:last-child { border-right: none; }
+  .quad-head .corner { background: var(--paper-warm); }
+  .quad-row { display: grid; grid-template-columns: 62px 1fr 1fr; border-bottom: 1px solid var(--paper-line); }
+  .quad-row:last-child { border-bottom: none; }
+  .quad-side { display: flex; align-items: center; justify-content: center; background: var(--paper-warm);
+    border-right: 1px solid var(--paper-line); font-family: 'Noto Serif SC', serif; font-size: 12.5px;
+    letter-spacing: 0.16em; color: var(--accent); writing-mode: vertical-rl; text-orientation: upright; padding: 10px 0; }
+  .q { padding: 9px 12px 11px; border-right: 1px solid var(--paper-line); }
+  .q:last-child { border-right: none; }
+  .q-name { font-family: 'Noto Serif SC', serif; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .q-hint { font-size: 10px; color: var(--ink-faint); line-height: 1.65; margin: 4px 0 7px; }
+  .q-hint em { font-style: normal; color: var(--accent); }
+  .q .cell { min-height: 86px; }
+
+  .movebox { margin-top: 16px; }
+  .move-q { font-family: 'Noto Serif SC', serif; font-size: 13px; color: var(--ink); margin-bottom: 8px; letter-spacing: 0.04em; }
+
+  /* ---------- guidance panel (green) ---------- */
+  .guide { background: linear-gradient(170deg, #38452f 0%, #445238 55%, #4f5f41 100%);
+    color: #eaf0e2; padding: 28px 34px 24px; margin: 32px 0; position: relative; }
+  .guide::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(234,240,226,0.16); pointer-events: none; }
+  .guide-label { font-size: 10px; letter-spacing: 0.3em; color: rgba(234,240,226,0.55); text-align: center; margin-bottom: 4px; }
+  .guide h2 { font-family: 'Noto Serif SC', serif; font-size: 16.5px; font-weight: 400; letter-spacing: 0.12em; text-align: center; margin-bottom: 20px; }
+  .guide-block { max-width: 620px; margin: 0 auto 18px; }
+  .guide-block h3 { font-family: 'Noto Serif SC', serif; font-size: 13.5px; font-weight: 400;
+    letter-spacing: 0.14em; color: #d9e8a8; margin-bottom: 8px; padding-bottom: 5px;
+    border-bottom: 1px solid rgba(234,240,226,0.18); }
+  .guide-block p { font-family: 'Noto Serif SC', serif; font-size: 13.5px; line-height: 2.05; letter-spacing: 0.03em; margin-bottom: 4px; }
+  .guide-block .src { font-size: 11px; color: rgba(234,240,226,0.6); line-height: 1.85; letter-spacing: 0.02em; margin-top: 6px; }
+  .guide-foot { text-align: center; font-family: 'Noto Serif SC', serif; font-size: 13.5px; color: #f0e6ae;
+    line-height: 1.95; margin-top: 18px; letter-spacing: 0.05em; }
+
+  @media print {
+    @page { margin: 12mm 11mm; size: A4; }
+    body { background: white !important; padding: 0 !important; }
+    .page { box-shadow: none !important; max-width: 100% !important; }
+    .page-inner { padding: 0 !important; }
+    .timer, .save-notice, .resync { display: none !important; }
+    .cell.mirrored { background-color: transparent !important; }
+    .medit { -webkit-print-color-adjust: exact; print-color-adjust: exact; page-break-inside: avoid; }
+    .cell, .close-area { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .step, .cmp, .quad { page-break-inside: avoid; }
+    .guide { -webkit-print-color-adjust: exact; print-color-adjust: exact; page-break-inside: avoid; }
+    .tabs { display: none !important; }
+    .pane { display: block !important; }
+    .pane-title { display: block !important; }
+    #pane2 { page-break-before: always; }
+    details.vol { page-break-before: always; }
+    details.vol > summary { list-style: none; }
+  }
+  @media (max-width: 760px) {
+    .page-inner { padding: 22px 16px 30px; }
+    .t1 .tr, .t2 .tr { grid-template-columns: 1fr; }
+    .th { display: none; }
+    .th.mobile-keep { display: block; }
+    .td { border-right: none; }
+    .cell::after { display: none; }
+    .cmp-row { grid-template-columns: 1fr 46px 20px 46px 66px; font-size: 11px; }
+    .quad-head, .quad-row { grid-template-columns: 42px 1fr 1fr; }
+    .q { padding: 8px 8px 9px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="page-inner">
+
+  <div class="header">
+    <div class="header-stage">静心学堂 · 同喜班 · 人生篇</div>
+    <h1>第十四课《佛教徒的人生态度》之二 · 班修练习</h1>
+    <div class="header-sub">需求盘点 × 念死观修 × 重新取舍　｜　自利利他 × 重新算账</div>
+    <div class="header-time">练习一 约 30 分钟　·　练习二 约 20 分钟 ｜ 现场书写，可分两次班修使用</div>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-item"><label>姓名</label><input class="meta-input" id="f-name" type="text"></div>
+    <div class="meta-item"><label>日期</label><input class="meta-input" id="f-date" type="date"></div>
+  </div>
+
+  <div class="intro">
+    这不是一份考卷，没有标准答案，也不交给任何人看——<b>正因为如此，可以借这个机会如实面对自己</b>。<br>
+    <b>第一遍本身就是一次难得的自我觉察</b>：平时不会停下来看的东西，今天摆在纸上看一眼——我实际上把生命花在了哪里，我做一件事时心里究竟是什么在动。中间我们会一起做一段观修，然后你再回来看自己写下的东西，看看还是不是原来那样——<b>这两遍之间的变化，本身就是一次观察修</b>。
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" type="button" data-pane="pane1">练习一 · 我的需求 × 念死</button>
+    <button class="tab" type="button" data-pane="pane2">练习二 · 自利还是利他</button>
+  </div>
+
+  <section class="pane active" id="pane1">
+  <div class="pane-title"><span>练　习　一</span></div>
+  <div class="psub">禁欲还是纵欲 · 重生还是重死　｜　我的需求 × 念死 × 重新取舍</div>
+
+  <!-- ===== STEP 1 ===== -->
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">第一遍</span>
+      <span class="step-title">照实盘点：我的需求现在长什么样</span>
+      <span class="step-mins">6 分钟</span>
+    </div>
+    <div class="step-note">
+      欲，就是需求。它本身不是罪过——法义说得很清楚，需求有善、有恶、也有非善非恶的「无记」。佛陀也试过六年苦行，结论是盲目自苦对修道无益。所以这一步不做评判，只做记录，而且<b>两头都记</b>：既有「还不够，再来一点」的那一头，也有「我不配、我不应该」的那一头。
+    </div>
+
+    <div class="tbl t1">
+      <div class="tr">
+        <div class="th mobile-keep">需求的三个层次</div>
+        <div class="th">一、有哪些类型？<small>具体写，越具体越好；写得出名字的才看得见</small></div>
+        <div class="th">二、占比<small>时间与精力<br>三行合计 100</small></div>
+        <div class="th">三、满足它的过程中，我的心是什么样的？<small>纵欲与自苦，法义说两边都不是路。</small></div>
+      </div>
+
+      <div class="tr">
+        <div class="td">
+          <div class="rowname">日常基础所需</div>
+          <div class="rowhint">吃穿住行、睡眠、健康、正常的家庭生活与工作。<br><em>这一类不需要否定</em>——法义说，不必刻意自苦其身，色身像工具，善加养护才能有效使用。</div>
+        </div>
+        <div class="td"><div class="cell empty" data-ph="例：三餐、睡眠、通勤、看病、陪孩子……" data-k="a1"></div></div>
+        <div class="td"><div class="pct-wrap"><input class="pct" data-k="p1" data-grp="1" inputmode="numeric" maxlength="3"><span class="pct-unit">%</span></div></div>
+        <div class="td"><div class="cell empty" data-ph="够用了还想再多一点吗？或者反过来——花在自己身上时，有没有觉得浪费、不配、对不起谁？" data-k="c1"></div></div>
+      </div>
+
+      <div class="tr">
+        <div class="td">
+          <div class="rowname">升级式 · 上瘾式的需求</div>
+          <div class="rowhint">认它的三个记号：<em>占有</em>（还要更多）、<em>比较</em>（要比人好）、<em>竞争</em>（不能输）。<br>例：消费升级、刷手机短视频、面子名声、口腹之欲、追求某种「感觉」。</div>
+        </div>
+        <div class="td"><div class="cell empty" data-ph="例：换新款、刷剧、被点赞、加班争先……" data-k="a2"></div></div>
+        <div class="td"><div class="pct-wrap"><input class="pct" data-k="p2" data-grp="1" inputmode="numeric" maxlength="3"><span class="pct-unit">%</span></div></div>
+        <div class="td"><div class="cell empty" data-ph="快乐撑了多久？下一个念头是不是马上就来了？有没有一边享用、一边自责？" data-k="c2"></div></div>
+      </div>
+
+      <div class="tr">
+        <div class="td">
+          <div class="rowname">精神需求（含善法欲）</div>
+          <div class="rowhint">信仰、求真、艺术、对生命意义的追问；以及<em>善法欲</em>——「我要修行」「我要解脱」「我要帮助他人」。<br>法义说，善法欲是修行的动力，四神足与五别境都以「欲」为首。</div>
+        </div>
+        <div class="td"><div class="cell empty" data-ph="例：闻思、禅修、做义工、读书、独处……" data-k="a3"></div></div>
+        <div class="td"><div class="pct-wrap"><input class="pct" data-k="p3" data-grp="1" inputmode="numeric" maxlength="3"><span class="pct-unit">%</span></div></div>
+        <div class="td"><div class="cell empty" data-ph="做的时候心是紧的还是松的？有没有觉得「这太奢侈」「不务正业」「等忙完再说」？" data-k="c3"></div></div>
+      </div>
+    </div>
+    <div class="sumbar" id="sum1"><span class="hint">三行合计</span><span class="sumval">0</span><span class="hint">／ 100</span></div>
+
+    <div class="after-note">
+      填完，先整体看一眼这张表：<b>我为良好心行的积累花了多长时间，又不知不觉地为不良心行花掉了多少时间和心力。</b>
+    </div>
+  </div>
+
+  <!-- ===== MEDITATION ===== -->
+  <div class="medit">
+    <div class="medit-label">中　场　观　修</div>
+    <h2>念　死</h2>
+    <ul>
+      <li>死亡是一定的。</li>
+      <li>死期是不定的，死亡随时都有可能到来。</li>
+      <li>死亡时，一切外在的东西都无法带走——财富、地位、名声，朝夕相处的亲人，乃至这个身体。</li>
+      <li class="key">但有两样带得走：这一生所造的业，和自己的心行。</li>
+      <li class="key">当下，是生命改变的钥匙。我现在选择如何活着，会影响生命的走向——今生，也包括来生。</li>
+    </ul>
+    <div class="medit-foot">读完不要急着动笔。<br>合上眼睛，把这几句话在心里数数思维，安住片刻。<br><span style="font-size:10px;opacity:.7">默认静默 30 秒；时间宽裕可往上调。</span></div>
+    <div class="timer">
+      <span class="timer-set">
+        <button class="tchip active" type="button" data-sec="30">30 秒</button>
+        <button class="tchip" type="button" data-sec="60">1 分</button>
+        <button class="tchip" type="button" data-sec="120">2 分</button>
+        <button class="tchip" type="button" data-sec="180">3 分</button>
+      </span>
+      <button class="tstart" type="button">开始静默</button>
+      <span class="timer-disp">0:30</span>
+    </div>
+  </div>
+
+  <!-- ===== STEP 2 ===== -->
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">第二遍</span>
+      <span class="step-title">重新看：带着念死，再读一遍自己刚才写的</span>
+      <span class="step-mins">6 分钟</span>
+    </div>
+    <div class="step-note">
+      三行还是那三行，问题也还是那几个。<b>带着刚才的观修，回头看自己写下的每一格</b>：哪些要删、哪些要加，哪些心行想调整，占比要不要改。没有改动也是一个真实的答案。
+    </div>
+
+    <div class="synbar">
+      <span>第一列与第三列已<b>自动带入第一遍写的内容</b>，直接在上面划改、增补即可；一旦你动笔，这一格就不再跟随第一遍。占比不带入，请自己重新给一个数。</span>
+      <button class="resync" type="button" data-targets="d1,d2,d3,e1,e2,e3">↻ 重新带入第一遍</button>
+    </div>
+
+    <div class="tbl t2">
+      <div class="tr">
+        <div class="th mobile-keep">需求的三个层次</div>
+        <div class="th">一、有哪些类型？<small>删除哪些？新增哪些？</small></div>
+        <div class="th">二、新占比<small>我愿意调成<br>三行合计 100</small></div>
+        <div class="th">三、满足它的过程中，我的心是什么样的？<small>哪些是不良心行，我可以调整？</small></div>
+        <div class="th">四、下一周，我具体做的一件事<small>小到能打勾为止</small></div>
+      </div>
+
+      <div class="tr">
+        <div class="td"><div class="rowname">日常基础所需</div><div class="rowhint">带不走，但活着就需要——问的是「多少才够」，不是「要不要」。</div></div>
+        <div class="td"><div class="cell empty" data-ph="删掉哪些？加上哪些？" data-k="d1"></div></div>
+        <div class="td"><div class="pct-wrap"><input class="pct" data-k="q1" data-grp="2" inputmode="numeric" maxlength="3"><span class="pct-unit">%</span><span class="pct-ref" data-ref="p1">第一遍 –</span></div></div>
+        <div class="td"><div class="cell empty" data-ph="哪些心行我想调整？" data-k="e1"></div></div>
+        <div class="td"><div class="cell empty" data-ph="例：睡前不再刷到一点；一餐正念吃饭" data-k="f1"></div></div>
+      </div>
+
+      <div class="tr">
+        <div class="td"><div class="rowname">升级式 · 上瘾式的需求</div><div class="rowhint">法义问过一句：为得到它，我要投入多少时间——而<em>投入时间就是投入生命</em>。这笔账值吗？</div></div>
+        <div class="td"><div class="cell empty" data-ph="删掉哪些？加上哪些？" data-k="d2"></div></div>
+        <div class="td"><div class="pct-wrap"><input class="pct" data-k="q2" data-grp="2" inputmode="numeric" maxlength="3"><span class="pct-unit">%</span><span class="pct-ref" data-ref="p2">第一遍 –</span></div></div>
+        <div class="td"><div class="cell empty" data-ph="哪些心行我想调整？" data-k="e2"></div></div>
+        <div class="td"><div class="cell empty" data-ph="例：这周不下单那件东西，把钱供斋" data-k="f2"></div></div>
+      </div>
+
+      <div class="tr">
+        <div class="td"><div class="rowname">精神需求（含善法欲）</div><div class="rowhint">这一行，正是<em>带得走</em>的那一部分——业与心行。所以念死不是让人什么都不要，而是让人看清该要什么。</div></div>
+        <div class="td"><div class="cell empty" data-ph="删掉哪些？加上哪些？" data-k="d3"></div></div>
+        <div class="td"><div class="pct-wrap"><input class="pct" data-k="q3" data-grp="2" inputmode="numeric" maxlength="3"><span class="pct-unit">%</span><span class="pct-ref" data-ref="p3">第一遍 –</span></div></div>
+        <div class="td"><div class="cell empty" data-ph="哪些心行我想调整？" data-k="e3"></div></div>
+        <div class="td"><div class="cell empty" data-ph="例：每天固定十分钟禅修，写在日程上" data-k="f3"></div></div>
+      </div>
+    </div>
+    <div class="sumbar" id="sum2"><span class="hint">三行合计</span><span class="sumval">0</span><span class="hint">／ 100</span></div>
+
+    <div class="cmp">
+      <div class="cmp-title">两遍之间，我的取舍变了多少</div>
+      <div class="cmp-note">读上下两张表的「占比」列自动计算，不用填——两边的数字都给了，这里就会显示增减。</div>
+      <div class="cmp-row" data-cmp="1"><span class="nm">日常基础所需</span><span class="v">–</span><span class="ar">→</span><span class="v2">–</span><span class="dt same">未填</span></div>
+      <div class="cmp-row" data-cmp="2"><span class="nm">升级式 · 上瘾式的需求</span><span class="v">–</span><span class="ar">→</span><span class="v2">–</span><span class="dt same">未填</span></div>
+      <div class="cmp-row" data-cmp="3"><span class="nm">精神需求（含善法欲）</span><span class="v">–</span><span class="ar">→</span><span class="v2">–</span><span class="dt same">未填</span></div>
+    </div>
+  </div>
+
+  <!-- ===== STEP 3 ===== -->
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">分　享</span>
+      <span class="step-title">只回答一个问题</span>
+      <span class="step-mins">8 分钟</span>
+    </div>
+    <div class="close-q">我的哪一格变了？为什么会变？</div>
+    <div class="close-area empty" data-ph="不用讲全表，讲一格就够。讲不出变化，就讲讲为什么没变。" data-k="share"></div>
+
+    <div class="aside">
+      <b>如果两遍完全没变——</b>那也是一个答案，说明你现在的取舍经得起念死的检验。<br>
+      <b>如果心里生起「什么都不要了」的念头——</b>回到观修的第四句：带不走财富、身体，但业和心行带得走。
+    </div>
+  </div>
+
+
+  </section>
+
+  <!-- ===== PRACTICE 2 ===== -->
+  <section class="pane" id="pane2">
+  <div class="pane-title"><span>练　习　二</span></div>
+  <div class="psub">自利还是利他　｜　一件事，放在哪一格</div>
+
+  <div class="intro">
+    先想 <b>4–6 件最近真实做过、或正在纠结的事</b>——花钱、花时间、让步、争取、拒绝、帮忙都算，一件一行写进下面四个格子里。<b>凭当下第一反应放</b>，不要想「应该」放哪里。
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">第一遍</span>
+      <span class="step-title">凭第一反应：这件事，我觉得它在哪一格</span>
+      <span class="step-mins">6 分钟</span>
+    </div>
+    <div class="step-note">
+      这一步只问感受，不问道理。比如捐一笔钱，当下的实感多半是「我少了一点，别人多了一点」——那就照实放进「自损·利他」，不用替自己美化。
+    </div>
+
+    <div class="quad">
+      <div class="quad-head"><div class="corner"></div><div>利　他</div><div>损　他</div></div>
+      <div class="quad-row">
+        <div class="quad-side">自利</div>
+        <div class="q">
+          <div class="q-name">自利 · 利他</div>
+          <div class="q-hint">双赢。<em>如法求财、诚信经营、彼此成就。</em>第一遍写得出几条？</div>
+          <div class="cell empty" data-ph="一件一行" data-k="g1"></div>
+        </div>
+        <div class="q">
+          <div class="q-name">自利 · 损他</div>
+          <div class="q-hint">我得了，别人失了。<em>争、抢、占便宜、把麻烦推给别人。</em></div>
+          <div class="cell empty" data-ph="一件一行" data-k="g2"></div>
+        </div>
+      </div>
+      <div class="quad-row">
+        <div class="quad-side">自损</div>
+        <div class="q">
+          <div class="q-name">自损 · 利他</div>
+          <div class="q-hint">我少了，别人多了。<em>捐款、让利、花时间帮人、忍下一口气。</em>——第一反应通常都堆在这一格。</div>
+          <div class="cell empty" data-ph="一件一行" data-k="g3"></div>
+        </div>
+        <div class="q">
+          <div class="q-name">自损 · 损他</div>
+          <div class="q-hint">两败俱伤。<em>赌气、嗔恨、冷战、争到最后谁都没好。</em></div>
+          <div class="cell empty" data-ph="一件一行" data-k="g4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GUIDANCE ===== -->
+  <div class="guide">
+    <div class="guide-label">中　场　引　导</div>
+    <h2>把账，重新算一次</h2>
+
+    <div class="guide-block">
+      <h3>扩展一 · 把时间拉长</h3>
+      <p>刚才那四个格子，算的是当下这一笔的加减。</p>
+      <p>但物质上的多与少是暂时的，心行留下的种子却会一直起作用。为了得利把心做坏了，这个损失是不可挽回的——身体的使用寿命有限，不良心行的种子，却会在未来继续产生作用。</p>
+      <p>反过来也一样：如法求财、讲诚信、顾得上对方的利益，所得的利益因为建立在道德之上，反而能够不断增长。</p>
+      <p>生命是无尽的积累。把账期从今天，拉到尽未来际，再看这张表。</p>
+      <div class="src">依《佛教徒的人生态度》：自私不等于自利；求利而不忘义，才能使利益更长久。</div>
+    </div>
+
+    <div class="guide-block">
+      <h3>扩展二 · 把利益加宽</h3>
+      <p>佛教并不排斥正当的利益。如法得来的财富，经中称为净财，正是造福众生、广修善行的资粮。</p>
+      <p>但利益不只是钱和东西，还有现前利益与究竟利益，还有无形的功德法财。</p>
+      <p>布施出去的是钱，长出来的是慈悲；帮人花掉的是时间，磨掉的是我执——利他不只长养慈悲，也在破除我执、增长智慧。</p>
+      <p>众生无始以来一心想着自己，结果制造了无尽的迷惑和痛苦；佛菩萨一心想着众生，反而在利他中成就了自己。</p>
+      <div class="src">《道次第》：我执是一切衰损之门，利他是一切功德之本。<br>《普贤行愿品》：一切众生而为树根，诸佛菩萨而为花果，以大悲水饶益众生，则能成就诸佛菩萨智慧华果。</div>
+    </div>
+
+    <div class="guide-foot">所以再问一次——<br>放进「自损」那一栏的事，真的是自损吗？<br>放进「自利 · 损他」的，又真的是自利吗？</div>
+    <div class="timer">
+      <span class="timer-set">
+        <button class="tchip active" type="button" data-sec="30">30 秒</button>
+        <button class="tchip" type="button" data-sec="60">1 分</button>
+        <button class="tchip" type="button" data-sec="120">2 分</button>
+        <button class="tchip" type="button" data-sec="180">3 分</button>
+      </span>
+      <button class="tstart" type="button">开始静默</button>
+      <span class="timer-disp">0:30</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">第二遍</span>
+      <span class="step-title">重新摆一次：同样的事，现在放在哪一格</span>
+      <span class="step-mins">6 分钟</span>
+    </div>
+    <div class="step-note">
+      不用重写内容，<b>把要搬家的那件事从这一格删掉、写进新的那一格就行</b>。位置变了的，在下面写一句为什么变；位置没变的，也想一想为什么不用变。
+    </div>
+
+    <div class="synbar">
+      <span>四格已<b>自动带入第一遍的内容</b>，把要搬家的那件事从这一格删掉、写进新的那一格即可；一旦你动笔，这一格就不再跟随第一遍。</span>
+      <button class="resync" type="button" data-targets="h1,h2,h3,h4">↻ 重新带入第一遍</button>
+    </div>
+
+    <div class="quad">
+      <div class="quad-head"><div class="corner"></div><div>利　他</div><div>损　他</div></div>
+      <div class="quad-row">
+        <div class="quad-side">自利</div>
+        <div class="q">
+          <div class="q-name">自利 · 利他</div>
+          <div class="q-hint">拉长时间、加宽利益之后，哪几件搬到了这里？</div>
+          <div class="cell empty" data-ph="" data-k="h1"></div>
+        </div>
+        <div class="q">
+          <div class="q-name">自利 · 损他</div>
+          <div class="q-hint">还留在这里的，再问一遍：损他的事，拉长时间看，真的能自利吗？<br>法义说，<em>自私不可能自利，恰恰是自己害了自己</em>——思惟到位时，这一格多半会空下来。</div>
+          <div class="cell empty" data-ph="" data-k="h2"></div>
+        </div>
+      </div>
+      <div class="quad-row">
+        <div class="quad-side">自损</div>
+        <div class="q">
+          <div class="q-name">自损 · 利他</div>
+          <div class="q-hint">还有哪些真的留在这里？留下来的理由是什么？</div>
+          <div class="cell empty" data-ph="" data-k="h3"></div>
+        </div>
+        <div class="q">
+          <div class="q-name">自损 · 损他</div>
+          <div class="q-hint">这一格可能反而多出几件——原来以为是自利的损他，其实都落在这里。<em>伤人的那一刻，先伤的是自己。</em></div>
+          <div class="cell empty" data-ph="" data-k="h4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="movebox">
+      <div class="move-q">哪几件事搬家了？搬去哪一格，为什么？</div>
+      <div class="close-area empty" data-ph="例：给同事顶了一次班 —— 从「自损·利他」搬到「自利·利他」，因为……" data-k="move"></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">分　享</span>
+      <span class="step-title">只回答一个问题</span>
+      <span class="step-mins">8 分钟</span>
+    </div>
+    <div class="close-q">经过这两遍，我现在怎么区分「自私」和「自利」？</div>
+    <div class="close-area empty" data-ph="用自己的话说，不用引法义原文。" data-k="share2"></div>
+
+    <div class="aside">
+      <b>两个别走过头的地方——</b><br>
+      一、别把所有事都搬进「自利·利他」当心理安慰。法义讲三轮体空，也提醒有一种<b>滥慈悲</b>：没有智慧引导、只凭感觉的好心，对自他都没有真实利益。<br>
+      二、<b>利他必须建立在自利的基础上</b>。没有能力和智慧就去扛，是泥菩萨过河，自身难保。所以先把自己修得有力量，不是不利他，正是为了能利他。
+    </div>
+  </div>
+
+  </section>
+
+  <!-- ===== VOLUNTEER ===== -->
+  <details class="vol">
+    <summary>辅导义工带学说明（学员可略过）</summary>
+    <div class="vol-body">
+
+      <h4>练习一 时间表（共 30 分钟，建议排死）</h4>
+      <div class="timeline">
+        <span>说明规则 2ʹ</span><span>第一遍 6ʹ</span><span>观修 3ʹ（读 2ʹ ＋ 静默 30ʺ）</span><span>第二遍 6ʹ</span><span>分享 9ʹ</span><span>收口 4ʹ</span>
+      </div>
+
+      <h4>这个练习在做什么</h4>
+      <p><b>第一遍本身就是目的，不只是对照组。</b>多数学员从没把自己的时间、精力和心行摆出来看过一眼，光是写下来就已经是一次自我觉察——带学时不要催，也不要暗示他们「等一下会变」。<br>
+      在此之上，前后填同一张表、中间只插一段念死观修，变化就只可能来自观修。学员自己看见自己变了，比讲十遍「念死能策励修行」有力。法义依据是《道次第》那句：</p>
+      <div class="quote">能知暇满大义利，则知悔作无意义之事，不利于死与法相违之事，绝不乐为。</div>
+      <p>以及本课讲少欲知足时的那一问：投入时间就是投入生命，难道不应该考虑性价比吗？</p>
+
+      <h4>三个必须守住的点</h4>
+      <ul>
+        <li><b>占比一定要写数字。</b>写「比较多／挺少」，前后就没法对照，练习的核心机制就失效了。合计不必强求正好 100，但要提醒他们凑。</li>
+        <li><b>观修后留静默，别催。</b>页面上的计时器<b>默认 30 秒</b>，班修时间紧就守住这 30 秒——哪怕只有半分钟，也必须有；一读完就催填表，第二遍写出来的只会是「正确答案」。计时器可点 30 秒／1 分／2 分／3 分切换，时间宽裕或带静修时往上调。</li>
+        <li><b>第三列一定要问到「不配得」那一头。</b>多数学员只写得出「还想要更多」，写不出「舍不得给自己」——可以举例：给家人买东西很痛快、给自己买就犹豫；或者想报个禅修营，第一反应是「太奢侈了」。这一头正是法义讲的自苦，和纵欲一样偏。禁欲与纵欲两边都露出来，中间那条路才立得住。</li>
+        <li><b>第二遍会自动带入第一遍的文字</b>（第一列、第三列，以及练习二的四格），学员在上面划改增补即可，不必重抄——但<b>占比故意不带入</b>，只在下面显示「第一遍 xx%」作参考。填过的数字直接沿用会让人懒得重新决定，空着才逼出一次真实取舍。</li>
+        <li><b>分享只问「哪一格变了」。</b>不要让人复述全表——八分钟必崩，而且会变成汇报。只问变化，人人讲得出、也讲得短。</li>
+      </ul>
+
+      <h4>三句备用的接话</h4>
+      <ul>
+        <li><b>有人两遍完全没变：</b>没变也是答案，说明你的取舍经得起检验；那就问——这个配比你能守到临终吗？（不要让人觉得自己做错了）</li>
+        <li><b>有人对「日常基础所需」生愧疚：</b>法义明说，这类是无记，不必刻意自苦其身，色身像工具要善加养护。问题不是要不要，是多少才够。</li>
+        <li><b>有人滑向消沉、「都别要了」：</b>补第四句——业和心行带得走。第三行精神需求正是能带走的那部分，念死是为了认出它，不是为了否定生活。</li>
+      </ul>
+
+      <h4>练习二 时间表（共 20 分钟）</h4>
+      <div class="timeline">
+        <span>说明规则 1ʹ</span><span>第一遍 6ʹ</span><span>中场引导 2.5ʹ（读 2ʹ ＋ 静默 30ʺ）</span><span>第二遍 6ʹ</span><span>分享 4.5ʹ</span>
+      </div>
+      <p>同一个机制，第一遍同样自身就有价值——把自己做过的事摊开归位，本身就在照镜子。第一遍<b>务必强调「凭第一反应」</b>——多数人会把布施、让利、帮忙都放进「自损 · 利他」，这个第一反应正是练习要翻转的东西，不要提前纠正他们。中场引导只做两件事：把时间拉长（因果、心行的种子），把利益加宽（现前利益与究竟利益、功德法财）。第二遍不重写内容——四格会自动带入第一遍写的，学员只需把要搬家的那件事挪到新格子，迁移就看得见了。</p>
+      <ul>
+        <li><b>如果有人第一遍就把全部放进「自利·利他」：</b>多半是在写正确答案。请他具体说那一刻身体和情绪的实感——钱转出去那一秒，心里是松的还是紧的？</li>
+        <li><b>如果有人第二遍全部搬进「自利·利他」：</b>提醒页尾那两条——三轮体空与滥慈悲，以及利他须以自利为基础。搬得动的是见地，不是每一件事都自动变成双赢。</li>
+        <li><b>第二遍的理想落点：</b>左上角（自利·利他）变多，<b>右上角（自利·损他）空掉</b>，右下角可能多出几件——因为损他的事拉长时间看不可能真正自利，它们本来就属于两败俱伤。右上角还留着东西，正是最好的讨论点，问一句：这件事三年后、下一生还算自利吗？</li>
+      </ul>
+
+      <h4>两个练习的关系</h4>
+      <p>练习一吃前两组思辨（禁欲还是纵欲 · 重生还是重死），接成一条线：<b>念死 → 舍世心 → 对欲望重新取舍</b>。练习二吃第三组（自利还是利他），接的是另一条线：<b>拉长时间 · 加宽利益 → 自私与自利分家 → 自利利他统一</b>。两个合起来约 50 分钟；<b>若只有 30 分钟，建议分两次班修</b>，不要压缩成一场——两个练习都靠中场那段静默起作用，赶时间第一个被牺牲的就是它。</p>
+
+    </div>
+  </details>
+
+  <div class="save-notice">内容自动保存在本机浏览器，换设备或清理浏览数据后不保留 · 可用浏览器「打印 / 存为 PDF」输出纸质版</div>
+
+</div>
+</div>
+
+<script>
+(function () {
+  var KEY = 'tx-l14-practice-v1';
+
+  /* ---------- placeholders ---------- */
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.cell, .close-area'));
+  cells.forEach(function (el) {
+    el.setAttribute('contenteditable', 'true');
+    function sync() { el.classList.toggle('empty', el.innerText.trim() === ''); }
+    el.addEventListener('input', function () { sync(); schedule(); });
+    el.addEventListener('blur', sync);
+    el._sync = sync;
+  });
+
+  /* ---------- mirror: 第一遍 → 第二遍（未动笔前跟随） ---------- */
+  var MIRROR = { d1:'a1', d2:'a2', d3:'a3', e1:'c1', e2:'c2', e3:'c3',
+                 h1:'g1', h2:'g2', h3:'g3', h4:'g4' };
+  var dirty = {};
+  function byKey(k) { return document.querySelector('[data-k="' + k + '"]'); }
+
+  function pushMirror(srcKey) {
+    Object.keys(MIRROR).forEach(function (tk) {
+      if (MIRROR[tk] !== srcKey || dirty[tk]) return;
+      var src = byKey(srcKey), tgt = byKey(tk);
+      if (!src || !tgt) return;
+      tgt.innerText = src.innerText;
+      tgt.classList.toggle('mirrored', tgt.innerText.trim() !== '');
+      if (tgt._sync) tgt._sync();
+    });
+  }
+  function pushAll() { Object.keys(MIRROR).forEach(function (tk) { pushMirror(MIRROR[tk]); }); }
+
+  cells.forEach(function (el) {
+    var k = el.getAttribute('data-k');
+    el.addEventListener('input', function () {
+      if (MIRROR[k]) { dirty[k] = true; el.classList.remove('mirrored'); }
+      pushMirror(k);
+    });
+  });
+
+  Array.prototype.slice.call(document.querySelectorAll('.resync')).forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.getAttribute('data-targets').split(',').forEach(function (tk) {
+        dirty[tk] = false;
+        pushMirror(MIRROR[tk]);
+      });
+      schedule();
+    });
+  });
+
+  /* ---------- percent inputs ---------- */
+  var pcts = Array.prototype.slice.call(document.querySelectorAll('.pct'));
+  pcts.forEach(function (el) {
+    el.addEventListener('input', function () {
+      el.value = el.value.replace(/[^0-9]/g, '').slice(0, 3);
+      refresh(); schedule();
+    });
+  });
+
+  function val(k) {
+    var el = document.querySelector('.pct[data-k="' + k + '"]');
+    var n = parseInt(el && el.value, 10);
+    return isNaN(n) ? null : n;
+  }
+
+  function sumOf(grp) {
+    var t = 0, any = false;
+    pcts.forEach(function (el) {
+      if (el.getAttribute('data-grp') !== grp) return;
+      var n = parseInt(el.value, 10);
+      if (!isNaN(n)) { t += n; any = true; }
+    });
+    return any ? t : null;
+  }
+
+  function refresh() {
+    [['1', 'sum1'], ['2', 'sum2']].forEach(function (p) {
+      var s = sumOf(p[0]), box = document.getElementById(p[1]);
+      box.querySelector('.sumval').textContent = (s === null ? '0' : s);
+      box.classList.toggle('warn', s !== null && s !== 100);
+    });
+    Array.prototype.slice.call(document.querySelectorAll('.pct-ref')).forEach(function (el) {
+      var v = val(el.getAttribute('data-ref'));
+      el.textContent = '第一遍 ' + (v === null ? '–' : v + '%');
+    });
+    [1, 2, 3].forEach(function (i) {
+      var row = document.querySelector('.cmp-row[data-cmp="' + i + '"]');
+      var a = val('p' + i), b = val('q' + i);
+      row.querySelector('.v').textContent = (a === null ? '–' : a + '%');
+      row.querySelector('.v2').textContent = (b === null ? '–' : b + '%');
+      var dt = row.querySelector('.dt');
+      if (a === null || b === null) { dt.textContent = '未填'; dt.className = 'dt same'; return; }
+      var d = b - a;
+      if (d > 0) { dt.textContent = '↑ 多了 ' + d + '%'; dt.className = 'dt up'; }
+      else if (d < 0) { dt.textContent = '↓ 少了 ' + (-d) + '%'; dt.className = 'dt down'; }
+      else { dt.textContent = '未变'; dt.className = 'dt same'; }
+    });
+  }
+
+  /* ---------- storage ---------- */
+  function save() {
+    try {
+      var d = {};
+      cells.forEach(function (el) { d[el.getAttribute('data-k')] = el.innerText; });
+      pcts.forEach(function (el) { d[el.getAttribute('data-k')] = el.value; });
+      d.__dirty = dirty;
+      d.name = document.getElementById('f-name').value;
+      d.date = document.getElementById('f-date').value;
+      localStorage.setItem(KEY, JSON.stringify(d));
+    } catch (e) {}
+  }
+  function load() {
+    var d = null;
+    try { d = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    if (d) {
+      if (d.__dirty && typeof d.__dirty === 'object') dirty = d.__dirty;
+      cells.forEach(function (el) {
+        var v = d[el.getAttribute('data-k')];
+        if (typeof v === 'string') el.innerText = v;
+      });
+      pcts.forEach(function (el) {
+        var v = d[el.getAttribute('data-k')];
+        if (typeof v === 'string') el.value = v;
+      });
+      if (d.name) document.getElementById('f-name').value = d.name;
+      if (d.date) document.getElementById('f-date').value = d.date;
+    }
+    cells.forEach(function (el) { el._sync(); });
+    Object.keys(MIRROR).forEach(function (tk) {
+      var t = byKey(tk);
+      if (t && !dirty[tk] && t.innerText.trim() !== '') t.classList.add('mirrored');
+    });
+    pushAll();
+    refresh();
+  }
+  var timer;
+  function schedule() { clearTimeout(timer); timer = setTimeout(save, 900); }
+  document.getElementById('f-name').addEventListener('input', schedule);
+  document.getElementById('f-date').addEventListener('change', schedule);
+
+  /* ---------- tabs ---------- */
+  Array.prototype.slice.call(document.querySelectorAll('.tab')).forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (b) { b.classList.remove('active'); });
+      document.querySelectorAll('.pane').forEach(function (pn) { pn.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(btn.getAttribute('data-pane')).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  /* ---------- silence timers (可调，默认 30 秒) ---------- */
+  Array.prototype.slice.call(document.querySelectorAll('.timer')).forEach(function (box) {
+    var chips = Array.prototype.slice.call(box.querySelectorAll('.tchip'));
+    var start = box.querySelector('.tstart');
+    var disp = box.querySelector('.timer-disp');
+    var len = 30, left = 30, tick = null;
+
+    function show() {
+      var m = Math.floor(left / 60), sec = left % 60;
+      disp.textContent = m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+    function stop(label) {
+      if (tick) { clearInterval(tick); tick = null; }
+      start.textContent = label || '开始静默';
+    }
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        chips.forEach(function (x) { x.classList.remove('active'); });
+        c.classList.add('active');
+        len = parseInt(c.getAttribute('data-sec'), 10);
+        left = len; stop('开始静默'); show();
+      });
+    });
+    start.addEventListener('click', function () {
+      if (tick) { left = len; stop('开始静默'); show(); return; }
+      start.textContent = '停止';
+      tick = setInterval(function () {
+        left--; show();
+        if (left <= 0) { stop('再来一次'); left = len; disp.textContent = '圆满'; }
+      }, 1000);
+    });
+    show();
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
