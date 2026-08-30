@@ -70,6 +70,7 @@
   .tr:last-child { border-bottom: none; }
   .t1 .tr { grid-template-columns: 152px 1fr 106px 1fr; }
   .t2 .tr { grid-template-columns: 152px 1fr 106px 1fr 1fr; }
+  .t3 .tr { grid-template-columns: 150px 1fr 1fr 1fr 96px; }
   .th { background: var(--paper-warm); font-size: 11.5px; font-weight: 500; color: var(--accent);
     letter-spacing: 0.04em; padding: 9px 11px; line-height: 1.55; border-right: 1px solid var(--paper-line); }
   .th:last-child { border-right: none; }
@@ -225,6 +226,14 @@
   .movebox { margin-top: 16px; }
   .move-q { font-family: 'Noto Serif SC', serif; font-size: 13px; color: var(--ink); margin-bottom: 8px; letter-spacing: 0.04em; }
 
+  /* ---------- guidance panel (bronze · 练习三) ---------- */
+  .guide.bronze { background: linear-gradient(170deg, #453522 0%, #55412a 55%, #655036 100%); color: #f2ebdd; }
+  .guide.bronze::before { border-color: rgba(242,235,221,0.16); }
+  .guide.bronze .guide-label { color: rgba(242,235,221,0.55); }
+  .guide.bronze .guide-block h3 { color: #f0d9a2; border-bottom-color: rgba(242,235,221,0.18); }
+  .guide.bronze .guide-block .src { color: rgba(242,235,221,0.6); }
+  .guide.bronze .guide-foot { color: #f3e3b4; }
+
   /* ---------- guidance panel (green) ---------- */
   .guide { background: linear-gradient(170deg, #38452f 0%, #445238 55%, #4f5f41 100%);
     color: #eaf0e2; padding: 28px 34px 24px; margin: 32px 0; position: relative; }
@@ -254,7 +263,7 @@
     .tabs { display: none !important; }
     .pane { display: block !important; }
     .pane-title { display: block !important; }
-    #pane2 { page-break-before: always; }
+    #pane2, #pane3 { page-break-before: always; }
   }
   @media (max-width: 760px) {
     body { padding: 10px 8px 76px; }
@@ -266,7 +275,7 @@
     .meta-input { width: 88px; }
     .intro { font-size: 12px; line-height: 1.85; padding: 10px 12px; margin-bottom: 20px; }
 
-    .tab { font-size: 11.5px; padding: 9px 4px; letter-spacing: 0.01em; }
+    .tab { font-size: 10px; padding: 8px 2px; letter-spacing: 0; }
     .psub { font-size: 10.5px; margin: 12px 0 20px; }
 
     .step-head { flex-wrap: wrap; gap: 8px; }
@@ -277,7 +286,7 @@
     /* 表格 → 卡片：隐藏表头行，每格自带字段名 */
     .tbl { border: none; }
     .tbl .tr:first-child { display: none; }
-    .t1 .tr, .t2 .tr { grid-template-columns: 1fr;
+    .t1 .tr, .t2 .tr, .t3 .tr { grid-template-columns: 1fr;
       border: 1px solid var(--paper-line); margin-bottom: 14px; background: var(--paper); }
     .td { border-right: none; border-bottom: 1px solid var(--paper-line); padding: 10px 12px; }
     .td:last-child { border-bottom: none; }
@@ -359,6 +368,7 @@
   <div class="tabs">
     <button class="tab active" type="button" data-pane="pane1">练习一 · 我的需求 × 念死</button>
     <button class="tab" type="button" data-pane="pane2">练习二 · 自利还是利他</button>
+    <button class="tab" type="button" data-pane="pane3">练习三 · 转化</button>
   </div>
 
   <section class="pane active" id="pane1">
@@ -533,8 +543,7 @@
 
   <div class="intro">
     先想 <b>4–6 件最近真实做过、或正在纠结、而且<u>牵涉到别人</u>的事</b>——花钱、花时间、让步、争取、拒绝、帮忙都算。（只关乎自己的事不放这里，它们在练习一。）<br>
-    <b>一件一件来</b>：想到一件，先别讲道理，只问两个感觉——<b>这件事，我觉得自己是得了还是失了？对方是得了还是失了？</b>两个答案一交叉，就是它该落的格子，一件一行写进去。<br>
-    四格分布不均、甚至有格子空着，都没关系——那本身就是答案。
+    <b>一件一件来</b>：想到一件，先别讲道理，只问两个感觉——<b>这件事，我觉得自己是得了还是失了？对方是得了还是失了？</b>两个答案一交叉，就是它该落的格子，一件一行写进去。
   </div>
 
   <div class="step">
@@ -543,10 +552,6 @@
       <span class="step-title">凭第一反应：这件事，我觉得它在哪一格</span>
       <span class="step-mins">6 分钟</span>
     </div>
-    <div class="step-note">
-      这一步只问感受，不问道理。比如捐一笔钱，当下的实感多半是「我少了一点，别人多了一点」——那就照实放进「自损·利他」，不用替自己美化。
-    </div>
-
     <div class="quad">
       <div class="quad-head"><div class="corner"></div><div>利　他</div><div>损　他</div></div>
       <div class="quad-row">
@@ -679,6 +684,107 @@
 
   </section>
 
+
+  <!-- ===== PRACTICE 3 ===== -->
+  <section class="pane" id="pane3">
+  <div class="pane-title"><span>练　习　三</span></div>
+  <div class="psub">转化　｜　无记与两败俱伤，怎么变成自利利他</div>
+
+  <div class="intro">
+    前两套是<b>看清</b>——这是什么、真的是什么。这一套是<b>动手改</b>。<br>
+    材料从前面来：<b>一件「无记」的事</b>（练习一第一行里挑一件）、<b>一件落在「自损·损他」的事</b>，还有<b>一件仍留在「自利·损他」的事</b>（如果有）。
+  </div>
+
+  <div class="guide bronze">
+    <div class="guide-label">转　化　的　两　个　着　力　点</div>
+    <h2>发心，与因上调整</h2>
+
+    <div class="guide-block">
+      <h3>着力点一 · 转发心（无记 → 善）</h3>
+      <p>只要保持适当的度，基本的生存需求并不会带来什么副作用；色身就像工具，善加养护，才能有效使用，<b>发挥更大作用</b>。</p>
+      <p>佛陀接受了牧女的乳糜供养，恢复体力后，在菩提树下精进禅坐，并最终证悟。</p>
+      <p>如法得来的财富称为净财，可以在解决自己生活所需的同时，作为<b>造福众生、广修善行的资粮</b>。</p>
+      <p>所以这一类事，做法可以完全不动——只要它承接的目标变了，它就从无记变成了善。</p>
+      <div class="src">依《佛教徒的人生态度》：欲是需求，本身是中性的，关键在于我们需求的是什么。</div>
+    </div>
+
+    <div class="guide-block">
+      <h3>着力点二 · 在因上调整（损他 → 双赢）</h3>
+      <p>已经造的因，另做些善事抵不掉——<b>两者各有因果，不能替代</b>。如果不在因上调整，很可能是得不偿失的。</p>
+      <p>所以这一类事能改的不是过去那一件，是<b>下一次同样的处境</b>。</p>
+      <p>关键是以什么手段获利。如果遵循道德，如法求财，两者非但没有冲突，所得利益还会因为建立在道德基础上，能够不断增长。</p>
+      <p>在经营中讲诚信，有爱心，考虑对方利益，争取双赢——这是利益和道德的双赢，也是做事和做人的双赢。</p>
+      <div class="src">依《佛教徒的人生态度》：求利而不忘义，才能使利益更长久。</div>
+    </div>
+
+    <div class="guide-foot">一件不必改做法，只改为什么做；<br>一件改不了过去，只能改下一次怎么做。</div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">动手改</span>
+      <span class="step-title">同一件事，换一个发心，改一处做法</span>
+      <span class="step-mins">8 分钟</span>
+    </div>
+    <div class="step-note">
+      三行不必都填满，<b>挑填得动的填</b>。第四列写完之后再回头看一眼——它是不是真的挪格了，还是只是听起来好听。
+    </div>
+
+    <div class="tbl t3">
+      <div class="tr">
+        <div class="th mobile-keep">挑哪一件</div>
+        <div class="th">一、这件事，我现在是怎么做的<small>照实写，不用美化</small></div>
+        <div class="th">二、换一个发心<small>我为什么做它？能不能换一个更大的理由</small></div>
+        <div class="th">三、改一处做法<small>下一次，具体在哪一步动手</small></div>
+        <div class="th">四、现在落哪格<small>写格名</small></div>
+      </div>
+
+      <div class="tr">
+        <div class="td">
+          <div class="rowname">一件「无记」的事</div>
+          <div class="rowhint">来自练习一第一行：吃饭、睡觉、通勤、家务、上班……<br><em>这一类不必改做法</em>，改发心就转得动。</div>
+        </div>
+        <div class="td" data-label="一、我现在是怎么做的"><div class="cell empty" data-ph="例：每天通勤一小时，刷手机刷过去" data-k="m1"></div></div>
+        <div class="td" data-label="二、换一个发心"><div class="cell empty" data-ph="它能承接一个更大的目标吗？" data-k="v1"></div></div>
+        <div class="td" data-label="三、改一处做法"><div class="cell empty" data-ph="可以不改；要改也只改一处" data-k="x1"></div></div>
+        <div class="td" data-label="四、现在落哪格"><div class="cell empty" data-ph="" data-k="y1"></div></div>
+      </div>
+
+      <div class="tr">
+        <div class="td">
+          <div class="rowname">一件「自损 · 损他」的事</div>
+          <div class="rowhint">两败俱伤的那一格。<br><em>过去那一件改不了</em>——能改的是下一次同样的处境，在因上调整。</div>
+        </div>
+        <div class="td" data-label="一、我现在是怎么做的"><div class="cell empty" data-ph="当时我是怎么反应的？" data-k="m2"></div></div>
+        <div class="td" data-label="二、换一个发心"><div class="cell empty" data-ph="那一刻我真正想要的是什么？" data-k="v2"></div></div>
+        <div class="td" data-label="三、改一处做法"><div class="cell empty" data-ph="下一次，我在哪一句话、哪一个动作上改？" data-k="x2"></div></div>
+        <div class="td" data-label="四、现在落哪格"><div class="cell empty" data-ph="" data-k="y2"></div></div>
+      </div>
+
+      <div class="tr">
+        <div class="td">
+          <div class="rowname">一件「自利 · 损他」的事</div>
+          <div class="rowhint">如果第二遍还有东西留在这一格。<br><em>关键是以什么手段获利</em>——手段一改，对立就变双赢。</div>
+        </div>
+        <div class="td" data-label="一、我现在是怎么做的"><div class="cell empty" data-ph="我是用什么手段拿到的？" data-k="m3"></div></div>
+        <div class="td" data-label="二、换一个发心"><div class="cell empty" data-ph="我要的那个利益，非得这样拿吗？" data-k="v3"></div></div>
+        <div class="td" data-label="三、改一处做法"><div class="cell empty" data-ph="怎么做，对方也得利？" data-k="x3"></div></div>
+        <div class="td" data-label="四、现在落哪格"><div class="cell empty" data-ph="" data-k="y3"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <span class="step-num">收　口</span>
+      <span class="step-title">只回答一个问题</span>
+      <span class="step-mins">5 分钟</span>
+    </div>
+    <div class="close-q">这三件里，哪一件我这一周就能动手？第一步是什么？</div>
+    <div class="close-area empty" data-ph="小到今天就能做完的那一步。" data-k="share3"></div>
+  </div>
+
+  </section>
 
   <div class="actions">
     <button id="ex-pdf" type="button">⤓ 导出长图 PDF</button>
