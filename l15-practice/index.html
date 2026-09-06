@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第十五课·班修练习｜缘起式行动工具</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2a2118; --ink-light: #6b5f52; --ink-faint: #a89880;
+    --paper: #faf7f2; --paper-warm: #f3ede3; --paper-line: #e2d9cc;
+    --accent: #7b5e3a; --accent-soft: #c4a882;
+    --green: #5a7a52; --dusk: #4a4560; --red: #a8503a; --gold: #8a7a3a;
+    --shadow: rgba(42,33,24,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #ede7dc; font-family: 'Noto Sans SC', sans-serif; color: var(--ink); padding: 24px 16px 60px;
+    background-image: radial-gradient(ellipse at 20% 10%, rgba(196,168,130,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(74,69,96,0.07) 0%, transparent 60%); }
+  .page { max-width: 980px; margin: 0 auto; background: var(--paper);
+    box-shadow: 0 2px 4px var(--shadow), 0 8px 24px rgba(42,33,24,0.12), 0 24px 60px rgba(42,33,24,0.08); position: relative; overflow: hidden; }
+  .page-inner { padding: 30px 38px 40px; }
+
+  .header { text-align: center; padding-bottom: 14px; border-bottom: 1.5px solid var(--paper-line); margin-bottom: 6px; }
+  .header-stage { font-size: 10px; letter-spacing: 0.28em; color: var(--accent-soft); margin-bottom: 6px; }
+  .header h1 { font-family: 'Noto Serif SC', serif; font-size: 23px; font-weight: 600; letter-spacing: 0.06em; line-height: 1.4; }
+  .header-sub { font-size: 12px; color: var(--ink-light); letter-spacing: 0.1em; margin-top: 6px; }
+  .meta-row { display: flex; gap: 26px; justify-content: flex-end; margin: 14px 0 18px; flex-wrap: wrap; }
+  .meta-item { display: flex; align-items: center; gap: 7px; }
+  .meta-item label { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.12em; }
+  .meta-input { background: transparent; border: none; border-bottom: 1px solid var(--paper-line); padding: 2px 4px; font-family: inherit; font-size: 12.5px; color: var(--ink); width: 110px; outline: none; }
+  .meta-input:focus { border-bottom-color: var(--accent-soft); }
+  .intro { font-size: 12.5px; line-height: 1.85; color: var(--ink-light); background: var(--paper-warm); border-left: 3px solid var(--accent-soft); padding: 12px 16px; margin-bottom: 26px; }
+  .intro b { color: var(--accent); font-weight: 500; }
+
+  /* tabs */
+  .tabs { display: flex; border-bottom: 1.5px solid var(--ink); margin: 4px 0 0; }
+  .tab { flex: 1; font-family: 'Noto Serif SC', serif; font-size: 13px; letter-spacing: 0.1em; color: var(--ink-faint); background: transparent;
+    border: 1px solid var(--paper-line); border-bottom: none; padding: 11px 8px 10px; cursor: pointer; transition: all .18s; margin-bottom: -1.5px; }
+  .tab + .tab { border-left: none; }
+  .tab:hover { color: var(--accent); background: rgba(196,168,130,0.08); }
+  .tab.active { color: var(--accent); background: var(--paper-warm); border-color: var(--ink); border-bottom: 1.5px solid var(--paper-warm); font-weight: 600; }
+  .pane { display: none; } .pane.active { display: block; }
+  .pane-title { display: none; margin: 0 0 8px; text-align: center; }
+  .pane-title span { font-family: 'Noto Serif SC', serif; font-size: 15px; letter-spacing: 0.22em; color: var(--accent); }
+  .psub { text-align: center; font-size: 11.5px; color: var(--ink-faint); letter-spacing: 0.1em; margin: 16px 0 22px; }
+
+  /* steps (shared with C) */
+  .step { margin-bottom: 30px; }
+  .step-head { display: flex; align-items: baseline; gap: 11px; margin-bottom: 5px; }
+  .step-num { font-family: 'Noto Serif SC', serif; font-size: 11px; letter-spacing: 0.2em; color: #fff; background: var(--accent); padding: 3px 9px; flex-shrink: 0; }
+  .step-num.g { background: var(--green); } .step-num.d { background: var(--dusk); }
+  .step-title { font-family: 'Noto Serif SC', serif; font-size: 16.5px; font-weight: 600; letter-spacing: 0.05em; }
+  .step-mins { font-size: 10.5px; color: var(--ink-faint); letter-spacing: 0.1em; margin-left: auto; flex-shrink: 0; }
+  .step-note { font-size: 11.5px; color: var(--ink-light); line-height: 1.75; margin: 6px 0 13px; padding-left: 2px; }
+  .step-note b { color: var(--accent); font-weight: 500; }
+  .step-note q, .stage-src q { quotes: '「' '」'; color: var(--ink); }
+
+  .tbl { border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
+  .tr { display: grid; border-bottom: 1px solid var(--paper-line); } .tr:last-child { border-bottom: none; }
+  .tA .tr { grid-template-columns: 140px 1fr 168px; } .tA.wide .tr { grid-template-columns: 140px 1fr 230px; }
+  .tS .tr { grid-template-columns: 96px 1fr 1fr; }
+  .tM .tr { grid-template-columns: 78px 1fr 1.25fr; }
+  .t4 .tr { grid-template-columns: 110px 1fr 1fr 1fr; }
+  .th { background: var(--paper-warm); font-size: 11.5px; font-weight: 500; color: var(--accent); letter-spacing: 0.04em; padding: 9px 11px; line-height: 1.55; border-right: 1px solid var(--paper-line); }
+  .th:last-child { border-right: none; }
+  .th small { display: block; font-size: 10px; color: var(--ink-faint); font-weight: 300; letter-spacing: 0; margin-top: 3px; line-height: 1.5; }
+  .td { padding: 10px 11px; border-right: 1px solid var(--paper-line); } .td:last-child { border-right: none; }
+  .rowname { font-family: 'Noto Serif SC', serif; font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+  .rowhint { font-size: 10px; color: var(--ink-faint); line-height: 1.65; margin-top: 6px; } .rowhint em { font-style: normal; color: var(--accent); }
+  .rowquote { font-family: 'Noto Serif SC', serif; font-size: 12px; color: var(--ink); line-height: 1.85; }
+  .rowquote small { display: block; font-family: 'Noto Sans SC', sans-serif; font-size: 10px; color: var(--ink-faint); margin-top: 4px; line-height: 1.6; }
+  .rowplain { font-size: 11.5px; color: var(--ink-light); line-height: 1.75; }
+
+  .cell { min-height: 74px; font-size: 12.5px; line-height: 1.8; color: var(--ink); outline: none; padding: 2px 1px;
+    background-image: repeating-linear-gradient(transparent, transparent 21px, rgba(180,160,130,0.22) 21px, rgba(180,160,130,0.22) 22px); }
+  .cell.short { min-height: 52px; } .cell.one { min-height: 30px; }
+  .cell:focus { background-color: rgba(196,168,130,0.09); }
+  .cell.empty::before { content: attr(data-ph); color: var(--ink-faint); font-size: 10.5px; opacity: 0.85; }
+  .cell.mirrored { background-color: rgba(196,168,130,0.13); }
+  .synbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10.5px; color: var(--ink-faint); line-height: 1.7; margin: 9px 0 3px; }
+  .resync { font-family: inherit; font-size: 10.5px; color: var(--accent); background: transparent; border: 1px solid var(--paper-line); padding: 4px 11px; cursor: pointer; white-space: nowrap; }
+  .resync:hover { background: var(--paper-warm); border-color: var(--accent-soft); }
+  .after-note { font-size: 12.5px; line-height: 1.95; color: var(--ink-light); margin-top: 14px; padding: 11px 0 0; border-top: 1px dotted var(--paper-line); }
+  .after-note b { color: var(--accent); font-weight: 500; }
+
+  .pct-wrap { display: flex; align-items: baseline; gap: 4px; }
+  .pct { width: 48px; text-align: center; font-family: 'Noto Serif SC', serif; font-size: 22px; color: var(--accent); background: transparent; border: none; border-bottom: 1.5px solid var(--paper-line); padding: 3px 0; outline: none; }
+  .pct:focus { border-bottom-color: var(--accent-soft); }
+  .pct-unit { font-size: 10.5px; color: var(--ink-faint); } .pct-ref { font-size: 9.5px; color: var(--ink-faint); margin-left: 6px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { font-family: inherit; font-size: 10.5px; letter-spacing: 0.02em; color: var(--ink-light); background: transparent; border: 1px solid var(--paper-line); padding: 4px 8px; cursor: pointer; transition: all .15s; line-height: 1.3; }
+  .chip:hover { border-color: var(--accent-soft); color: var(--accent); }
+  .chip.active { color: #fff; background: var(--accent); border-color: var(--accent); }
+  .chips.big .chip { font-size: 12.5px; padding: 8px 18px; letter-spacing: 0.08em; }
+  .chip.active[data-v="高"] { background: var(--green); border-color: var(--green); }
+  .chip.active[data-v="低"] { background: var(--dusk); border-color: var(--dusk); }
+
+  /* medit / guide */
+  .medit { background: linear-gradient(170deg, #3f3a52 0%, #4a4560 55%, #565073 100%); color: #ece8f2; padding: 30px 34px 26px; margin: 34px 0; position: relative; }
+  .medit::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(236,232,242,0.16); pointer-events: none; }
+  .medit-label { font-size: 10px; letter-spacing: 0.3em; color: rgba(236,232,242,0.55); text-align: center; margin-bottom: 4px; }
+  .medit h2 { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 400; letter-spacing: 0.12em; text-align: center; margin-bottom: 20px; }
+  .medit ul { list-style: none; max-width: 600px; margin: 0 auto; }
+  .medit li { font-family: 'Noto Serif SC', serif; font-size: 14.5px; line-height: 2.1; letter-spacing: 0.04em; padding-left: 20px; position: relative; }
+  .medit li::before { content: '·'; position: absolute; left: 6px; color: rgba(236,232,242,0.5); }
+  .medit li.key { color: #f0dfae; }
+  .medit-src { text-align: center; font-size: 11px; color: rgba(236,232,242,0.55); line-height: 1.8; max-width: 600px; margin: 18px auto 0; }
+  .medit-foot { text-align: center; font-size: 11px; color: rgba(236,232,242,0.6); line-height: 1.9; margin-top: 20px; letter-spacing: 0.05em; }
+  .medit-q { text-align: center; font-family: 'Noto Serif SC', serif; font-size: 15px; color: #f0dfae; line-height: 1.9; margin: 18px auto 0; max-width: 600px; letter-spacing: 0.05em; }
+  .timer { display: flex; align-items: center; justify-content: center; gap: 11px; margin-top: 16px; flex-wrap: wrap; }
+  .timer .tstart { font-family: inherit; font-size: 11px; letter-spacing: 0.1em; color: #fff; background: transparent; border: 1px solid rgba(255,255,255,0.38); padding: 5px 15px; cursor: pointer; }
+  .timer .tstart:hover { background: rgba(255,255,255,0.14); }
+  .timer-disp { font-family: 'Noto Serif SC', serif; font-size: 17px; color: #f0dfae; letter-spacing: 0.06em; min-width: 52px; text-align: center; }
+  .timer-set { display: flex; }
+  .tchip { font-family: inherit; font-size: 10.5px; color: rgba(255,255,255,0.62); background: transparent; border: 1px solid rgba(255,255,255,0.24); border-right: none; padding: 4px 10px; cursor: pointer; }
+  .tchip:last-child { border-right: 1px solid rgba(255,255,255,0.24); }
+  .tchip.active { color: #2a2118; background: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.85); }
+
+  .cmp { border: 1px solid var(--paper-line); background: var(--paper-warm); padding: 15px 18px; margin-top: 16px; }
+  .cmp-title { font-family: 'Noto Serif SC', serif; font-size: 12.5px; color: var(--accent); margin-bottom: 3px; letter-spacing: 0.06em; }
+  .cmp-note { font-size: 10px; color: var(--ink-faint); margin-bottom: 10px; }
+  .cmp-row { display: grid; grid-template-columns: 1fr 62px 26px 62px 110px; align-items: center; gap: 6px; font-size: 12px; padding: 6px 0; border-bottom: 1px dotted var(--paper-line); }
+  .cmp-row:last-child { border-bottom: none; }
+  .cmp-row .nm { color: var(--ink-light); } .cmp-row .nm small { display: block; font-size: 9.5px; color: var(--ink-faint); }
+  .cmp-row .v { text-align: center; font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--ink-light); }
+  .cmp-row .ar { text-align: center; color: var(--ink-faint); font-size: 11px; }
+  .cmp-row .v2 { text-align: center; font-family: 'Noto Serif SC', serif; font-size: 15px; color: var(--accent); }
+  .cmp-row .dt { text-align: right; font-size: 11.5px; } .dt.up { color: var(--green); } .dt.down { color: var(--red); } .dt.same { color: var(--ink-faint); }
+  .cmp-read { font-family: 'Noto Serif SC', serif; font-size: 12.5px; color: var(--ink); line-height: 1.9; margin-top: 10px; padding-top: 8px; border-top: 1px dotted var(--paper-line); }
+  .cmp-read b { color: var(--accent); font-weight: 600; }
+  .close-q { font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--ink); margin-bottom: 9px; letter-spacing: 0.04em; }
+  .close-area { min-height: 82px; font-size: 12.5px; line-height: 2; outline: none; padding: 4px 2px;
+    background-image: repeating-linear-gradient(transparent, transparent 23px, rgba(180,160,130,0.22) 23px, rgba(180,160,130,0.22) 24px); }
+  .close-area.empty::before { content: attr(data-ph); color: var(--ink-faint); font-size: 11px; }
+  .aside { font-size: 11px; color: var(--ink-light); line-height: 1.85; background: var(--paper-warm); border-left: 3px solid var(--accent-soft); padding: 10px 14px; margin-top: 16px; }
+  .aside b { color: var(--accent); font-weight: 500; }
+  .motto { text-align: center; margin: 6px 0 22px; padding: 18px 16px; border: 1.5px solid var(--ink); }
+  .motto p { font-family: 'Noto Serif SC', serif; font-size: 15px; line-height: 2; letter-spacing: 0.08em; }
+  .motto p b { color: var(--accent); font-weight: 600; }
+  .motto small { display: block; font-size: 10px; color: var(--ink-faint); margin-top: 8px; letter-spacing: 0.06em; }
+
+  /* ===== 方法页 ===== */
+  .pull { border: 1.5px solid var(--ink); padding: 18px 22px 12px; margin: 10px 0 20px; background: var(--paper); }
+  .pull p { font-family: 'Noto Serif SC', serif; font-size: 14px; line-height: 2; color: var(--ink); margin-bottom: 8px; letter-spacing: 0.02em; }
+  .pull p b { color: var(--accent); font-weight: 600; }
+  .pull small { display: block; text-align: right; font-size: 10px; color: var(--ink-faint); letter-spacing: 0.1em; margin-top: 4px; }
+  .m3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .mc { border: 1px solid var(--paper-line); padding: 14px 15px 12px; background: var(--paper); display: flex; flex-direction: column; }
+  .mc-no { font-family: 'Noto Serif SC', serif; font-size: 30px; color: var(--accent); font-weight: 600; line-height: 1; margin-bottom: 6px; }
+  .mc-t { font-family: 'Noto Serif SC', serif; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 8px; }
+  .mc-k { display: inline-block; font-family: 'Noto Sans SC', sans-serif; font-size: 10.5px; color: var(--accent); border: 1px solid var(--accent-soft); padding: 0 5px; margin: 0 3px 0 1px; line-height: 1.5; vertical-align: 1px; }
+  .mc-eg { font-size: 10.5px; color: var(--ink-faint); margin: -4px 0 8px; line-height: 1.6; }
+  .mc ul { list-style: none; margin: 0 0 10px; }
+  .mc li { font-family: 'Noto Serif SC', serif; font-size: 12.5px; line-height: 1.9; color: var(--ink); padding: 4px 0 4px 10px; border-left: 2px solid var(--accent-soft); margin-bottom: 6px; }
+  .mc-do { margin-top: auto; font-size: 11px; color: var(--ink-light); line-height: 1.7; padding-top: 8px; border-top: 1px dotted var(--paper-line); }
+  .mc-b { margin-top: auto; font-size: 11.5px; color: var(--accent); font-weight: 500; line-height: 1.7; padding-top: 8px; border-top: 1px dotted var(--paper-line); }
+  @media (max-width: 760px) { .m3 { grid-template-columns: 1fr; } }
+
+  /* ===== 心态栏 / 渐进块 ===== */
+  .tr.mind { border-top: 1.5px solid var(--dusk); }
+  .tr.mind .rowname { color: var(--dusk); }
+  .tr.mind .rowname .tt::before { content: '心行 · '; font-size: 9.5px; letter-spacing: 0.1em; color: var(--dusk); opacity: .7; }
+  .reveal.hid { display: none !important; }
+  .tr.roff { display: none !important; }
+  .addbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; font-size: 11px; color: var(--ink-light); }
+  .addbar .addchips { display: flex; gap: 4px; flex-wrap: wrap; }
+  .addbar .chip { font-size: 10.5px; padding: 4px 9px; }
+  .addbar .pi-skip { margin: 0 0 0 auto; }
+  .row-del { display: block; margin-top: 6px; font-family: inherit; font-size: 10px; color: var(--ink-faint); background: transparent; border: none; cursor: pointer; padding: 0; letter-spacing: 0.04em; }
+  .row-del:hover { color: var(--red); }
+  body.exporting .row-del { display: none !important; }
+  .tr.phid { display: none !important; }
+  .row-skip { font-size: 10px; color: var(--ink-faint); margin-top: 4px; }
+  .row-skip button { font-family: inherit; font-size: 10px; color: var(--ink-faint); background: transparent; border: none; border-bottom: 1px dotted var(--ink-faint); cursor: pointer; padding: 0; }
+  body.exporting .reveal.hid { display: block !important; }
+  body.exporting .tr.phid { display: grid !important; } body.exporting .row-skip { display: none !important; }
+
+  .card-actions { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+  .card-actions .gbtn.ok { color: #fff; background: var(--green); border-color: var(--green); }
+  body.exporting .card-actions { display: none !important; }
+
+  /* ===== progressive ===== */
+  .stage-head { cursor: pointer; }
+  .stage-head .tog { margin-left: auto; font-size: 10.5px; color: var(--ink-faint); letter-spacing: 0.1em; align-self: center; white-space: nowrap; }
+  .stage.collapsed { display: none; }
+  .stage-head .tog { display: none; }
+  .stage-head { cursor: default; }
+  .stage.collapsed .stage-head { border-bottom-color: var(--paper-line); }
+  .stage.done .stage-no { color: var(--green); }
+  .stage-next { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; padding-top: 12px; border-top: 1px dotted var(--paper-line); }
+  .stage-next .gbtn.prev { margin-right: auto; color: var(--accent); background: transparent; border-color: var(--paper-line); }
+  .stage-next .gbtn.prev:hover { background: var(--paper-warm); border-color: var(--accent-soft); }
+  .stage-next .gbtn { font-size: 12px; padding: 8px 16px; color: #fff; background: var(--accent); border-color: var(--accent); }
+  .stage-next .gbtn:hover { background: #6b5030; }
+  .pi.hid { display: none !important; }
+  .pi-skip { display: flex; justify-content: flex-end; margin-top: 6px; }
+  .pi-skip button { font-family: inherit; font-size: 10.5px; color: var(--ink-faint); background: transparent; border: none; border-bottom: 1px dotted var(--ink-faint); cursor: pointer; padding: 0 0 1px; }
+  .pi-skip button:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  body.exporting .stage.collapsed { display: block !important; }
+  body.exporting .cl.pi.hid, body.exporting .tr.pi.hid { display: grid !important; }
+  body.exporting .pi-skip, body.exporting .stage-next, body.exporting .stage-head .tog { display: none !important; }
+
+  /* ===== tool: stage nav ===== */
+  .snav { position: sticky; top: 0; z-index: 20; display: flex; gap: 0; background: var(--paper); border-bottom: 1px solid var(--paper-line); margin: 0 -38px 22px; padding: 8px 38px; }
+  .snav a { flex: 1; text-align: center; text-decoration: none; font-family: 'Noto Serif SC', serif; font-size: 12.5px; letter-spacing: 0.12em; color: var(--ink-faint); padding: 7px 4px; border-bottom: 2px solid transparent; }
+  .snav a b { display: block; font-size: 15px; color: var(--accent); font-weight: 600; }
+  .snav a small { display: block; font-family: 'Noto Sans SC', sans-serif; font-size: 9.5px; letter-spacing: 0.04em; margin-top: 2px; }
+  .snav a.pre { flex: 0 0 auto; font-size: 12px; letter-spacing: 0.1em; color: var(--ink-faint); padding: 14px 14px 12px 4px; margin-right: 10px; border-right: 1px solid var(--paper-line); border-bottom-color: transparent; }
+  .snav a.pre.cur { color: var(--accent); background: transparent; }
+  .snav a.post { border-right: none; border-left: 1px solid var(--paper-line); margin-right: 0; margin-left: 10px; padding: 14px 4px 12px 14px; }
+  .snav a:hover { color: var(--ink); }
+  .snav a.cur { border-bottom-color: var(--accent); color: var(--ink); background: var(--paper-warm); }
+  .snav a.done b { color: var(--green); }
+
+  .stage { margin: 0 0 40px; scroll-margin-top: 78px; }
+  .stage-head { display: flex; align-items: baseline; gap: 14px; border-bottom: 1.5px solid var(--ink); padding-bottom: 8px; margin-bottom: 8px; }
+  .stage-no { font-family: 'Noto Serif SC', serif; font-size: 30px; color: var(--accent); font-weight: 600; line-height: 1; }
+  .stage-title { font-family: 'Noto Serif SC', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.06em; }
+  .stage-title small { display: block; font-family: 'Noto Sans SC', sans-serif; font-size: 11px; font-weight: 300; color: var(--ink-light); letter-spacing: 0.04em; margin-top: 3px; }
+  .stage-src { font-size: 11px; color: var(--ink-light); line-height: 1.8; margin: 4px 0 14px; }
+  .stage-src::before { content: '原文依据 '; font-size: 9.5px; letter-spacing: 0.16em; color: var(--accent-soft); }
+
+  .tt-box { font-size: 12px; color: var(--ink-light); line-height: 1.85; background: var(--paper-warm); border-left: 3px solid var(--accent-soft); padding: 10px 14px; margin: 10px 0 14px; }
+  .tt-box b { color: var(--accent); font-weight: 500; }
+
+  /* 定 */
+  .def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .def-f { border: 1px solid var(--paper-line); padding: 10px 12px 8px; }
+  .def-f label { display: block; font-family: 'Noto Serif SC', serif; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .def-f label small { font-family: 'Noto Sans SC', sans-serif; font-weight: 300; font-size: 10px; color: var(--ink-faint); margin-left: 6px; }
+  .def-f .hint { font-size: 10px; color: var(--ink-faint); line-height: 1.6; margin: 3px 0 6px; }
+  .ifnot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; padding: 12px 14px; border: 1.5px solid var(--ink); }
+  .ifnot .q { font-family: 'Noto Serif SC', serif; font-size: 13.5px; flex: 1; min-width: 240px; }
+
+  /* 定 · 一段填空 */
+  .cloze { border: 1.5px solid var(--ink); padding: 18px 22px 14px; margin-top: 14px; background: var(--paper); }
+  .cl { display: grid; grid-template-columns: 26px 1fr; gap: 10px; padding: 10px 0; border-bottom: 1px dotted var(--paper-line); align-items: start; }
+  .cl:last-child { border-bottom: none; }
+  .cl .no { font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--accent-soft); line-height: 1.7; }
+  .cl .pr { font-family: 'Noto Serif SC', serif; font-size: 13.5px; color: var(--ink); line-height: 1.85; }
+  .cl .pr small { display: block; font-family: 'Noto Sans SC', sans-serif; font-size: 10px; color: var(--ink-faint); line-height: 1.6; margin-top: 1px; }
+  .cl .pr .ref { color: var(--accent); border-bottom: 1px solid var(--accent-soft); padding: 0 2px; }
+  .cl .pr .ref.none { color: var(--ink-faint); border-bottom-style: dotted; }
+  .cl .cell { margin-top: 4px; }
+  .cl .chips { margin-top: 8px; }
+  .cl.turn { background: var(--paper-warm); margin: 4px -22px; padding: 12px 22px; border-bottom: none; }
+  .cl.part { padding-top: 18px; border-bottom: 1px solid var(--ink); }
+  .cl.part:first-child { padding-top: 4px; }
+  .cl.turn .pr { color: var(--accent); }
+  .cl-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 10px; font-size: 11px; color: var(--ink-light); line-height: 1.7; }
+  .cl-foot b { color: var(--accent); font-weight: 500; }
+
+  /* 观 graph */
+  .gtool { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 8px; font-size: 11px; color: var(--ink-light); }
+  .gtool input[type=text] { font-family: inherit; font-size: 12px; padding: 5px 8px; border: 1px solid var(--paper-line); background: #fff; color: var(--ink); outline: none; min-width: 180px; }
+  .gtool input[type=text]:focus { border-color: var(--accent-soft); }
+  .gbtn { font-family: inherit; font-size: 11px; letter-spacing: 0.04em; color: var(--accent); background: transparent; border: 1px solid var(--paper-line); padding: 5px 11px; cursor: pointer; }
+  .gbtn:hover { background: var(--paper-warm); border-color: var(--accent-soft); }
+  .gbtn.on { color: #fff; background: var(--accent); border-color: var(--accent); }
+  .gsep { width: 1px; height: 18px; background: var(--paper-line); margin: 0 2px; }
+  .graph-wrap { display: grid; grid-template-columns: 1fr 280px; gap: 12px; align-items: start; }
+  .graph { border: 1.5px solid var(--ink); background: #fff; position: relative; }
+  .graph svg { display: block; width: 100%; height: auto; touch-action: none; user-select: none; }
+  .graph .gmsg { position: absolute; left: 10px; bottom: 8px; font-size: 10.5px; color: var(--ink-faint); pointer-events: none; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; font-size: 10px; color: var(--ink-light); margin-top: 6px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+  .legend .ln { display: inline-block; width: 18px; height: 0; border-top: 2px solid; margin-right: 4px; vertical-align: 3px; }
+
+  .gpanel { border: 1px solid var(--paper-line); background: var(--paper-warm); padding: 12px 14px; font-size: 11.5px; min-height: 200px; }
+  .gpanel h4 { font-family: 'Noto Serif SC', serif; font-size: 13px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid var(--paper-line); }
+  .gpanel .lab { font-size: 10px; color: var(--ink-faint); letter-spacing: 0.06em; margin: 10px 0 4px; }
+  .gpanel input[type=text], .gpanel textarea { width: 100%; font-family: inherit; font-size: 12px; padding: 5px 7px; border: 1px solid var(--paper-line); background: #fff; color: var(--ink); outline: none; resize: vertical; line-height: 1.6; }
+  .gpanel textarea { min-height: 54px; }
+  .gpanel input:focus, .gpanel textarea:focus { border-color: var(--accent-soft); }
+  .gpanel .mq { font-family: 'Noto Serif SC', serif; font-size: 12px; color: var(--ink); line-height: 1.6; margin: 8px 0 3px; }
+  .gpanel .mq b { color: var(--accent); font-weight: 600; margin-right: 4px; }
+  .gpanel .empty-hint { color: var(--ink-faint); line-height: 1.8; font-size: 11px; }
+  .gpanel .row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .gpanel .danger { color: var(--red); border-color: rgba(168,80,58,0.4); }
+  .obs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0 14px; }
+  .obs { border: 1px solid var(--paper-line); padding: 10px 13px; font-size: 11.5px; line-height: 1.75; color: var(--ink-light); }
+  .obs h5 { font-family: 'Noto Serif SC', serif; font-size: 12.5px; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 5px; }
+  .obs ul { padding-left: 16px; } .obs li { margin: 2px 0; }
+  .obs .mind-row { display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 5px 0; border-top: 1px dotted var(--paper-line); }
+  .obs .mind-row b { font-family: 'Noto Serif SC', serif; color: var(--ink); }
+  .corr { display: flex; gap: 18px; flex-wrap: wrap; font-size: 11px; color: var(--ink-light); margin-top: 10px; padding: 9px 12px; border: 1px dashed var(--accent-soft); }
+  .corr b { font-family: 'Noto Serif SC', serif; font-size: 15px; color: var(--accent); margin: 0 3px; }
+  .corr .hint { flex-basis: 100%; font-size: 10px; color: var(--ink-faint); }
+
+  /* 辨 matrix */
+  .mtbl .tr { grid-template-columns: 1fr 96px 96px 120px 120px; }
+  .badge { display: inline-block; font-size: 9.5px; padding: 1px 6px; border: 1px solid var(--paper-line); color: var(--ink-light); margin-left: 6px; vertical-align: 1px; }
+  .badge.k-主因 { border-color: var(--accent); color: var(--accent); } .badge.k-助缘 { border-color: var(--green); color: var(--green); }
+  .badge.k-阻缘 { border-color: var(--red); color: var(--red); } .badge.k-心行 { border-color: var(--dusk); color: var(--dusk); }
+  .matrix { display: grid; grid-template-columns: 26px 1fr 1fr; grid-template-rows: auto auto 22px; gap: 0; margin-top: 16px; }
+  .matrix .ax-y { writing-mode: vertical-rl; text-orientation: upright; font-size: 10px; color: var(--ink-faint); letter-spacing: 0.1em; display: flex; align-items: center; justify-content: center; }
+  .matrix .ax-x { grid-column: 2 / 4; font-size: 10px; color: var(--ink-faint); letter-spacing: 0.1em; display: flex; justify-content: space-around; align-items: center; }
+  .quad { border: 1px solid var(--paper-line); padding: 10px 12px; min-height: 120px; }
+  .quad.hot { border: 1.5px solid var(--green); background: rgba(90,122,82,0.06); }
+  .quad h5 { font-family: 'Noto Serif SC', serif; font-size: 12.5px; color: var(--ink); letter-spacing: 0.06em; }
+  .quad .resp { font-size: 10px; color: var(--ink-faint); line-height: 1.6; margin: 3px 0 8px; }
+  .quad .resp em { font-style: normal; color: var(--accent); }
+  .quad ul { list-style: none; } .quad li { font-size: 12px; padding: 3px 0; border-top: 1px dotted var(--paper-line); }
+  .quad li small { color: var(--ink-faint); font-size: 10px; margin-left: 4px; }
+
+  /* 行 lanes */
+  .ltbl .tr { grid-template-columns: 1fr 1.6fr 1.2fr 1fr; }
+  .ptbl .tr { grid-template-columns: 1.1fr 78px 78px 1.5fr 1.3fr 1fr; }
+  .ptbl .qhint { font-size: 9.5px; color: var(--ink-faint); line-height: 1.5; margin-top: 5px; }
+  .ptbl .qhint em { font-style: normal; color: var(--accent); }
+  .ptbl textarea { width: 100%; min-height: 48px; font-family: inherit; font-size: 12px; padding: 5px 7px; border: 1px solid var(--paper-line); background: #fff; color: var(--ink); outline: none; line-height: 1.6; resize: vertical; }
+  .lanes { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 16px; }
+  .lane { border: 1px solid var(--paper-line); min-height: 110px; padding: 8px 8px 6px; background: var(--paper); }
+  .lane h5 { font-family: 'Noto Serif SC', serif; font-size: 11.5px; letter-spacing: 0.06em; color: var(--accent); border-bottom: 1px solid var(--paper-line); padding-bottom: 5px; margin-bottom: 6px; }
+  .lane h5 small { display: block; font-family: 'Noto Sans SC', sans-serif; font-size: 9px; color: var(--ink-faint); font-weight: 300; letter-spacing: 0; margin-top: 2px; line-height: 1.4; }
+  .lane .lc { font-size: 11px; line-height: 1.55; padding: 5px 6px; margin-bottom: 5px; background: var(--paper-warm); border-left: 2px solid var(--accent-soft); }
+  .lane .lc b { display: block; font-family: 'Noto Serif SC', serif; font-size: 11.5px; color: var(--ink); }
+  .lane .lc small { display: block; font-size: 9.5px; color: var(--ink-faint); margin-top: 2px; }
+  .lane.now { border-color: var(--green); } .lane.now h5 { color: var(--green); }
+
+  /* 随 card */
+  .card { border: 1.5px solid var(--ink); padding: 18px 22px 16px; margin-top: 12px; background: var(--paper); position: relative; }
+  .card::before { content: ''; position: absolute; inset: 5px; border: 1px solid var(--paper-line); pointer-events: none; }
+  .card h3 { font-family: 'Noto Serif SC', serif; font-size: 16px; letter-spacing: 0.2em; text-align: center; color: var(--accent); margin-bottom: 14px; }
+  .card-row { display: grid; grid-template-columns: 150px 1fr; gap: 10px; padding: 8px 0; border-top: 1px dotted var(--paper-line); font-size: 12px; line-height: 1.75; }
+  .card-row .k { font-family: 'Noto Serif SC', serif; font-weight: 600; color: var(--ink); }
+  .card-row .k small { display: block; font-family: 'Noto Sans SC', sans-serif; font-weight: 300; font-size: 9.5px; color: var(--ink-faint); line-height: 1.5; }
+  .card-row .v { color: var(--ink-light); } .card-row .v .none { color: var(--ink-faint); font-size: 11px; }
+  .card-row .v .tag { display: inline-block; font-size: 10.5px; padding: 1px 7px; border: 1px solid var(--paper-line); margin: 2px 4px 2px 0; color: var(--ink); background: #fff; }
+  .card-row .v .tag small { color: var(--ink-faint); margin-left: 3px; }
+  .card-foot { text-align: center; font-size: 10px; color: var(--ink-faint); margin-top: 12px; letter-spacing: 0.06em; }
+
+  .actions { position: fixed; right: 20px; bottom: 20px; z-index: 50; display: flex; flex-direction: column; gap: 6px; }
+  .actions button { font-family: inherit; font-size: 11.5px; letter-spacing: 0.06em; color: var(--paper); background: var(--accent); border: none; padding: 9px 15px; cursor: pointer; box-shadow: 0 2px 8px rgba(42,33,24,0.22); white-space: nowrap; }
+  .actions button.ghost { color: var(--accent); background: var(--paper); border: 1px solid var(--paper-line); }
+  .actions button:disabled { opacity: .6; cursor: default; }
+  body.exporting .actions, body.exporting .tabs, body.exporting .timer, body.exporting .save-notice, body.exporting .resync, body.exporting .gtool, body.exporting .snav { display: none !important; }
+  body.exporting .pane-title { display: block !important; }
+  body.exporting .cell.mirrored { background-color: transparent !important; }
+  body.exporting .page { box-shadow: none !important; }
+  .save-notice { text-align: center; font-size: 10px; color: var(--ink-faint); margin-top: 26px; letter-spacing: 0.08em; }
+
+  @media print {
+    @page { margin: 12mm 11mm; size: A4; }
+    body { background: white !important; padding: 0 !important; }
+    .page { box-shadow: none !important; max-width: 100% !important; } .page-inner { padding: 0 !important; }
+    .timer, .save-notice, .resync, .actions, .tabs, .gtool, .snav { display: none !important; }
+    .cell.mirrored { background-color: transparent !important; }
+    .medit, .cell, .close-area, .chip, .quad, .lane { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .medit, .step, .cmp, .card, .graph-wrap { page-break-inside: avoid; }
+    .pane { display: block !important; } .pane-title { display: block !important; }
+    #pane2 { page-break-before: always; }
+    .stage.collapsed { display: block !important; } .cl.pi.hid, .tr.pi.hid { display: grid !important; } .reveal.hid { display: block !important; } .tr.phid { display: grid !important; } .row-skip, .row-del, .card-actions { display: none !important; } .pi-skip, .stage-next, .stage-head .tog { display: none !important; }
+  }
+  @media (max-width: 760px) {
+    body { padding: 10px 8px 76px; } .page-inner { padding: 20px 14px 26px; }
+    .header h1 { font-size: 18px; letter-spacing: 0.03em; } .header-sub { font-size: 11px; letter-spacing: 0.04em; }
+    .meta-row { justify-content: flex-start; gap: 16px; margin: 12px 0 14px; } .meta-input { width: 88px; }
+    .intro { font-size: 12px; padding: 10px 12px; margin-bottom: 20px; }
+    .tab { font-size: 11px; padding: 9px 3px; letter-spacing: 0; }
+    .psub { font-size: 10.5px; margin: 12px 0 20px; }
+    .snav { margin: 0 -14px 18px; padding: 6px 8px; } .snav a { font-size: 11px; letter-spacing: 0.04em; } .snav a b { font-size: 13px; } .snav a small { display: none; }
+    .stage { scroll-margin-top: 60px; } .stage-no { font-size: 24px; } .stage-title { font-size: 16px; }
+    .step-head { flex-wrap: wrap; gap: 8px; } .step-title { font-size: 15px; } .step-mins { margin-left: 0; }
+    .tbl { border: none; } .tbl .tr:first-child { display: none; }
+    .tA .tr, .tA.wide .tr, .tS .tr, .tM .tr, .t4 .tr, .mtbl .tr, .ltbl .tr, .ptbl .tr { grid-template-columns: 1fr; border: 1px solid var(--paper-line); margin-bottom: 14px; background: var(--paper); }
+    .td { border-right: none; border-bottom: 1px solid var(--paper-line); padding: 10px 12px; } .td:last-child { border-bottom: none; }
+    .td[data-label]::before { content: attr(data-label); display: block; font-size: 10.5px; color: var(--accent); letter-spacing: 0.03em; line-height: 1.5; margin-bottom: 6px; }
+    .td:first-child { background: var(--paper-warm); }
+    .cell { min-height: 60px; }
+    .def-grid, .obs-grid, .graph-wrap { grid-template-columns: 1fr; }
+    .lanes { grid-template-columns: 1fr 1fr; }
+    .matrix { grid-template-columns: 18px 1fr 1fr; }
+    .card-row { grid-template-columns: 1fr; gap: 3px; }
+    .cmp { padding: 12px; } .cmp-row { grid-template-columns: 1fr 40px 14px 40px 70px; gap: 2px; font-size: 11px; }
+    .medit { padding: 22px 15px 20px; margin: 26px 0; } .medit::before { inset: 6px; }
+    .medit h2 { font-size: 15px; } .medit li { font-size: 13px; line-height: 1.95; padding-left: 15px; }
+    .medit-src, .medit-foot { font-size: 10.5px; } .medit-q { font-size: 13.5px; }
+    .tchip { padding: 4px 7px; font-size: 10px; } .timer-disp { font-size: 15px; min-width: 44px; }
+    .synbar { flex-direction: column; align-items: stretch; gap: 8px; } .resync { align-self: flex-end; }
+    .motto p { font-size: 13.5px; letter-spacing: 0.04em; }
+    .actions { flex-direction: row; left: 8px; right: 8px; bottom: 8px; gap: 5px; justify-content: center; }
+    .actions button { flex: 1; font-size: 10.5px; padding: 9px 4px; letter-spacing: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="page-inner">
+
+  <div class="header">
+    <div class="header-stage">静心学堂 · 同喜班 · 人生篇</div>
+    <h1>第十五课《佛教徒的人生态度》之三 · 班修练习</h1>
+    <div class="header-sub">缘起式行动工具：定（问题 · 目标 · 原因）→ 观（因缘网络）→ 行（择缘 · 安排 · 带走）</div>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-item"><label>姓名</label><input class="meta-input" id="f-name" type="text"></div>
+    <div class="meta-item"><label>日期</label><input class="meta-input" id="f-date" type="date"></div>
+  </div>
+
+  <div class="intro">
+    这不是一份考卷，没有标准答案，也不交给任何人看——<b>正因为如此，可以借这个机会如实面对自己</b>。<br>
+    这一页把「随缘还是进取」读成一套<b>做事、处关系、修行都能用</b>的行动方法：带着一件当下真实的事进来，先问清楚真正的愿，再看它的因缘怎样形成、自己的心怎样参与其中，最后分辨哪里值得用力、哪里要培育、哪里该等、哪里该放。
+  </div>
+
+
+  <!-- ============================================================ 一 · 工具 -->
+  <section class="pane active" id="pane1">
+  <div class="pane-title"><span>缘 起 式 行 动 工 具</span></div>
+
+  <nav class="snav" id="snav">
+    <a href="#st0" class="pre">前言 · 方法</a>
+    <a href="#st1"><b>定</b>定愿<small>问题 · 目标 · 原因</small></a>
+    <a href="#st2"><b>观</b>因缘网络</a>
+    <a href="#st3"><b>行</b>应缘而行<small>择缘 · 安排</small></a>
+    <a href="#st4" class="pre post">结语 · 行动卡</a>
+  </nav>
+
+  <!-- ---------- 〇 方法 ---------- -->
+  <div class="stage" id="st0">
+    <div class="stage-head"><span class="stage-title">前言 · 方法<small>不是控制结果，而是经营因缘</small></span></div>
+
+    <div class="pull">
+      <p>「随缘」的缘，来自因缘。佛教的基本理论就是因缘因果，所谓「诸法因缘生，诸法因缘灭」。其中，<b>因指内在的主因，缘指外在的助缘。由因感果，需要缘的推动。</b>如果相关的缘不具足，因就暂时不会发展为果。</p>
+      <p>人们通常觉得，进取才是努力，随缘代表着消极、不作为。这是对随缘的错误认识。<b>事实上，随缘才能更好地进取。</b></p>
+      <small>《佛教徒的人生态度》· 随缘还是进取</small>
+    </div>
+
+    <div class="m3">
+      <div class="mc">
+        <div class="mc-no">定</div>
+        <div class="mc-t">明确目标：真正的愿是什么</div>
+        <ul>
+          <li>首先是明确目标。</li>
+          <li>你的努力方向对不对？如果南辕北辙，怎么努力都是不可能成功的。</li>
+        </ul>
+        <div class="mc-do">这一页：从纠结的那件事出发，追问两层「为什么」，找到愿；再回头看它为什么卡住。</div>
+      </div>
+      <div class="mc">
+        <div class="mc-no">观</div>
+        <div class="mc-t">看清因缘，也看清自己的心</div>
+        <ul>
+          <li>我们看到的世界，取决于自身的认识能力，同时也离不开我们的感觉、经验和需要。所以这种认识并不客观，会受到各种因素的影响。</li>
+          <li>随缘不是随我，更不是随便，不是随性而为。随缘的前提，是跳出自我的感觉，以理性、开放的心态看清各种因缘，然后作出智慧的选择。这是主动而非被动的，是明确而非模棱两可的。</li>
+          <li>六尘只是对境而已，它所能产生的影响，完全取决于我们的心。如果我们对六尘境界没有粘著，外境是左右不了我们的。</li>
+        </ul>
+        <div class="mc-do">这一页：条件自动长成一张因缘图；点每一条助力目标的缘，审视它合理吗、有没有我的无明和执著。</div>
+      </div>
+      <div class="mc">
+        <div class="mc-no">行</div>
+        <div class="mc-t">顺势而为，精进努力；逆缘接纳，顺缘把握</div>
+        <ul>
+          <li>世人所说的审时度势，正是随缘的前提。</li>
+          <li>你的努力只代表了其中一部分因缘，而成功还需要众缘和合。可能还有一些因缘，是你没看到或做不到的。看清这一点，我们在尽到自己努力之后，就不会有无谓的烦恼了。</li>
+          <li>在看清缘起的前提下，顺势而为，精进努力。逆缘出现时，安然接纳，知道一切都有前因；顺缘出现时，及时把握，知道机会都是给有准备的人。</li>
+        </ul>
+        <div class="mc-do">这一页：每条缘问「有多关键、我有多大行动空间」，给它一个去处，带走一张行动卡。</div>
+      </div>
+    </div>
+
+    <div class="step-note" style="margin:22px 0 8px"><b>三类事，同一套方法</b>——选哪一类，后面的问法和案例就跟着换。</div>
+    <div class="m3">
+      <div class="mc thin">
+        <div class="mc-t">做事项目</div>
+        <div class="mc-eg">申请、求职、办活动、写作、一个计划</div>
+        <ul><li>没有出世之心，入世就会被五欲六尘所染，处处挂碍，不能自拔；没有入世之心，就不能践行菩萨道的慈悲。</li></ul>
+        <div class="mc-b">以出世心做入世事：尽力经营条件，不把整个结果执为我所。</div>
+      </div>
+      <div class="mc thin">
+        <div class="mc-t">关系项目</div>
+        <div class="mc-eg">亲子、伴侣、朋友、同事、师生</div>
+        <ul>
+          <li>人间的情爱是以痴、贪、我执为特点。<span class="mc-k">痴</span>就是无明，看不清楚。<span class="mc-k">贪</span>具有粘著的特点——当你说「我爱你」的时候，其实在告诉对方「你也要爱我」。<span class="mc-k">我执</span>是从自我出发的一份占有，特别容易引发占有欲，进而是控制欲。</li>
+          <li>放下这些，不是变成木头，而是要建立没有染污的情感……这叫法情，是建立在信仰和恭敬的基础上，是没有染污的。用佛法智慧调整认识，改变心态，可以逐步增加没有染污的情感，逐步减少有染污的情感。</li>
+          <li>所谓「随顺众生」，是在看清因缘的情况下，知道什么样的引导最适合对方……世间盲目的顺从，比如父母因为溺爱子女，要什么给什么，往往是有害无益的。</li>
+        </ul>
+        <div class="mc-b">目标是没有染污的法情。可以管理自己的贡献，不能把对方当作管理对象。</div>
+      </div>
+      <div class="mc thin">
+        <div class="mc-t">修行项目</div>
+        <div class="mc-eg">禅修、持戒、正念、减少贪嗔、建立修习习惯</div>
+        <ul>
+          <li>我们要解决痛苦，就要从智慧的高度，找到真正的痛苦之因。佛法告诉我们，所有痛苦都来自内心的贪婪、仇恨、愚痴，这才是根源所在……如果不能找到真正的痛苦之因，从根上解决，其他努力只能起到暂时的缓解作用。</li>
+          <li>释迦牟尼佛正是在菩提树下，通过对十二缘起的观察和追溯，才找到真正的苦因，找到众生流转生死的源头。同时也发现，每个生命还具备觉悟的潜质，可以从根本上解决迷惑和烦恼……那就是闻思修，是戒定慧，是八正道，是三十七道品，是一切众生皆能成佛的大乘菩萨道。这就是缘起的智慧。</li>
+          <li>佛陀针对众生不同的根机，说三乘佛法，说八万四千法门。这也是随缘，是随顺众生的不同因缘，给予最适合他们的教化。</li>
+        </ul>
+        <div class="mc-b">修行的果是从根上解决迷惑烦恼，不是某个形式；可以安排修行的因缘，不能机械管理修行之果。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- 定 ---------- -->
+  <div class="stage" id="st1">
+    <div class="stage-head"><span class="stage-no">定</span><span class="stage-title">定愿<small>定位问题 → 确定真正的愿与结果 → 观察原因。顺着一段话往下填，一题答完再出下一题</small></span></div>
+    <div class="stage-src"><q>首先是明确目标。</q><q>我们要解决痛苦，就要从智慧的高度，找到真正的痛苦之因。</q><q>逆缘出现时，安然接纳，知道一切都有前因。</q></div>
+    <div class="step-note">先选这一次带进来的是哪一类事，下面的问法会跟着换。然后顺着一段话填下去，不用想得很完整，先写第一反应。</div>
+    <div class="chips big" data-k="d_type" data-grp="T">
+      <button class="chip" type="button" data-v="做事">做事项目</button>
+      <button class="chip" type="button" data-v="关系">关系项目</button>
+      <button class="chip" type="button" data-v="修行">修行项目</button>
+    </div>
+    <div class="tt-box" id="tt-def">
+      <span class="tt" data-do="<b>做事</b>｜案例：办一场共修活动。我真正要促成的成果是什么？「人多、办得漂亮」是不是被误当成了唯一道路？原文：利益众生必须具备两个要点——「一方面要发心纯正……一方面还要有智慧，虽然倾力帮助众生，但内心是超然的」。" data-rel="<b>关系</b>｜案例：希望儿子考上那所重点高中。目标不是「让孩子改变」，而是希望共同形成怎样的亲子关系？原文：「父母对儿女的爱……特别容易引发占有欲，进而是控制欲。这是破坏彼此关系的大敌」；放下染污的情感，「不是变成木头，而是要建立没有染污的情感」。" data-pr="<b>修行</b>｜案例：每天坐满 20 分钟。希望培育什么善法、减少什么习气？不要把某个修行形式直接等同于修行之果。原文：佛陀在菩提树下「通过对十二缘起的观察和追溯，才找到真正的苦因」。" data-none="先在上面选一类。三类共用同一段话，只是问法、案例和边界不同。"></span>
+    </div>
+
+    <div class="cloze">
+      <div class="cl part"><span class="no" style="color:var(--accent)">一</span><div class="pr" style="font-weight:600;color:var(--accent);letter-spacing:0.08em">定位问题<small style="font-weight:300;color:var(--ink-light)">先把此刻心里「必须如此」的那件事写下来</small></div></div>
+      <div class="cl">
+        <span class="no">1</span>
+        <div class="pr"><span class="tt" data-do="我现在纠结、特别想完成的一件事是——" data-rel="我现在和 TA 之间纠结的一件事是——我希望 TA……" data-pr="我现在想做到、却总做不到的修行是——" data-none="我现在纠结、特别想完成的一件事是——"></span>
+          <small>写最具体的那个版本：一个结果、一个人怎么做、一种修法。这就是此刻心里「必须如此」的东西。</small>
+          <div class="cell one empty" data-ph="例：拿到这次晋升 / 儿子考上那所学校 / 每天早上坐满 20 分钟" data-ph-do="例：把这次共修活动办圆满，来的人要多" data-ph-rel="例：我希望儿子考上那所重点高中" data-ph-pr="例：每天早上坐满 20 分钟，不散乱" data-k="d_thing"></div></div>
+      </div>
+      <div class="cl part"><span class="no" style="color:var(--accent)">二</span><div class="pr" style="font-weight:600;color:var(--accent);letter-spacing:0.08em">确定真正的愿与结果<small style="font-weight:300;color:var(--ink-light)">先问清楚我真正要的是什么，再回头看它为什么卡住</small></div></div>
+      <div class="cl">
+        <span class="no">2</span>
+        <div class="pr"><span class="tt" data-do="我为什么想要它？因为——" data-rel="我为什么希望 TA 这样？因为——" data-pr="我为什么想要它？因为——" data-none="我为什么想要它？因为——"></span>
+          <div class="cell one empty" data-ph="第一反应就好。" data-ph-do="例：因为想让更多人听到法；也怕办砸了丢脸" data-ph-rel="例：因为那所学校出路稳，我不想他将来吃苦" data-ph-pr="例：因为想让心静下来，修得像样一点" data-k="d_why1"></div></div>
+      </div>
+      <div class="cl">
+        <span class="no">3</span>
+        <div class="pr">再往深问一层：那又是为了——<small>把上一行的答案再问一次「为什么」。多数人在这一层才碰到真正在乎的东西。</small>
+          <div class="cell one empty" data-ph="" data-ph-do="例：那是为了大家真的受益——不是为了我办得漂亮" data-ph-rel="例：那是为了他过得好——也为了我心里踏实，觉得自己是称职的父母" data-ph-pr="例：那是为了不再被烦恼牵着走" data-k="d_why2"></div></div>
+      </div>
+      <div class="cl turn">
+        <span class="no">4</span>
+        <div class="pr"><span class="tt" data-do="所以，我真正在乎的——我的愿——是：" data-rel="所以，我真正在乎的——是 TA 的什么、或我们之间的什么——是：" data-pr="所以，我真正想培育的善法、想减少的习气，是：" data-none="所以，我真正在乎的——我的愿——是："></span>
+          <div class="cell one empty" data-ph="用一句自己的话，把上面两个「为什么」收拢成一个方向。" data-ph-do="例：众生因此受益；我做事时发心纯正、心里不挂碍" data-ph-rel="例：他真正过得好、有自己的选择能力；我对他的爱不带控制" data-ph-pr="例：解除迷惑烦恼的根，面对境界时能提起正念" data-k="d_purpose"></div></div>
+      </div>
+      <div class="cl">
+        <span class="no">5</span>
+        <div class="pr">换个角度检验一下：如果第 1 行那件事<b>没有</b>发生，但「<span class="ref none" id="ref-purpose">我的愿</span>」通过别的方式实现了，我——
+          <div class="chips" data-k="d_ifnot" data-grp="N"><button class="chip" type="button" data-v="能接受">能接受</button><button class="chip" type="button" data-v="不能接受">不能接受</button><button class="chip" type="button" data-v="说不清">说不清</button></div>
+          <small>能接受，说明那件事多半只是一条路径；不能接受，它可能真是必要条件——也可能是执著。观心时还会再验一次。</small>
+          <div class="cell one empty" data-ph="为什么？一句话。" data-k="d_ifnot_note"></div></div>
+      </div>
+      <div class="cl turn">
+        <span class="no">6</span>
+        <div class="pr"><span class="tt" data-do="那么，为了这个愿，我真正要促成的结果是：" data-rel="那么，为了这个愿，我真正希望和 TA 共同形成的关系状态是：" data-pr="那么，为了这个愿，我真正要促成的修行状态是：" data-none="那么，为了这个愿，我真正要促成的结果是："></span>
+          <small>可以和第 1 行一样，也可以不一样。这一行会成为因缘图的中心。</small>
+          <div class="cell one empty" data-ph="" data-ph-do="例：来的每个人都真的得到帮助，团队做得欢喜" data-ph-rel="例：他愿意自己想将来，遇到事肯和我商量" data-ph-pr="例：烦躁生起时能看见它、不跟着跑——不论那天坐了几分钟" data-k="d_outcome"></div></div>
+      </div>
+      <div class="cl">
+        <span class="no">7</span>
+        <div class="pr">回头看第 1 行那件事「<span class="ref none" id="ref-thing">……</span>」，对上一行「要促成的结果」来说，它是——
+          <div class="chips" data-k="d_rel" data-grp="R"><button class="chip" type="button" data-v="唯一的路">唯一的路</button><button class="chip" type="button" data-v="一条路径">一条路径</button><button class="chip" type="button" data-v="其实不必要">其实不必要</button></div>
+          <div class="cell one empty" data-ph="为什么这么判断？还有别的路吗？" data-k="d_rel_note"></div></div>
+      </div>
+      <div class="cl part"><span class="no" style="color:var(--accent)">三</span><div class="pr" style="font-weight:600;color:var(--accent);letter-spacing:0.08em">观察原因<small style="font-weight:300;color:var(--ink-light)">它现在卡住的样子，是怎样由众缘形成的——包括我的心在其中占的位置</small></div></div>
+      <div class="cl">
+        <span class="no">8</span>
+        <div class="pr"><span class="tt" data-do="它现在卡在哪里？进展停在什么地方、什么一直没发生——" data-rel="它现在卡在哪里？TA 现在是什么状态、我最不能接受的是什么——" data-pr="它现在卡在哪里？做不到的是什么、通常在什么时候破功——" data-none="现在卡在哪里——"></span>
+          <small>写现象，不写解释。「他不理我」是现象，「他不在乎我」是解释。<span class="tt" data-do="" data-rel="看清他，而不是只看见我想要的他——这一步就是在破「痴」。" data-pr="" data-none=""></span></small>
+          <div class="cell one empty" data-ph="" data-ph-do="例：报名的人少，团队里有人不配合，我一个人扛着焦虑" data-ph-rel="例：一提学校他就关门，两周没好好说话" data-ph-pr="例：坐十分钟就烦躁想起身；发完脾气才后悔" data-k="s_stuck"></div></div>
+      </div>
+      <div class="cl">
+        <span class="no">9</span>
+        <div class="pr">这个现状是怎么形成的？——把促成它的条件一条条摆出来<small>每格写一两条，写得出的才看得见；空着也行。<span class="tt" data-do="拆的时候留意：哪一条其实是我的挂碍。" data-rel="拆的时候留意：先看他的因缘，再看我的做法在其中占了什么位置。" data-pr="拆的时候留意：对「修得好」的执著也是条件之一。" data-none=""></span></small>
+          <div class="tbl tS" style="margin-top:8px">
+            <div class="tr"><div class="th">条件的来源</div><div class="th" style="grid-column:2/4">促成现状的条件</div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="外部条件" data-rel="TA 的性格与经历" data-pr="身心状态" data-none="外部条件"></span></div><div class="rowhint"><span class="tt" data-do="制度、市场、别人的决定" data-rel="TA 一直是这样的人吗？经历过什么" data-pr="睡眠、疲劳、身体、情绪" data-none="制度、市场、别人的决定"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：时间和另一场活动撞了；场地不好找" data-ph-do="例：时间和另一场活动撞了；场地不好找" data-ph-rel="例：他从小就不喜欢被安排，越推越退" data-ph-pr="例：最近睡得少，一坐就困或烦" data-k="s_c1"></div></div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="我做过的、没做的" data-rel="TA 的处境与压力" data-pr="环境与时间" data-none="我做过的、没做的"></span></div><div class="rowhint"><span class="tt" data-do="我的行为在其中占了什么位置" data-rel="TA 现在面对什么、怕什么、要什么" data-pr="有没有固定的时间和地方" data-none="我的行为在其中占了什么位置"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：宣传发得晚；没提前和团队分工" data-ph-do="例：宣传发得晚；没提前和团队分工" data-ph-rel="例：他在学校压力已经很大，回家只想安静" data-ph-pr="例：没有固定时间地方，孩子随时会来" data-k="s_c2"></div></div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="时机与历史" data-rel="我一直以来的做法" data-pr="方法与善知识" data-none="时机与历史"></span></div><div class="rowhint"><span class="tt" data-do="积累到今天的过程、错过的窗口" data-rel="催、控制、回避、比较……我在其中占了什么位置" data-pr="方法对不对、有没有人指点" data-none="积累到今天的过程、错过的窗口"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：去年那场也是临时抱佛脚，大家有阴影" data-ph-do="例：去年那场也是临时抱佛脚，大家有阴影" data-ph-rel="例：我每天催、拿别人家孩子比较、翻旧账" data-ph-pr="例：方法是自己看视频学的，没人指点" data-k="s_c3"></div></div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="偶然" data-rel="环境与其他人" data-pr="习气" data-none="偶然"></span></div><div class="rowhint"><span class="tt" data-do="谁也说不准的那部分" data-rel="家庭、学校/单位、朋友、社会" data-pr="老毛病在什么情境下起来" data-none="谁也说不准的那部分"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：那天下大雨" data-ph-do="例：那天下大雨" data-ph-rel="例：外婆也在旁边催，老师也找家长" data-ph-pr="例：一有不顺就想找手机、想吃东西" data-k="s_c4"></div></div></div>
+            <div class="tr mind"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="心态" data-rel="心态" data-pr="心态" data-none="心态"></span></div><div class="rowhint"><span class="tt" data-do="我的心在其中占了什么位置：怕、拖、比较、非成不可" data-rel="我的怕、期待、占有、控制" data-pr="对「修得好」的执著、自我形象、盯着境界" data-none="我的心在其中占了什么位置：怕、拖、比较、非成不可"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：怕办砸、怕被说不行，越怕越想控制每个环节" data-ph-do="例：怕办砸、怕被说不行，越怕越想控制每个环节" data-ph-rel="例：怕他过不好→越怕越管；一分爱一分需求，没回馈就追" data-ph-pr="例：盯着「今天有没有静」，一没静就觉得白坐" data-k="s_c5"></div></div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><div class="cell one empty" data-ph="其他：这类是什么？" data-k="s_c6_name" style="min-height:24px;font-size:12px;font-family:'Noto Serif SC',serif;font-weight:600"></div></div><div class="rowhint">上面没归进去的：先写这一类叫什么，再写条件</div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="" data-ph-do="" data-ph-rel="例：上次为分数吵的话都没收回" data-ph-pr="" data-k="s_c6"></div></div></div>
+          </div></div>
+      </div>
+      <div class="cl turn">
+        <span class="no">10</span>
+        <div class="pr">这些条件里，哪一条是根，哪些只是表面？我自己的哪个反应在维持着它？<small>「病灶」还是「镇痛药」：找到真正的因，其他努力只能起到暂时的缓解作用。<span class="tt" data-do="原文：「没有出世之心，入世就会被五欲六尘所染，处处挂碍，不能自拔。」" data-rel="原文：「因为控制会带来逆反心理，并进一步造成冲突。」「情就像一根绳子，我们在乎什么，就被什么所捆绑。」" data-pr="原文：「如果在这个环节不能保持正念，就很容易随着习气，对带来乐受的境界产生执取，对带来苦受的境界心生嗔恨。」" data-none=""></span></small>
+          <div class="cell one empty" data-ph="" data-ph-do="例：根在「非办得漂亮不可」的挂碍——越挂碍越管得死，团队越不出力" data-ph-rel="例：根在我的占有和控制：怕他过不好→越怕越管→他越逆反。「控制会带来逆反心理」" data-ph-pr="例：根不在坐了几分钟，在触受那一环没提起正念——烦躁一来就随习气执取" data-k="s_root"></div></div>
+      </div>
+      <div class="cl">
+        <span class="no">11</span>
+        <div class="pr"><span class="tt" data-do="看清这些前因之后，对「现在卡在这里」这件事，我——" data-rel="看清这些前因之后，对 TA 现在的状态，我——" data-pr="看清这些前因之后，对「现在做不到」，我——" data-none="看清这些前因之后，我——"></span>
+          <div class="chips" data-k="s_accept" data-grp="S"><button class="chip" type="button" data-v="能接纳它有它的因缘">能接纳它有它的因缘</button><button class="chip" type="button" data-v="部分能">部分能</button><button class="chip" type="button" data-v="还不能">还不能</button></div>
+          <small>接纳不是同意、不是放弃改变；是承认它有它的前因，然后才谈在哪一条缘上用力。「还不能」也是真实的答案，观心时回来看它。</small>
+          <div class="cell one empty" data-ph="能接纳的是哪一部分？还不能的又卡在哪？" data-k="s_accept_note"></div></div>
+      </div>
+      <div class="cl-foot">
+        <span>第 1 行那件事、第 6 行「要促成的结果」、第 9 组写下的现状条件，都会自动出现在下一步的因缘图上——第 1 行带着你给它的判断，现状条件作「阻碍目标」。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- 观 ---------- -->
+  <div class="stage" id="st2">
+    <div class="stage-head"><span class="stage-no">观</span><span class="stage-title">因缘网络 · 双观<small>在同一张图上同时运行两条轨道：观缘（结果要靠哪些条件）× 观心（我的心怎样参与其中）</small></span></div>
+    <div class="stage-src"><q>随缘的前提，是跳出自我的感觉，以理性、开放的心态看清各种因缘。</q></div>
+
+    <div class="step-note" style="margin:0 0 12px">观缘看条件，观心看自己——助力目标的每条缘，都再审视一次：合理吗？有我的无明和执著吗？点图上的节点时会问。</div>
+    <div class="cloze" style="margin-top:4px" id="cz-need">
+      <div class="cl">
+        <span class="no">·</span>
+        <div class="pr"><span class="tt" data-do="要促成「<span class=&quot;ref none&quot; data-ref-outcome>要促成的结果</span>」，还需要哪些条件？" data-rel="要形成「<span class=&quot;ref none&quot; data-ref-outcome>希望的关系状态</span>」，还需要哪些条件？" data-pr="要形成「<span class=&quot;ref none&quot; data-ref-outcome>要促成的修行状态</span>」，还需要哪些条件？" data-none="要促成「<span class=&quot;ref none&quot; data-ref-outcome>要促成的结果</span>」，还需要哪些条件？"></span>
+          <small>每格写一条，写得出名字的才看得见。写下的每一条都会自动出现在图上（绿线）。</small>
+          <div class="tbl tS" style="margin-top:8px">
+            <div class="tr"><div class="th">条件的来源</div><div class="th" style="grid-column:2/4">促成结果需要的条件</div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="我的能力与行动" data-rel="我能贡献的" data-pr="我能安排的" data-none="我的能力与行动"></span></div><div class="rowhint"><span class="tt" data-do="我会的、要补的、要做的" data-rel="倾听、表达、边界、空间、支持" data-pr="时间、地方、方法、节奏" data-none="我会的、要补的、要做的"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：提前一个月把分工定下来" data-ph-do="例：提前一个月把分工定下来" data-ph-rel="例：先听他说完，不评价" data-ph-pr="例：固定早上 6:40，客厅一角" data-k="n_c1"></div></div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="资源与他人" data-rel="TA 自己的因缘" data-pr="身心条件" data-none="资源与他人"></span></div><div class="rowhint"><span class="tt" data-do="钱、信息、工具、人脉；谁的决定、谁的配合" data-rel="TA 的意愿、节奏、能力——不由我" data-pr="睡眠、体力、情绪" data-none="钱、信息、工具、人脉；谁的决定、谁的配合"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：一位有经验的义工愿意带；场地负责人点头" data-ph-do="例：一位有经验的义工愿意带；场地负责人点头" data-ph-rel="例：他自己愿意想将来的节奏——不由我" data-ph-pr="例：睡够，晚上 10 点半前放下手机" data-k="n_c2"></div></div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="制度 · 环境" data-rel="我们之间的 · 环境与其他人" data-pr="法与善知识 · 环境与家人" data-none="制度 · 环境"></span></div><div class="rowhint"><span class="tt" data-do="规则、市场、组织、大势" data-rel="信任、沟通的方式、共同的事；家人、学校、朋友" data-pr="方法对不对、有没有人指点、同修；家人的理解" data-none="规则、市场、组织、大势"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：社区允许周末使用" data-ph-do="例：社区允许周末使用" data-ph-rel="例：每周一件一起做的小事；请外婆先别催" data-ph-pr="例：请教一位有经验的同修；家人知道这 20 分钟别叫我" data-k="n_c3"></div></div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="时间与时机" data-rel="时间" data-pr="时间与持续" data-none="时间与时机"></span></div><div class="rowhint"><span class="tt" data-do="窗口、节奏、先后" data-rel="给 TA 的时间、给关系的时间" data-pr="多久才见效、什么时候容易断" data-none="窗口、节奏、先后"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：避开考试季" data-ph-do="例：避开考试季" data-ph-rel="例：给他一个月，不追问成绩" data-ph-pr="例：先坚持三周再看" data-k="n_c4"></div></div></div>
+            <div class="tr mind"><div class="td"><div class="rowname" style="font-size:12px"><span class="tt" data-do="心态" data-rel="心态" data-pr="心态" data-none="心态"></span></div><div class="rowhint"><span class="tt" data-do="做这件事时，我需要的是什么心：发心纯正、内心超然" data-rel="我需要的是什么心：不带控制的爱、给他时间" data-pr="我需要的是什么心：不盯境界、随顺自己的根机" data-none="做这件事时，我需要的是什么心：发心纯正、内心超然"></span></div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="例：不为沽名钓誉，办成办不成都不挂碍" data-ph-do="例：不为沽名钓誉，办成办不成都不挂碍" data-ph-rel="例：愿他好，但不要求他按我的路走" data-ph-pr="例：坐了几分钟不重要，看见烦躁就算修" data-k="n_c5"></div></div></div>
+            <div class="tr"><div class="td"><div class="rowname" style="font-size:12px"><div class="cell one empty" data-ph="其他：这类是什么？" data-k="n_c6_name" style="min-height:24px;font-size:12px;font-family:'Noto Serif SC',serif;font-weight:600"></div></div><div class="rowhint">上面没归进去的：先写这一类叫什么，再写条件</div></div><div class="td" style="grid-column:2/4" data-label="条件"><div class="cell one empty" data-ph="" data-ph-do="" data-ph-rel="" data-ph-pr="" data-k="n_c6"></div></div></div>
+          </div></div>
+      </div>
+    </div>
+
+    <div class="reveal" data-after="cz-need">
+    <div class="step-note" style="margin-top:14px">
+      <b>图会自己长出来</b>：中心是定愿第 6 行「要促成的结果」；左上是定愿第 1 行那件事（带着你给它的判断）；红线是定愿里写下的现状条件（阻碍目标），绿线是上面写的促成条件（助力目标）；每条缘还有性质（心行／行动），点节点可改。你要做的只有一件事：<b>点一个助力目标的节点，答一句观心，必要时改它的标记</b>。改过的标记会被记下来，那就是这一部分的「眼睛」。拖一拖可以调位置。
+    </div>
+    <div class="gtool"><button class="gbtn" id="g-layout" type="button">环形排列</button><span style="color:var(--ink-faint)">图上没有的条件，回上面的格子里写。</span></div>
+    <div class="graph-wrap">
+      <div class="graph">
+        <svg id="gsvg" viewBox="0 0 680 440" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="gmsg" id="gmsg">点节点回答观心 · 拖动调整位置</div>
+      </div>
+      <div class="gpanel" id="gpanel"><div class="empty-hint">还没有选中节点。<br>点图上任一条缘，在这里答一句观心。</div></div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#c9a96e"></i>要促成的结果</span><span><span class="ln" style="border-color:#a8503a"></span>红＝阻碍目标</span><span><span class="ln" style="border-color:#5a7a52"></span>绿＝助力目标的因缘</span><span>圆角＝心行 · 方角＝行动</span>
+    </div>
+    <div class="corr" id="corr">
+      <span>校正记录——重新认识的缘 <b data-c="fix">0</b> 条</span><span>加入网络的心行 <b data-c="heart">0</b> 个</span><span>答过观心的缘 <b data-c="mind">0</b> 条</span>
+      <span class="hint">「误认的缘」经反观后改标记，或「心本身成为缘」被画进图里，都算校正。这就是随缘无我：跳出自我的感觉，看清各种因缘。</span>
+    </div>
+    </div>
+  </div>
+
+  <!-- ---------- 行 ---------- -->
+  <div class="stage" id="st3">
+    <div class="stage-head"><span class="stage-no">行</span><span class="stage-title">应缘而行<small>择缘 → 安排 → 带走。每条缘先问「有多关键、我有多大行动空间」，再给它一个去处；放下不是独立步骤，是不可为处的一种回应</small></span></div>
+    <div class="stage-src"><q>你的努力只代表了其中一部分因缘，而成功还需要众缘和合。可能还有一些因缘，是你没看到或做不到的。</q><q>在看清缘起的前提下，顺势而为，精进努力。</q><q>逆缘出现时，安然接纳，知道一切都有前因；顺缘出现时，及时把握，知道机会都是给有准备的人。</q></div>
+    <div class="tt-box"><span class="tt" data-do="<b>做事</b>：找主因、瓶颈和当前可行动点；把关键缘转成一个最小的下一步，或持续培育、或等待条件。案例里，「团队愿意出力」是高重要高行动，「那天下不下雨」是低行动——接纳。" data-rel="<b>关系</b>：先把「孩子的感受、选择、成长速度」标成低行动性——那是他的因缘；只安排自己能贡献的部分：倾听、表达、边界、空间、支持。原文：「所谓\'随顺众生\'，是在看清因缘的情况下，知道什么样的引导最适合对方。」" data-pr="<b>修行</b>：先看那条「必须」的精进标准——它是高重要，还是被我必要化了？创造适合当下根机和生活条件的修行因缘，不强迫每次都出现特定状态。原文：「佛陀针对众生不同的根机，说三乘佛法，说八万四千法门。这也是随缘。」" data-none=""></span></div>
+
+    <div class="step-note" style="margin-top:8px"><b>择缘与安排</b>——图上每条<b>助力目标</b>的缘一行。<b>重要性</b>：这个缘对结果有多关键；<b>行动性</b>：我现在对它有多大有效行动空间。两个都给了，下面会提示它该去哪一类，再由你定去处、写做什么和时间。阻碍目标的缘不在这里排——若要对付它，回图上把它改成一条助力目标的缘（例如「少催」），它就会出现在这里。</div>
+    <div class="tbl ptbl" id="ptbl">
+      <div class="tr"><div class="th">因缘</div><div class="th">重要性</div><div class="th">行动性</div><div class="th">去处<small>先看提示，再自己定</small></div><div class="th">做什么 / 等什么 / 培育什么</div><div class="th">时间<small>最晚 · 窗口 · 等谁 · 何时复评</small></div></div>
+    </div>
+
+    <div class="reveal hid" id="plan-rest">
+    <div class="matrix">
+      <div class="ax-y">重要性 高 ↑</div>
+      <div class="quad hot" id="q-hh"><h5>高重要 × 高行动性</h5><div class="resp"><em>优先造缘</em>——当前值得投入的关键缘</div><ul></ul></div>
+      <div class="quad" id="q-hl"><h5>高重要 × 低行动性</h5><div class="resp"><em>影响、培育、等待、转向或接纳</em>——重要但当前难以直接推动</div><ul></ul></div>
+      <div class="ax-y" style="grid-row:2">重要性 低 ↓</div>
+      <div class="quad" id="q-lh"><h5>低重要 × 高行动性</h5><div class="resp"><em>谨慎投入</em>——容易做但价值有限，避免「忙碌幻觉」</div><ul></ul></div>
+      <div class="quad" id="q-ll"><h5>低重要 × 低行动性</h5><div class="resp"><em>放下或不投入</em></div><ul></ul></div>
+      <div class="ax-x"><span>行动性 高 →</span><span>行动性 低 →</span></div>
+    </div>
+    <div class="lanes" id="lanes">
+      <div class="lane now" data-b="现在行动"><h5>现在行动<small>当前就能创造的关键缘</small></h5></div>
+      <div class="lane" data-b="接下来"><h5>接下来<small>某个前置条件满足后再做</small></h5></div>
+      <div class="lane" data-b="持续培育"><h5>持续培育<small>需要时间积累：信任、习惯、能力</small></h5></div>
+      <div class="lane" data-b="等待时机"><h5>等待时机<small>重要但当前没有行动空间</small></h5></div>
+      <div class="lane" data-b="转向"><h5>转向<small>换一条服务同一「愿」的路径</small></h5></div>
+      <div class="lane" data-b="接纳放下"><h5>接纳 / 放下<small>确认不可为后，停止无效控制</small></h5></div>
+    </div>
+    <div class="after-note">如果明知某个缘不可行动，却仍然陷在控制里——回到「观心」：是事实还没看清，是把偏好必要化了，还是把控制范围扩大到了他人和环境？</div>
+
+    </div>
+  </div>
+
+  <!-- ---------- 卡 ---------- -->
+  <div class="stage" id="st4">
+    <div class="stage-head"><span class="stage-title">结语 · 缘起行动卡<small>这次练习的结果：一页纸，复制、保存、带走</small></span></div>
+    <div class="stage-src"><q>逆缘出现时，安然接纳，知道一切都有前因；顺缘出现时，及时把握，知道机会都是给有准备的人。</q></div>
+    <div class="step-note" style="margin-top:8px">这张卡全部由前面三步自动汇总，不用再填。它是这次带走的东西——可以复制成文字、存成图片。</div>
+    <div class="card-actions"><button class="gbtn" id="c-regen" type="button">↻ 重新生成</button><button class="gbtn" id="c-copy" type="button">⧉ 复制为文字</button><button class="gbtn" id="c-png" type="button">⤓ 卡存成图片</button><button class="gbtn" id="c-page" type="button">⤓ 这一页导出长图</button></div>
+    <div class="card" id="card">
+      <h3>缘 起 行 动 卡</h3>
+      <div class="card-row"><div class="k">我的愿<small>我真正希望促成什么</small></div><div class="v" data-f="purpose"></div></div>
+      <div class="card-row"><div class="k">我现在看见的关键因缘<small>哪些条件真正重要</small></div><div class="v" data-f="keys"></div></div>
+      <div class="card-row"><div class="k">我修正的认识<small>哪些曾被我以为必要，其实只是路径、待验证判断或执著</small></div><div class="v" data-f="fix"></div></div>
+      <div class="card-row"><div class="k">心如何参与因缘<small>助力目标的缘里，有没有我的无明和执著</small></div><div class="v" data-f="mind"></div></div>
+      <div class="card-row"><div class="k">现在值得用力<small>当前 1–3 个关键可行动因缘</small></div><div class="v" data-f="now"></div></div>
+      <div class="card-row"><div class="k">需要持续培育<small>哪些条件需要时间成熟</small></div><div class="v" data-f="grow"></div></div>
+      <div class="card-row"><div class="k">需要等待 / 转向 / 接纳<small>哪些当前不可直接推动</small></div><div class="v" data-f="wait"></div></div>
+      <div class="card-row"><div class="k">我的下一步<small>「现在行动」里的第一条</small></div><div class="v" data-f="next"></div></div>
+      <div class="card-foot">因缘是流动的：过一段时间，或某个缘变了，回来重新观一次、再排一次——先问「因缘变了吗」，不问「做完了吗」。</div>
+    </div>
+    <div class="step-note" style="margin-top:28px"><b>总结反思</b>——三句话，用自己的话说，不用引法义。</div>
+    <div class="cloze" id="cz-ref">
+      <div class="cl"><span class="no">1</span><div class="pr">画完这张图，哪一条缘是我原来以为必须、现在改了标记的？改了之后，我的用力方式变在哪里？<div class="cell short empty" data-ph="" data-k="r_share"></div></div></div>
+      <div class="cl"><span class="no">2</span><div class="pr">我的心在这件事里是怎么参与的——哪一处把解释当了事实、把偏好当了必要、把控制放大了？<div class="cell short empty" data-ph="" data-k="r_ref2"></div></div></div>
+      <div class="cl"><span class="no">3</span><div class="pr">用一句话说：这一次，「随缘」于我是什么？「进取」于我是什么？<div class="cell short empty" data-ph="" data-k="r_ref3"></div></div></div>
+    </div>
+
+    <div class="step-note" style="margin-top:28px"><b>行动中因缘变化的提醒</b>——卡不是终点。因缘是流动的，过一段时间、或某个缘变了，值得回来把这张图重新看一遍。遇到下面几种情形时：</div>
+    <div class="tbl tM">
+      <div class="tr"><div class="th">遇到</div><div class="th">怎么做</div><div class="th">原文依据</div></div>
+      <div class="tr">
+        <div class="td"><div class="rowname">过了一段时间</div></div>
+        <div class="td" data-label="怎么做"><div class="rowquote">先问「因缘变了吗」，不问「做完了吗」。<small>变了就回到「观」：改标记、加一条缘、或删一条；再「行」一次。路径可以换，愿不必丢。</small></div></div>
+        <div class="td" data-label="原文依据"><div class="rowquote">「世间一切都是缘起的假相，条件具备就存在，条件败坏就消失，所谓'诸法因缘生，诸法因缘灭'。」「世人所说的审时度势，正是随缘的前提。」</div></div>
+      </div>
+      <div class="tr">
+        <div class="td"><div class="rowname">逆缘出现</div></div>
+        <div class="td" data-label="怎么做"><div class="rowquote">四种回应里选一个：坚持、调整、等待、放弃。<small>放下不是失败，是对不可为处停止无效控制；转向是换一条服务同一个愿的路。</small></div></div>
+        <div class="td" data-label="原文依据"><div class="rowquote">「逆缘出现时，安然接纳，知道一切都有前因。」</div></div>
+      </div>
+      <div class="tr">
+        <div class="td"><div class="rowname">顺缘出现</div></div>
+        <div class="td" data-label="怎么做"><div class="rowquote">及时把握——把它加进「现在行动」。<small>机会是给有准备的人的；准备，就是前面那张因缘图。</small></div></div>
+        <div class="td" data-label="原文依据"><div class="rowquote">「顺缘出现时，及时把握，知道机会都是给有准备的人。」</div></div>
+      </div>
+      <div class="tr">
+        <div class="td"><div class="rowname">明知不可为，仍陷在控制里</div></div>
+        <div class="td" data-label="怎么做"><div class="rowquote">回到观心那一问：这个因缘合理吗？有我的无明和执著吗？<small>是事实没看清，是把偏好必要化了，还是把控制范围扩到了他人、环境和时机。</small></div></div>
+        <div class="td" data-label="原文依据"><div class="rowquote">「随缘不是随我……随缘的前提，是跳出自我的感觉。」「你的努力只代表了其中一部分因缘。」</div></div>
+      </div>
+      <div class="tr">
+        <div class="td"><div class="rowname">结果没成</div></div>
+        <div class="td" data-label="怎么做"><div class="rowquote">分开评：判断和行动的质量，与结果的好坏。如果愿是对的，这次的结果就是下一轮的<b>因</b>——把它写进新的「现在卡在哪里」，重新观缘，继续努力。<small>尽力是我的因，成不成还看缘；缘暂时不具足，因不会白种。</small></div></div>
+        <div class="td" data-label="原文依据"><div class="rowquote">「如果相关的缘不具足，因就暂时不会发展为果。」「看清这一点，我们在尽到自己努力之后，就不会有无谓的烦恼了。」</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  </section>
+
+
+
+  <div class="actions">
+    <button id="ex-pdf" type="button">⤓ 导出长图 PDF</button>
+    <button id="ex-png" type="button" class="ghost">⤓ 导出长图 PNG</button>
+    <button id="ex-print" type="button" class="ghost">🖨 打印 / 矢量 PDF</button>
+  </div>
+  <div class="save-notice">内容自动保存在本机浏览器，换设备或清理浏览数据后不保留 · 右下角可导出长图 PDF／PNG，或打印为矢量 PDF<span id="restore-wrap" style="display:none"> · <button id="restore-old" type="button" style="font-family:inherit;font-size:10px;color:var(--accent);background:transparent;border:none;border-bottom:1px dotted var(--accent);cursor:pointer;padding:0;letter-spacing:0.08em">恢复上一版填写的内容</button></span></div>
+
+</div>
+</div>
+
+<script>
+/* ===================== 通用：格子 / 分数 / 芯片 / 镜像 / 对照 / 计时 / 存储 / 页签 / 导出 ===================== */
+(function () {
+  var KEY = 'tx-l15-practice-v4';
+  window.TX = { changed: function () { document.dispatchEvent(new CustomEvent('tx-change')); } };
+
+  /* ---------- 迁移：v3（五行表）→ v4（心态/其他栏），合并式，可手动重跑 ---------- */
+  function migrate(force) {
+    try {
+      var raw3 = localStorage.getItem('tx-l15-practice-v3');
+      if (!raw3) return false;
+      if (!force && localStorage.getItem('tx-l15-migrated-v4')) return false;
+      var d = JSON.parse(raw3) || {};
+      var t = d.d_type || '';
+      var SMAP = t === '做事' ? { s_c4: 's_c5', s_c5: 's_c4' } : t === '关系' ? { s_c4: 's_c6', s_c5: 's_c4' } : t === '修行' ? {} : { s_c5: 's_c6' };
+      var NMAP = t === '做事' ? { n_c3: ['n_c2', 1], n_c4: ['n_c3', 0], n_c5: ['n_c4', 0] } : { n_c4: ['n_c3', 1], n_c5: ['n_c4', 0] };
+      var out = {};
+      Object.keys(d).forEach(function (k) { if (!/^(s_c|n_c)\d$/.test(k)) out[k] = d[k]; });
+      ['s_c1', 's_c2', 's_c3', 's_c4', 's_c5'].forEach(function (k) { var v = (d[k] || '').trim(); if (!v) return; var nk = SMAP[k] || k; out[nk] = out[nk] ? out[nk] + '；' + v : v; });
+      ['n_c1', 'n_c2', 'n_c3', 'n_c4', 'n_c5'].forEach(function (k) { var v = (d[k] || '').trim(); if (!v) return; var m = NMAP[k]; var nk = m ? m[0] : k; out[nk] = out[nk] ? out[nk] + '；' + v : v; });
+      var d4 = {}; try { d4 = JSON.parse(localStorage.getItem('tx-l15-practice-v4') || '{}') || {}; } catch (e) { d4 = {}; }
+      Object.keys(out).forEach(function (k) { var cur = d4[k]; var empty = (cur === undefined || cur === null || (typeof cur === 'string' && !cur.trim())); if (force || empty) d4[k] = out[k]; });
+      localStorage.setItem('tx-l15-practice-v4', JSON.stringify(d4));
+      var st = localStorage.getItem('tx-l15-stage-v3'); if (st && (force || !localStorage.getItem('tx-l15-stage-v4'))) localStorage.setItem('tx-l15-stage-v4', st);
+      var tool = JSON.parse(localStorage.getItem('tx-l15-tool-v3') || 'null');
+      var t4 = null; try { t4 = JSON.parse(localStorage.getItem('tx-l15-tool-v4') || 'null'); } catch (e) {}
+      if (tool && tool.nodes && (force || !t4 || !t4.nodes || !t4.nodes.length)) {
+        var idmap = {}, drop = {};
+        Object.keys(SMAP).forEach(function (k) { idmap['cur' + k.slice(3)] = 'cur' + SMAP[k].slice(3); });
+        Object.keys(NMAP).forEach(function (k) { var m = NMAP[k]; if (m[1]) drop['need' + k.slice(3)] = true; else idmap['need' + k.slice(3)] = 'need' + m[0].slice(3); });
+        tool.nodes = tool.nodes.filter(function (n) { return !drop[n.id]; }).map(function (n) { if (idmap[n.id]) n.id = idmap[n.id]; if (n.id === 'cur5' || n.id === 'need5') n.kind = '心行'; return n; });
+        tool.edges = (tool.edges || []).filter(function (e) { return !drop[e.from] && !drop[e.to]; }).map(function (e) { if (idmap[e.from]) e.from = idmap[e.from]; if (idmap[e.to]) e.to = idmap[e.to]; return e; });
+        localStorage.setItem('tx-l15-tool-v4', JSON.stringify(tool));
+      }
+      localStorage.setItem('tx-l15-migrated-v4', '1');
+      return true;
+    } catch (e) { return false; }
+  }
+  migrate(false);
+
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.cell, .close-area'));
+  cells.forEach(function (el) {
+    el.setAttribute('contenteditable', 'true');
+    function sync() { el.classList.toggle('empty', el.innerText.trim() === ''); }
+    el.addEventListener('input', function () { sync(); schedule(); TX.changed(); });
+    el.addEventListener('blur', sync);
+    el._sync = sync;
+  });
+
+  var MIRROR = { c2_no: 'c1_no' };
+  var dirty = {};
+  function byKey(k) { return document.querySelector('[data-k="' + k + '"]'); }
+  function pushMirror(srcKey) {
+    Object.keys(MIRROR).forEach(function (tk) {
+      if (MIRROR[tk] !== srcKey || dirty[tk]) return;
+      var src = byKey(srcKey), tgt = byKey(tk);
+      if (!src || !tgt) return;
+      tgt.innerText = src.innerText;
+      tgt.classList.toggle('mirrored', tgt.innerText.trim() !== '');
+      if (tgt._sync) tgt._sync();
+    });
+  }
+  function pushAll() { Object.keys(MIRROR).forEach(function (tk) { pushMirror(MIRROR[tk]); }); }
+  cells.forEach(function (el) {
+    var k = el.getAttribute('data-k');
+    el.addEventListener('input', function () { if (MIRROR[k]) { dirty[k] = true; el.classList.remove('mirrored'); } pushMirror(k); });
+  });
+  Array.prototype.slice.call(document.querySelectorAll('.resync')).forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.getAttribute('data-targets').split(',').forEach(function (tk) { dirty[tk] = false; pushMirror(MIRROR[tk]); });
+      schedule();
+    });
+  });
+
+  var pcts = Array.prototype.slice.call(document.querySelectorAll('.pct'));
+  pcts.forEach(function (el) {
+    el.addEventListener('input', function () {
+      var v = el.value.replace(/[^0-9]/g, '').slice(0, 2);
+      if (v !== '' && parseInt(v, 10) > 10) v = '10';
+      el.value = v; refresh(); schedule();
+    });
+  });
+  function val(k) { var el = document.querySelector('.pct[data-k="' + k + '"]'); var n = parseInt(el && el.value, 10); return isNaN(n) ? null : n; }
+
+  var chipGroups = Array.prototype.slice.call(document.querySelectorAll('.chips[data-k]'));
+  function chipVal(grp) { var a = grp.querySelector('.chip.active'); return a ? a.getAttribute('data-v') : ''; }
+  function setChip(grp, v) { Array.prototype.slice.call(grp.querySelectorAll('.chip')).forEach(function (c) { c.classList.toggle('active', c.getAttribute('data-v') === v); }); }
+  chipGroups.forEach(function (grp) {
+    Array.prototype.slice.call(grp.querySelectorAll('.chip')).forEach(function (c) {
+      c.addEventListener('click', function () {
+        var v = c.getAttribute('data-v');
+        setChip(grp, c.classList.contains('active') ? '' : v);
+        refresh(); schedule(); TX.changed();
+      });
+    });
+  });
+  window.TX.chip = function (k) { var g = document.querySelector('.chips[data-k="' + k + '"]'); return g ? chipVal(g) : ''; };
+  window.TX.text = function (k) { var el = byKey(k); return el ? el.innerText.trim() : ''; };
+
+  function refresh() {
+    Array.prototype.slice.call(document.querySelectorAll('.pct-ref')).forEach(function (el) {
+      var v = val(el.getAttribute('data-ref')); el.textContent = '第一遍 ' + (v === null ? '–' : v + '／10');
+    });
+    var got = {};
+    Array.prototype.slice.call(document.querySelectorAll('.cmp-row')).forEach(function (row) {
+      var a = val(row.getAttribute('data-a')), b = val(row.getAttribute('data-b'));
+      var good = row.getAttribute('data-good');
+      row.querySelector('.v').textContent = (a === null ? '–' : a);
+      row.querySelector('.v2').textContent = (b === null ? '–' : b);
+      var dt = row.querySelector('.dt');
+      got[row.getAttribute('data-cmp')] = (a === null || b === null) ? null : b - a;
+      if (a === null || b === null) { dt.textContent = '未填'; dt.className = 'dt same'; return; }
+      var d = b - a;
+      if (d > 0) { dt.textContent = '↑ 多了 ' + d; dt.className = 'dt ' + (good === 'up' ? 'up' : 'down'); }
+      else if (d < 0) { dt.textContent = '↓ 少了 ' + (-d); dt.className = 'dt ' + (good === 'down' ? 'up' : 'down'); }
+      else { dt.textContent = '未变'; dt.className = 'dt same'; }
+    });
+    readC(got);
+  }
+  function readC(got) {
+    var el = document.getElementById('readC'); if (!el) return;
+    var ds = [1, 2, 3, 4, 5, 6].map(function (i) { return got['c_' + i]; });
+    if (ds.some(function (d) { return d === null || d === undefined; })) { el.innerHTML = '六圈的数都给了，这里会读出半径。'; return; }
+    var names = ['家人', '朋友', '同事熟人', '陌生人', '讨厌或伤害过我的人', '动物与其他众生'];
+    var outer = ds.slice(3).some(function (d) { return d > 0; });
+    var anyUp = ds.some(function (d) { return d > 0; });
+    var far = -1; ds.forEach(function (d, i) { if (d > 0) far = i; });
+    if (!anyUp) el.innerHTML = '六圈一分没动——也是一个真实的答案。「只要还有一个众生是你不愿帮助的，就说明慈悲尚未圆满」：看见这条线在哪里，就是这一步。';
+    else if (outer) el.innerHTML = '半径推到了「<b>' + names[far] + '</b>」这一圈——从缘起看见一体之后，亲疏的边界松了一格。这就是<b>无缘</b>：对众生平等看待，没有亲疏之别。';
+    else el.innerHTML = '动的都在里面三圈——内圈更暖了，但外圈没动。再看那个「我不愿意帮的」人：TA 的网和我的，到底在哪里连着？';
+  }
+
+  function save() {
+    try {
+      var d = {};
+      cells.forEach(function (el) { d[el.getAttribute('data-k')] = el.innerText; });
+      pcts.forEach(function (el) { d[el.getAttribute('data-k')] = el.value; });
+      chipGroups.forEach(function (g) { d[g.getAttribute('data-k')] = chipVal(g); });
+      d.__dirty = dirty; d.name = document.getElementById('f-name').value; d.date = document.getElementById('f-date').value;
+      localStorage.setItem(KEY, JSON.stringify(d));
+    } catch (e) {}
+  }
+  function load() {
+    var d = null;
+    try { d = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    if (d) {
+      if (d.__dirty && typeof d.__dirty === 'object') dirty = d.__dirty;
+      cells.forEach(function (el) { var v = d[el.getAttribute('data-k')]; if (typeof v === 'string') el.innerText = v; });
+      pcts.forEach(function (el) { var v = d[el.getAttribute('data-k')]; if (typeof v === 'string') el.value = v; });
+      chipGroups.forEach(function (g) { var v = d[g.getAttribute('data-k')]; if (typeof v === 'string') setChip(g, v); });
+      if (d.name) document.getElementById('f-name').value = d.name;
+      if (d.date) document.getElementById('f-date').value = d.date;
+    }
+    cells.forEach(function (el) { el._sync(); });
+    Object.keys(MIRROR).forEach(function (tk) { var t = byKey(tk); if (t && !dirty[tk] && t.innerText.trim() !== '') t.classList.add('mirrored'); });
+    pushAll(); refresh();
+  }
+  var timer; function schedule() { clearTimeout(timer); timer = setTimeout(save, 900); }
+  document.getElementById('f-name').addEventListener('input', schedule);
+  document.getElementById('f-date').addEventListener('change', schedule);
+
+  Array.prototype.slice.call(document.querySelectorAll('.tab')).forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (b) { b.classList.remove('active'); });
+      document.querySelectorAll('.pane').forEach(function (pn) { pn.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(btn.getAttribute('data-pane')).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  Array.prototype.slice.call(document.querySelectorAll('.timer')).forEach(function (box) {
+    var chips = Array.prototype.slice.call(box.querySelectorAll('.tchip'));
+    var start = box.querySelector('.tstart'), disp = box.querySelector('.timer-disp');
+    var len = 30, left = 30, tick = null;
+    function show() { var m = Math.floor(left / 60), s = left % 60; disp.textContent = m + ':' + (s < 10 ? '0' : '') + s; }
+    function stop(label) { if (tick) { clearInterval(tick); tick = null; } start.textContent = label || '开始静默'; }
+    chips.forEach(function (c) { c.addEventListener('click', function () { chips.forEach(function (x) { x.classList.remove('active'); }); c.classList.add('active'); len = parseInt(c.getAttribute('data-sec'), 10); left = len; stop('开始静默'); show(); }); });
+    start.addEventListener('click', function () {
+      if (tick) { left = len; stop('开始静默'); show(); return; }
+      start.textContent = '停止';
+      tick = setInterval(function () { left--; show(); if (left <= 0) { stop('再来一次'); left = len; disp.textContent = '圆满'; } }, 1000);
+    });
+    show();
+  });
+
+  load();
+  window.TX.loaded = true;
+  try { if (localStorage.getItem('tx-l15-practice-v3')) document.getElementById('restore-wrap').style.display = ''; } catch (e) {}
+  document.getElementById('restore-old').addEventListener('click', function () { if (migrate(true)) location.reload(); });
+
+  /* ---------- 渐进展开：阶段折叠 ---------- */
+  var STAGE_KEY = 'tx-l15-stage-v4';
+  var stageEls = Array.prototype.slice.call(document.querySelectorAll('#pane1 .stage'));
+  stageEls.forEach(function (st, i) {
+    var head = st.querySelector('.stage-head');
+    var body = document.createElement('div'); body.className = 'stage-body';
+    Array.prototype.slice.call(st.children).filter(function (c) { return c !== head; }).forEach(function (c) { body.appendChild(c); });
+    st.appendChild(body);
+    var tog = document.createElement('span'); tog.className = 'tog'; head.appendChild(tog);
+    var nx = stageEls[i + 1], pv = stageEls[i - 1];
+    var bar = document.createElement('div'); bar.className = 'stage-next';
+    if (pv) { var pb = document.createElement('button'); pb.className = 'gbtn prev'; pb.type = 'button'; pb.textContent = '← 上一步：' + pv.querySelector('.stage-title').firstChild.textContent.trim(); pb.addEventListener('click', function () { openStage(pv); }); bar.appendChild(pb); }
+    var b = document.createElement('button'); b.className = 'gbtn'; b.type = 'button';
+    if (nx) { b.textContent = (i === 0 ? '开始：' : '下一步：') + nx.querySelector('.stage-title').firstChild.textContent.trim() + ' →'; b.addEventListener('click', function () { st.classList.add('done'); openStage(nx); }); }
+    else { b.textContent = '完成 · 回到顶部 ↑'; b.addEventListener('click', function () { st.classList.add('done'); window.scrollTo({ top: 0, behavior: 'smooth' }); }); }
+    bar.appendChild(b); body.appendChild(bar);
+
+  });
+  function openStage(st) {
+    stageEls.forEach(function (x) { x.classList.toggle('collapsed', x !== st); });
+    Array.prototype.slice.call(document.querySelectorAll('#snav a')).forEach(function (a) { a.classList.toggle('cur', a.getAttribute('href') === '#' + st.id); a.classList.toggle('done', document.querySelector(a.getAttribute('href')).classList.contains('done')); });
+    try { localStorage.setItem(STAGE_KEY, st.id); } catch (e) {}
+    setTimeout(function () { window.scrollTo({ top: document.getElementById('snav').offsetTop - 8, behavior: 'smooth' }); }, 30);
+  }
+  (function () {
+    var cur = null; try { cur = localStorage.getItem(STAGE_KEY); } catch (e) {}
+    var open = (cur && document.getElementById(cur)) || document.getElementById('st0');
+    stageEls.forEach(function (x) { x.classList.toggle('collapsed', x !== open); });
+    Array.prototype.slice.call(document.querySelectorAll('#snav a')).forEach(function (a) { a.classList.toggle('cur', a.getAttribute('href') === '#' + open.id); });
+  })();
+  Array.prototype.slice.call(document.querySelectorAll('#snav a')).forEach(function (a) {
+    a.addEventListener('click', function (ev) { ev.preventDefault(); var st = document.querySelector(a.getAttribute('href')); if (st) openStage(st); });
+  });
+
+  /* ---------- 渐进展开：一题答完展开下一题 ---------- */
+  var REV_KEY = 'tx-l15-reveal-v4', REV = {};
+  try { REV = JSON.parse(localStorage.getItem(REV_KEY) || '{}') || {}; } catch (e) {}
+  function saveRev() { try { localStorage.setItem(REV_KEY, JSON.stringify(REV)); } catch (e) {} }
+  var chains = [];
+  var ADD_KEY = 'tx-l15-addrows-v4', ADD = {};
+  try { ADD = JSON.parse(localStorage.getItem(ADD_KEY) || '{}') || {}; } catch (e) {}
+  function saveAdd() { try { localStorage.setItem(ADD_KEY, JSON.stringify(ADD)); } catch (e) {} }
+  Array.prototype.slice.call(document.querySelectorAll('#pane1 .cloze')).forEach(function (cz, ci) {
+    var items = [];
+    Array.prototype.slice.call(cz.children).forEach(function (cl) {
+      if (!cl.classList.contains('cl')) return;
+      if (cl.classList.contains('part')) { items.push({ el: cl, wrap: true }); return; }
+      var tbl = cl.querySelector('.tbl');
+      items.push(tbl ? { el: cl, tbl: tbl } : { el: cl });
+    });
+    items.forEach(function (it, k) {
+      it.el.classList.add('pi'); it.id = 'c' + ci + '_' + k;
+      if (it.wrap) return;
+      var host;
+      if (it.tbl) {
+        host = document.createElement('div'); host.className = 'addbar';
+        host.innerHTML = '<span class="addlab">＋ 再加一类：</span><span class="addchips"></span>';
+        it.tbl.parentNode.insertBefore(host, it.tbl.nextSibling); it.addbar = host;
+      } else host = it.el.querySelector('.pr') || it.el;
+      var sk = document.createElement('div'); sk.className = 'pi-skip';
+      var bt = document.createElement('button'); bt.type = 'button'; bt.textContent = it.tbl ? '写够了，下一题 ↓' : '先跳过，下一题 ↓';
+      bt.addEventListener('click', function () { REV[it.id] = 1; saveRev(); update(); });
+      sk.appendChild(bt); host.appendChild(sk); it.skip = sk;
+    });
+    chains.push(items);
+  });
+  function answered(it) {
+    if (it.wrap) return true;
+    var c = Array.prototype.slice.call(it.el.querySelectorAll('.cell')).some(function (x) { return x.innerText.trim() !== ''; });
+    var ch = Array.prototype.slice.call(it.el.querySelectorAll('.chips')).some(function (g) { return g.querySelector('.chip.active'); });
+    return c || ch || !!REV[it.id];
+  }
+  function rowsOf(it) {
+    var rows = Array.prototype.slice.call(it.tbl.querySelectorAll('.tr')).slice(1);
+    var chips = it.addbar.querySelector('.addchips'); chips.innerHTML = '';
+    rows.forEach(function (r, i) {
+      var cells = r.querySelectorAll('.cell'), cell = cells.length ? cells[cells.length - 1] : null, key = cell ? cell.getAttribute('data-k') : ('r' + i);
+      var nameCell = cells.length > 1 ? cells[0] : null;
+      var has = (cell && cell.innerText.trim() !== '') || (nameCell && nameCell.innerText.trim() !== '');
+      var show = i === 0 || has || !!ADD[key];
+      r.classList.toggle('roff', !show);
+      if (show && i > 0 && !r.querySelector('.row-del')) {
+        var del = document.createElement('button'); del.type = 'button'; del.className = 'row-del'; del.textContent = '✕ 去掉这类'; del.title = '误加的可以去掉；写过的内容会一起清空';
+        del.addEventListener('click', function () {
+          Array.prototype.slice.call(r.querySelectorAll('.cell')).forEach(function (x) { x.innerText = ''; x.dispatchEvent(new Event('input')); });
+          ADD[key] = 0; saveAdd(); update();
+        });
+        r.firstElementChild.appendChild(del);
+      }
+      if (!show) {
+        var c = document.createElement('button'); c.type = 'button'; c.className = 'chip';
+        var nm = r.querySelector('.rowname'); var lb = nm ? nm.innerText.replace(/^心行 · /, '').trim() : ''; c.textContent = lb || '其他';
+        c.addEventListener('click', function () { ADD[key] = 1; saveAdd(); update(); if (cell) cell.focus(); });
+        chips.appendChild(c);
+      }
+    });
+    it.addbar.querySelector('.addlab').style.display = chips.children.length ? '' : 'none';
+  }
+  function update() {
+    chains.forEach(function (items, ci) {
+      var open = true;
+      items.forEach(function (it, k) {
+        var vis = k === 0 || open;
+        it.el.classList.toggle('hid', !vis);
+        if (it.tbl) rowsOf(it);
+        if (it.skip) it.skip.style.display = (vis && !answered(it)) ? '' : 'none';
+        open = vis ? answered(it) : false;
+      });
+      var cz = items.length ? items[0].el.closest('.cloze') : null;
+      if (cz && cz.id) Array.prototype.slice.call(document.querySelectorAll('.reveal[data-after="' + cz.id + '"]')).forEach(function (r) { r.classList.toggle('hid', !open); });
+    });
+  }
+  window.TX.updateReveal = update;
+  document.addEventListener('tx-change', update);
+  update();
+
+  /* export */
+  var CDN = { h2c: 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', pdf: 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js' };
+  function loadScript(src) { return new Promise(function (ok, no) { var el = document.createElement('script'); el.src = src; el.onload = ok; el.onerror = function () { no(new Error('加载失败')); }; document.head.appendChild(el); }); }
+  window.TX.loadScript = loadScript; window.TX.CDN = CDN;
+  var panes = Array.prototype.slice.call(document.querySelectorAll('.pane'));
+  var page = document.querySelector('.page'); var MAXPX = 15000;
+  function shotPane(i) {
+    panes.forEach(function (pn, j) { pn.classList.toggle('active', j === i); });
+    var w = page.scrollWidth, h = page.scrollHeight;
+    var scale = Math.max(1, Math.min(4, MAXPX / h, MAXPX / w));
+    return html2canvas(page, { scale: scale, backgroundColor: '#faf7f2', useCORS: true, logging: false, windowWidth: w, width: w, height: h }).then(function (cv) { return { canvas: cv, scale: scale }; });
+  }
+  function withExportMode(job) {
+    var active = panes.map(function (pn) { return pn.classList.contains('active'); }); var scrollY = window.scrollY;
+    document.body.classList.add('exporting'); window.scrollTo(0, 0);
+    return (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(job)
+      .then(function (r) { restore(); return r; }, function (e) { restore(); throw e; });
+    function restore() { document.body.classList.remove('exporting'); panes.forEach(function (pn, j) { pn.classList.toggle('active', active[j]); }); window.scrollTo(0, scrollY); }
+  }
+  function busy(btn, text) { var old = btn.textContent; btn.disabled = true; btn.textContent = text; return function (msg) { btn.textContent = msg || old; setTimeout(function () { btn.disabled = false; btn.textContent = old; }, msg ? 2600 : 0); }; }
+  document.getElementById('ex-pdf').addEventListener('click', function () {
+    var btn = this, done = busy(btn, '生成中…');
+    Promise.all([loadScript(CDN.h2c), loadScript(CDN.pdf)]).then(function () {
+      return withExportMode(function () {
+        var doc = null;
+        return panes.reduce(function (chain, _, i) {
+          return chain.then(function () { return shotPane(i).then(function (r) {
+            var w = r.canvas.width / r.scale, h = r.canvas.height / r.scale; var img = r.canvas.toDataURL('image/jpeg', 0.95);
+            if (!doc) doc = new window.jspdf.jsPDF({ unit: 'px', hotfixes: ['px_scaling'], format: [w, h] }); else doc.addPage([w, h]);
+            doc.addImage(img, 'JPEG', 0, 0, w, h);
+          }); });
+        }, Promise.resolve()).then(function () { doc.save('第十五课·班修练习.pdf'); });
+      });
+    }).then(function () { done(); }, function () { done('导出失败'); });
+  });
+  document.getElementById('ex-png').addEventListener('click', function () {
+    var btn = this, done = busy(btn, '生成中…');
+    loadScript(CDN.h2c).then(function () {
+      return withExportMode(function () {
+        var names = ['缘起式行动工具'];
+        return panes.reduce(function (chain, _, i) {
+          return chain.then(function () { return shotPane(i).then(function (r) { var a = document.createElement('a'); a.href = r.canvas.toDataURL('image/png'); a.download = '第十五课·' + names[i] + '.png'; a.click(); }); });
+        }, Promise.resolve());
+      });
+    }).then(function () { done(); }, function () { done('导出失败'); });
+  });
+  document.getElementById('ex-print').addEventListener('click', function () { window.print(); });
+})();
+
+/* ===================== 工具：类型提示 / 因缘网络 / 观心 / 辨缘 / 时间线 / 行动卡 ===================== */
+(function () {
+  var KEY = 'tx-l15-tool-v4';
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var W = 680, H = 440, CX = 340, CY = 220;
+  var EDGE_COLOR = { '促进': '#5a7a52', '阻碍': '#a8503a' };
+  var DIMS = [['nature', '性质', ['心行', '行动']], ['dir', '方向', ['阻碍目标', '助力目标']]];
+  function dirColor(n) { return n.dir === '阻碍目标' ? '#a8503a' : '#5a7a52'; }
+  function normNode(n) {
+    if (n.dir === '问题的原因') n.dir = '阻碍目标'; if (n.dir === '导向目标') n.dir = '助力目标';
+    if (!n.role) n.role = n.kind === '主因' ? '主因' : '助缘';
+    if (!n.nature) n.nature = n.kind === '心行' ? '心行' : '行动';
+    if (!n.dir) n.dir = (/^(cur|h)/.test(n.id) || n.kind === '阻缘') ? '阻碍目标' : '助力目标';
+    if (!n.src) n.src = n.nature === '心行' ? '内部' : '外部';
+    n.kind = n.nature === '心行' ? '心行' : n.role; return n;
+  }
+  var MARKS = ['关键缘', '待验证', '一条路径', '并非必要', '阻缘'];
+  var BUCKETS = ['现在行动', '接下来', '持续培育', '等待时机', '转向', '接纳放下'];
+  var MINDQ = {
+    '做事': '这是事实，还是我的解释？它是必要条件，还是我特别想要的一条路？我的控制，是否在制造新的阻缘？',
+    '关系': '这是我看见的事实，还是我的解释——TA 自己怎么说？这真是关系的必要条件，还是我对回馈的期待？TA 的感受、选择、节奏，属于谁的因缘？',
+    '修行': '这是修行的事实，还是我对「修得好」的想象？这个标准真是必要的，还是被我必要化了？我对境界、时长的执著，是助缘还是阻缘？'
+  };
+  var S = { nodes: [], edges: [], sel: null, selEdge: null, link: false, linkFrom: null, seq: 1 };
+
+  function $(id) { return document.getElementById(id); }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify({ nodes: S.nodes, edges: S.edges, seq: S.seq })); } catch (e) {} }
+  function load() { try { var d = JSON.parse(localStorage.getItem(KEY) || 'null'); if (d) { S.nodes = (d.nodes || []).map(normNode); S.edges = d.edges || []; S.seq = d.seq || 1; } } catch (e) {} }
+  function type() { return TX.chip('d_type'); }
+  function typeKey() { return { '做事': 'do', '关系': 'rel', '修行': 'pr' }[type()] || 'none'; }
+  function node(id) { for (var i = 0; i < S.nodes.length; i++) if (S.nodes[i].id === id) return S.nodes[i]; return null; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  /* ---- type-dependent text ---- */
+  function applyType() {
+    var k = typeKey();
+    Array.prototype.slice.call(document.querySelectorAll('.tt')).forEach(function (el) {
+      var t = el.getAttribute('data-' + k); if (t === null) t = el.getAttribute('data-none') || '';
+      el.innerHTML = t;
+      var box = el.closest('.tt-box'); if (box) box.style.display = t ? '' : 'none';
+    });
+    Array.prototype.slice.call(document.querySelectorAll('[data-ph-do]')).forEach(function (el) {
+      var t = el.getAttribute('data-ph-' + k); if (t !== null) el.setAttribute('data-ph', t);
+    });
+  }
+
+  /* ---- graph ---- */
+  var svg = $('gsvg');
+  function el(tag, attrs, parent) { var e = document.createElementNS(SVG_NS, tag); for (var a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+  function lines(n) {
+    var per = n.id === 'C' ? 14 : 11, s = String(n.name || '').replace(/\s+/g, ' ').trim();
+    if (s.length <= per) return [s];
+    var a = s.slice(0, per), b = s.slice(per);
+    if (b.length > per) b = b.slice(0, per - 1) + '…';
+    return [a, b];
+  }
+  function nodeW(n) { var ls = lines(n), len = Math.max.apply(null, ls.map(function (x) { return x.length; })); return Math.max(64, 18 + len * 13); }
+  function nodeH(n) { return lines(n).length > 1 ? 46 : 30; }
+  function label(n) { return lines(n).join(''); }
+  function center() { return { id: 'C', name: TX.text('d_outcome') || TX.text('d_thing') || '要促成的结果', kind: '结果', x: CX, y: CY }; }
+  function allNodes() { return [center()].concat(S.nodes); }
+  function pos(id) { if (id === 'C') return center(); return node(id); }
+  function edgeEnd(a, b) {  // point on b's rect border toward a
+    var w = nodeW(b) / 2 + 3, h = nodeH(b) / 2 + 3, dx = a.x - b.x, dy = a.y - b.y;
+    if (dx === 0 && dy === 0) return { x: b.x, y: b.y };
+    var s = Math.min(Math.abs(dx) > 0 ? w / Math.abs(dx) : 1e9, Math.abs(dy) > 0 ? h / Math.abs(dy) : 1e9);
+    return { x: b.x + dx * s, y: b.y + dy * s };
+  }
+  function render() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var defs = el('defs', {}, svg);
+    Object.keys(EDGE_COLOR).forEach(function (t) {
+      var m = el('marker', { id: 'arr-' + t, viewBox: '0 0 10 10', refX: '9', refY: '5', markerWidth: '7', markerHeight: '7', orient: 'auto-start-reverse' }, defs);
+      el('path', { d: 'M0,0 L10,5 L0,10 z', fill: EDGE_COLOR[t] }, m);
+    });
+    el('rect', { x: 0, y: 0, width: W, height: H, fill: '#ffffff' }, svg).addEventListener('pointerdown', function () { S.sel = null; S.selEdge = null; render(); panel(); });
+    // edges
+    S.edges.forEach(function (e) {
+      var a = pos(e.from), b = pos(e.to); if (!a || !b) return;
+      var p1 = edgeEnd(b, a), p2 = edgeEnd(a, b);
+      var srcN = node(e.from); var et = srcN ? (srcN.dir === '阻碍目标' ? '阻碍' : '促进') : e.type; e.type = et;
+      var ln = el('line', { x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y, stroke: EDGE_COLOR[et], 'stroke-width': S.selEdge === e.id ? 4 : 2, 'marker-end': 'url(#arr-' + et + ')', cursor: 'pointer' }, svg);
+      el('line', { x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y, stroke: 'transparent', 'stroke-width': 14, cursor: 'pointer' }, svg).addEventListener('pointerdown', function (ev) { ev.stopPropagation(); S.selEdge = e.id; S.sel = null; render(); panel(); });
+    });
+    // nodes
+    allNodes().forEach(function (n) {
+      var w = nodeW(n), h = nodeH(n), ls = lines(n), g = el('g', { transform: 'translate(' + n.x + ',' + n.y + ')', cursor: n.id === 'C' ? 'default' : 'grab' }, svg);
+      el('title', {}, g).textContent = String(n.name || '');
+      var isSel = S.sel === n.id, isFrom = false;
+      var isC = n.id === 'C';
+      el('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: n.nature === '心行' ? 15 : 4, fill: isC ? '#fff8e8' : '#fff', stroke: isC ? '#c9a96e' : dirColor(n), 'stroke-width': isSel ? 3.5 : (isC ? 2.5 : 1.6), opacity: n.mark === '并非必要' ? 0.5 : 1 }, g);
+      var tx = el('text', { x: 0, y: ls.length > 1 ? -3.5 : 4.5, 'text-anchor': 'middle', 'font-size': n.id === 'C' ? 13 : 12, 'font-family': "'Noto Serif SC', serif", 'font-weight': n.id === 'C' ? 600 : 400, fill: n.nature === '心行' ? '#4a4560' : '#2a2118' }, g);
+      ls.forEach(function (t, li) { var ts = el('tspan', { x: 0, dy: li === 0 ? 0 : 16 }, tx); ts.textContent = t; });
+      if (n.mark) { var t = el('text', { x: w / 2 + 3, y: -h / 2 - 3, 'font-size': 9, fill: dirColor(n), 'font-family': "'Noto Sans SC', sans-serif" }, g); t.textContent = n.mark; }
+      if (n.id !== 'C' && n.mark0 && n.mark && n.mark !== n.mark0) el('circle', { cx: -w / 2, cy: -h / 2, r: 4, fill: '#c9a96e' }, g);
+      attachDrag(g, n);
+    });
+  }
+  function msg(t) { $('gmsg').textContent = t; }
+  function svgPoint(ev) { var pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; var m = svg.getScreenCTM(); return m ? pt.matrixTransform(m.inverse()) : { x: 0, y: 0 }; }
+  var drag = null;
+  function attachDrag(g, n) {
+    g.addEventListener('pointerdown', function (ev) {
+      ev.stopPropagation(); ev.preventDefault();
+      drag = { n: n, start: svgPoint(ev), moved: false };
+    });
+  }
+  window.addEventListener('pointermove', function (ev) {
+    if (!drag || drag.n.id === 'C') return;
+    var p = svgPoint(ev);
+    if (!drag.moved && Math.abs(p.x - drag.start.x) + Math.abs(p.y - drag.start.y) < 4) return;
+    drag.moved = true; drag.n.x = Math.max(30, Math.min(W - 30, p.x)); drag.n.y = Math.max(18, Math.min(H - 18, p.y)); render();
+  });
+  window.addEventListener('pointerup', function () {
+    if (!drag) return; var d = drag; drag = null;
+    if (d.moved) { save(); return; }
+    onClick(d.n);
+  });
+  function onClick(n) { S.sel = n.id; S.selEdge = null; render(); panel(); }
+  $('g-layout').addEventListener('click', function () {
+    var n = S.nodes.length; S.nodes.forEach(function (nd, i) { var ang = -Math.PI / 2 + i * (Math.PI * 2 / n); nd.x = Math.round(CX + Math.cos(ang) * 200); nd.y = Math.round(CY + Math.sin(ang) * 150); });
+    save(); render();
+  });
+  function addHeart(name, parentId) {
+    var pn = node(parentId) || center();
+    var k = S.nodes.filter(function (x) { return x.kind === '心行'; }).length;
+    var n = normNode({ id: 'h' + (S.seq++), name: name, kind: '心行', role: '助缘', nature: '心行', src: '内部', dir: '阻碍目标', mark: '', mark0: '', x: Math.max(40, Math.min(W - 40, pn.x + 70 + (k % 2) * 30)), y: Math.max(20, Math.min(H - 20, pn.y + 52)), mind: ['', '', ''], imp: '', act: '', bucket: '', plan: '', when: '' });
+    S.nodes.push(n); S.edges.push({ id: 'e' + (S.seq++), from: n.id, to: parentId, type: '阻碍' });
+    save(); render(); rest(); return n;
+  }
+  var REL2MARK = { '唯一的路': '关键缘', '一条路径': '一条路径', '其实不必要': '并非必要' };
+  function ensure(id, name, spec, place) {
+    var n = node(id);
+    if (!name) { if (n) { S.nodes = S.nodes.filter(function (x) { return x.id !== id; }); S.edges = S.edges.filter(function (e) { return e.from !== id && e.to !== id; }); } return null; }
+    var short = name;
+    if (!n) {
+      n = normNode({ id: id, name: short, role: spec.role || '助缘', nature: spec.nature, src: spec.src, dir: spec.dir, mark: '', mark0: '', x: place.x, y: place.y, mind: ['', '', ''], imp: '', act: '', bucket: '', plan: '', when: '' });
+      S.nodes.push(n);
+      S.edges.push({ id: 'e' + (S.seq++), from: id, to: 'C', type: spec.dir === '阻碍目标' ? '阻碍' : '促进' });
+    } else if (!n.renamed) { n.name = short; }
+    return n;
+  }
+  function syncNodes() {
+    var SRC = { '做事': [['外部', '内部', '外部', '外部', '内部', '内部'], ['内部', '外部', '外部', '外部', '内部', '内部']], '关系': [['外部', '外部', '内部', '外部', '内部', '内部'], ['内部', '外部', '外部', '外部', '内部', '内部']], '修行': [['内部', '外部', '外部', '内部', '内部', '内部'], ['内部', '内部', '外部', '外部', '内部', '内部']] };
+    var sm = SRC[type()] || SRC['做事'];
+    var o = ensure('orig', TX.text('d_thing'), { nature: '行动', src: '外部', dir: '助力目标' }, { x: CX - 210, y: CY - 120 });
+    if (o) { var m = REL2MARK[TX.chip('d_rel')] || ''; if (!(o.mark0 && o.mark !== o.mark0)) { o.mark = m; o.mark0 = m; } }
+    [1, 2, 3, 4, 5, 6].forEach(function (i) { var ang = Math.PI * 0.58 + (i - 1) * 0.2; ensure('cur' + i, TX.text('s_c' + i), { nature: i === 5 ? '心行' : '行动', src: sm[0][i - 1], dir: '阻碍目标' }, { x: Math.round(CX + Math.cos(ang) * 225), y: Math.round(CY + Math.sin(ang) * 160) }); });
+    [1, 2, 3, 4, 5, 6].forEach(function (i) { var ang = -Math.PI * 0.46 + (i - 1) * 0.2; ensure('need' + i, TX.text('n_c' + i), { nature: i === 5 ? '心行' : '行动', src: sm[1][i - 1], dir: '助力目标' }, { x: Math.round(CX + Math.cos(ang) * 225), y: Math.round(CY + Math.sin(ang) * 160) }); });
+    save();
+  }
+  function refOutcome() {
+    var t = TX.text('d_outcome') || TX.text('d_thing');
+    Array.prototype.slice.call(document.querySelectorAll('[data-ref-outcome]')).forEach(function (el) { if (t) el.textContent = t; el.classList.toggle('none', !t); });
+  }
+
+  /* ---- panel ---- */
+  function panel() {
+    var p = $('gpanel');
+    if (S.selEdge) {
+      var e = null; S.edges.forEach(function (x) { if (x.id === S.selEdge) e = x; });
+      if (!e) { S.selEdge = null; return panel(); }
+      p.innerHTML = '<h4>连线</h4><div>' + esc(label(pos(e.from) || {})) + ' <b>—' + e.type + '→</b> ' + esc(label(pos(e.to) || {})) + '</div><div class="lab">线的颜色由起点的「方向」决定：阻碍目标＝红，助力目标＝绿。</div><div class="lab">&nbsp;</div><button class="gbtn danger" id="p-del-edge" type="button">删除连线</button>';
+      $('p-del-edge').addEventListener('click', function () { S.edges = S.edges.filter(function (x) { return x.id !== e.id; }); S.selEdge = null; save(); render(); panel(); });
+      return;
+    }
+    if (S.sel === 'C') { p.innerHTML = '<h4>要促成的结果</h4><div class="empty-hint">中心节点来自「定愿」第 6 行「要促成的结果」，改那一格即可。<br><br>定愿时的检验：<b>如果第 1 行那件事没发生，但愿以别的方式实现了</b>——' + (esc(TX.chip('d_ifnot')) || '还没回答') + '</div>'; return; }
+    var n = node(S.sel);
+    if (!n) { p.innerHTML = '<div class="empty-hint">还没有选中节点。<br>点图上任一条缘，在这里答一句观心。<br><br>图上的缘来自：定愿第 1 行那件事、定愿里的现状条件、上面的促成条件。</div>'; return; }
+    var qs = MINDQ[type()] || MINDQ['做事'];
+    p.innerHTML = '<h4>观心 · 这一条缘</h4>' +
+      '<div class="lab">名称</div><input type="text" id="p-name" value="' + esc(n.name) + '">' +
+      DIMS.map(function (d) { return '<div class="lab">' + d[1] + '</div><div class="chips p-dim" data-dim="' + d[0] + '">' + d[2].map(function (v) { return '<button class="chip' + (n[d[0]] === v ? ' active' : '') + '" data-v="' + v + '" type="button">' + v + '</button>'; }).join('') + '</div>'; }).join('') +
+      (n.dir === '助力目标'
+        ? '<div class="mq">进一步审视：这个因缘<b>合理吗</b>？有我的<b>无明和执著</b>吗？</div><div class="lab" style="margin-top:2px;line-height:1.6;letter-spacing:0">' + qs + '</div><textarea id="p-m0" style="min-height:72px">' + esc(n.mind[0]) + '</textarea>'
+        : '<div class="lab" style="line-height:1.6;letter-spacing:0">这一问只对「助力目标」的缘提。若这条阻碍其实是我在维持它，可把方向改为助力目标后再审视。</div>') +
+      '<div class="lab">反观之后，这条缘其实是——' + (n.mark0 ? '<span style="color:var(--accent)">初判：' + esc(n.mark0) + '</span>' : '') + '</div><div class="chips" id="p-mark">' + MARKS.map(function (m) { return '<button class="chip' + (n.mark === m ? ' active' : '') + '" data-v="' + m + '" type="button">' + m + '</button>'; }).join('') + '</div>' +
+      '<div class="lab">心本身成为缘</div><div class="row"><input type="text" id="p-heart" placeholder="例：必须得到它的执著 → 焦虑 → 反复检查" style="flex:1;min-width:120px"><button class="gbtn" id="p-add-heart" type="button">加入网络</button></div>' +
+      '<div class="lab">&nbsp;</div><button class="gbtn danger" id="p-del" type="button">删除这条缘</button>';
+    $('p-name').addEventListener('input', function () { n.name = this.value; n.renamed = true; save(); render(); rest(); });
+    Array.prototype.slice.call(p.querySelectorAll('.p-dim')).forEach(function (grp) { var dim = grp.getAttribute('data-dim'); Array.prototype.slice.call(grp.querySelectorAll('.chip')).forEach(function (c) { c.addEventListener('click', function () { n[dim] = c.getAttribute('data-v'); normNode(n); save(); render(); panel(); rest(); }); }); });
+    if ($('p-m0')) $('p-m0').addEventListener('input', function () { n.mind[0] = this.value; save(); corr(); });
+    Array.prototype.slice.call($('p-mark').querySelectorAll('.chip')).forEach(function (c) {
+      c.addEventListener('click', function () {
+        var v = c.getAttribute('data-v'); var nv = n.mark === v ? '' : v;
+        if (nv && !n.mark0) n.mark0 = nv;
+        n.mark = nv; save(); render(); panel(); rest();
+      });
+    });
+    $('p-add-heart').addEventListener('click', function () {
+      var v = $('p-heart').value.trim(); if (!v) return;
+      addHeart(v, n.id); $('p-heart').value = ''; render(); panel();
+    });
+    $('p-del').addEventListener('click', function () {
+      S.nodes = S.nodes.filter(function (x) { return x.id !== n.id; }); S.edges = S.edges.filter(function (e) { return e.from !== n.id && e.to !== n.id; });
+      if (/^(orig|cur\d|need\d)$/.test(n.id)) { var srcKey = n.id === 'orig' ? 'd_thing' : (n.id.charAt(0) === 'c' ? 's_c' + n.id.slice(3) : 'n_c' + n.id.slice(4)); var src = document.querySelector('[data-k="' + srcKey + '"]'); if (src) { src.innerText = ''; src.dispatchEvent(new Event('input')); } }
+      S.sel = null; save(); render(); panel(); rest();
+    });
+  }
+
+  function refs() {
+    var pu = TX.text('d_purpose'), th = TX.text('d_thing');
+    var rp = $('ref-purpose'), rt = $('ref-thing');
+    rp.textContent = pu || '我的愿'; rp.classList.toggle('none', !pu);
+    rt.textContent = th || '……'; rt.classList.toggle('none', !th);
+  }
+
+  /* ---- 校正记录 ---- */
+  function corr() {
+    var fix = S.nodes.filter(function (n) { return n.mark0 && n.mark && n.mark !== n.mark0; }).length;
+    var heart = S.nodes.filter(function (n) { return n.nature === '心行'; }).length;
+    var mind = S.nodes.filter(function (n) { return n.mind.some(function (t) { return t.trim(); }); }).length;
+    $('corr').querySelector('[data-c="fix"]').textContent = fix;
+    $('corr').querySelector('[data-c="heart"]').textContent = heart;
+    $('corr').querySelector('[data-c="mind"]').textContent = mind;
+  }
+
+  /* ---- 行 · 择缘与安排 ---- */
+  function quadOf(n) { if (!n.imp || !n.act) return ''; return (n.imp === '高' ? 'h' : 'l') + (n.act === '高' ? 'h' : 'l'); }
+  var QNAME = { hh: '优先造缘', hl: '影响·培育·等待·转向·接纳', lh: '谨慎投入', ll: '放下或不投入' };
+  var QHINT = { hh: '关键缘：<em>现在行动</em>，或等一个前置条件后<em>接下来</em>做', hl: '重要但推不动：<em>持续培育</em>、<em>等待时机</em>、<em>转向</em>别的路径，或<em>接纳放下</em>', lh: '容易做但价值有限：放到<em>接下来</em>，或不投入', ll: '<em>接纳放下</em>，不投入' };
+  function renderPlan() {
+    var t = $('ptbl'); Array.prototype.slice.call(t.querySelectorAll('.tr:not(:first-child)')).forEach(function (r) { r.remove(); });
+    var list = S.nodes.filter(function (n) { return n.dir === '助力目标'; });
+    if (!list.length) { var r0 = document.createElement('div'); r0.className = 'tr'; r0.innerHTML = '<div class="td" style="grid-column:1/-1;color:var(--ink-faint);font-size:11px">还没有「助力目标」的缘——回「观」写促成条件，或在图上把某条缘的方向改为助力目标。</div>'; t.appendChild(r0); }
+    list.forEach(function (n, idx) {
+      var q = quadOf(n);
+      var r = document.createElement('div'); r.className = 'tr';
+      var doneRow = true;
+      r.innerHTML = '<div class="td"><span class="rowname" style="font-size:12.5px">' + esc(n.name) + '</span><div class="rowhint" style="margin-top:3px"><span class="badge' + (n.dir === '阻碍目标' ? ' k-阻缘' : ' k-助缘') + '">' + n.dir + '</span><span class="badge' + (n.nature === '心行' ? ' k-心行' : '') + '">' + n.nature + '</span></div>' + (n.mark ? '<div class="rowhint">' + esc(n.mark) + (n.mark0 && n.mark !== n.mark0 ? '<span style="color:var(--accent)">（原：' + esc(n.mark0) + '）</span>' : '') + '</div>' : '') + '</div>' +
+        '<div class="td" data-label="重要性"><div class="chips" data-f="imp">' + ['高', '低'].map(function (v) { return '<button class="chip' + (n.imp === v ? ' active' : '') + '" data-v="' + v + '" type="button">' + v + '</button>'; }).join('') + '</div></div>' +
+        '<div class="td" data-label="行动性"><div class="chips" data-f="act">' + ['高', '低'].map(function (v) { return '<button class="chip' + (n.act === v ? ' active' : '') + '" data-v="' + v + '" type="button">' + v + '</button>'; }).join('') + '</div></div>' +
+        '<div class="td" data-label="去处"><div class="chips" data-f="bucket">' + BUCKETS.map(function (b) { return '<button class="chip' + (n.bucket === b ? ' active' : '') + '" data-v="' + b + '" type="button">' + b + '</button>'; }).join('') + '</div><div class="qhint">' + (q ? QNAME[q] + '——' + QHINT[q] : '先给重要性和行动性') + '</div></div>' +
+        '<div class="td" data-label="做什么 / 等什么"><textarea data-f="plan">' + esc(n.plan) + '</textarea></div>' +
+        '<div class="td" data-label="时间"><textarea data-f="when">' + esc(n.when) + '</textarea></div>';
+      ['imp', 'act', 'bucket'].forEach(function (f) {
+        Array.prototype.slice.call(r.querySelectorAll('[data-f="' + f + '"] .chip')).forEach(function (c) {
+          c.addEventListener('click', function () { var v = c.getAttribute('data-v'); n[f] = n[f] === v ? '' : v; save(); renderPlan(); card(); });
+        });
+      });
+      Array.prototype.slice.call(r.querySelectorAll('textarea')).forEach(function (ta) { ta.addEventListener('input', function () { n[ta.getAttribute('data-f')] = ta.value; save(); lanesOnly(); card(); }); });
+      t.appendChild(r);
+    });
+    var rest = $('plan-rest'); if (rest) rest.classList.toggle('hid', !list.some(function (n) { return n.bucket; }));
+    ['hh', 'hl', 'lh', 'll'].forEach(function (q) {
+      var ul = $('q-' + q).querySelector('ul'); ul.innerHTML = '';
+      list.filter(function (n) { return quadOf(n) === q; }).forEach(function (n) { var li = document.createElement('li'); li.innerHTML = esc(n.name) + '<small>' + n.nature + (n.bucket ? ' · ' + n.bucket : '') + '</small>'; ul.appendChild(li); });
+    });
+    lanesOnly();
+  }
+  function lanesOnly() {
+    Array.prototype.slice.call(document.querySelectorAll('#lanes .lane')).forEach(function (ln) {
+      Array.prototype.slice.call(ln.querySelectorAll('.lc')).forEach(function (c) { c.remove(); });
+      var b = ln.getAttribute('data-b');
+      S.nodes.filter(function (n) { return n.dir === '助力目标' && n.bucket === b; }).forEach(function (n) {
+        var d = document.createElement('div'); d.className = 'lc';
+        d.innerHTML = '<b>' + esc(n.name) + '</b>' + (n.plan ? esc(n.plan) : '') + (n.when ? '<small>' + esc(n.when) + '</small>' : '');
+        ln.appendChild(d);
+      });
+    });
+  }
+
+  /* ---- 随 · 行动卡 ---- */
+  function tags(arr, f) { if (!arr.length) return '<span class="none">（还没有）</span>'; return arr.map(f).join(''); }
+  function card() {
+    var c = $('card');
+    function setF(f, html) { c.querySelector('[data-f="' + f + '"]').innerHTML = html; }
+    var purpose = TX.text('d_purpose'), goal = TX.text('d_goal'), outcome = TX.text('d_outcome'), ifnot = TX.chip('d_ifnot');
+    var thing = TX.text('d_thing'), rel = TX.chip('d_rel'), relN = TX.text('d_rel_note'), ifnotN = TX.text('d_ifnot_note'), accN = TX.text('s_accept_note');
+    var stuck = TX.text('s_stuck'), root = TX.text('s_root'), acc = TX.chip('s_accept');
+    setF('purpose', (purpose ? esc(purpose) : '<span class="none">（定愿里的「愿」还没写）</span>') + (outcome ? '<br><small style="color:var(--ink-faint)">要促成的结果：' + esc(outcome) + '</small>' : '') + (thing ? '<br><small style="color:var(--ink-faint)">原来纠结的事：' + esc(thing) + (rel ? '　→　' + esc(rel) + (relN ? '（' + esc(relN) + '）' : '') : '') + (ifnot ? '　·　没发生但愿实现了：' + esc(ifnot) + (ifnotN ? '（' + esc(ifnotN) + '）' : '') : '') + '</small>' : '') + (stuck ? '<br><small style="color:var(--ink-faint)">现在卡在：' + esc(stuck) + (root ? '　·　根在：' + esc(root) : '') + (acc ? '　·　' + esc(acc) + (accN ? '（' + esc(accN) + '）' : '') : '') + '</small>' : ''));
+    var keys = S.nodes.filter(function (n) { return n.mark === '关键缘' || quadOf(n) === 'hh'; });
+    setF('keys', tags(keys, function (n) { return '<span class="tag">' + esc(n.name) + '<small>' + n.nature + ' · ' + n.dir + '</small></span>'; }));
+    var fix = S.nodes.filter(function (n) { return n.mark0 && n.mark && n.mark !== n.mark0; });
+    setF('fix', tags(fix, function (n) { return '<span class="tag">' + esc(n.name) + '<small>' + esc(n.mark0) + ' → ' + esc(n.mark) + '</small></span>'; }));
+    var hearts = S.nodes.filter(function (n) { return n.nature === '心行'; });
+    var minds = S.nodes.filter(function (n) { return n.nature !== '心行' && n.mind.some(function (t) { return t.trim(); }); });
+    var mh = tags(hearts, function (n) { return '<span class="tag">' + esc(n.name) + '<small>心行 · ' + n.dir + '</small></span>'; });
+    if (minds.length) mh += '<div style="font-size:11px;color:var(--ink-faint);margin-top:4px">回答过观心的缘：' + minds.map(function (n) { return esc(n.name); }).join('、') + '</div>';
+    setF('mind', mh);
+    function byB(bs) { return S.nodes.filter(function (n) { return bs.indexOf(n.bucket) >= 0; }); }
+    setF('now', tags(byB(['现在行动', '接下来']), function (n) { return '<span class="tag">' + esc(n.name) + (n.plan ? '<small>' + esc(n.plan) + '</small>' : '') + '</span>'; }));
+    setF('grow', tags(byB(['持续培育']), function (n) { return '<span class="tag">' + esc(n.name) + (n.plan ? '<small>' + esc(n.plan) + '</small>' : '') + '</span>'; }));
+    setF('wait', tags(byB(['等待时机', '转向', '接纳放下']), function (n) { return '<span class="tag">' + esc(n.name) + '<small>' + n.bucket + (n.when ? ' · ' + esc(n.when) : '') + '</small></span>'; }));
+    var nx = byB(['现在行动'])[0] || byB(['接下来'])[0];
+    setF('next', nx ? '<span class="tag">' + esc(nx.plan || nx.name) + (nx.plan ? '<small>' + esc(nx.name) + '</small>' : '') + '</span>' : '<span class="none">（在「行」里给某条缘选「现在行动」并写做什么）</span>');
+  }
+  $('c-regen').addEventListener('click', function () { rest(); });
+  function cardText() {
+    var lines = ['缘起行动卡', '姓名：' + (document.getElementById('f-name').value || '') + '　日期：' + (document.getElementById('f-date').value || ''), ''];
+    Array.prototype.slice.call(document.querySelectorAll('#card .card-row')).forEach(function (r) {
+      var k = r.querySelector('.k').childNodes[0].textContent.trim(), v = r.querySelector('.v'), t;
+      var tg = Array.prototype.slice.call(v.querySelectorAll('.tag'));
+      if (tg.length) t = tg.map(function (x) { var sm = x.querySelector('small'); return x.childNodes[0].textContent.trim() + (sm && sm.innerText.trim() ? '（' + sm.innerText.trim() + '）' : ''); }).join('；');
+      else if (v.querySelector('.cell')) t = v.querySelector('.cell').innerText.trim();
+      else t = v.innerText.replace(/\s*\n\s*/g, '；').trim();
+      lines.push(k + '：' + (t || '（空）'));
+    });
+    return lines.join('\n');
+  }
+  function flash(btn, msg) { var old = btn.textContent; btn.textContent = msg; btn.classList.add('ok'); setTimeout(function () { btn.textContent = old; btn.classList.remove('ok'); }, 1800); }
+  $('c-copy').addEventListener('click', function () {
+    var btn = this, txt = cardText();
+    var done = function () { flash(btn, '✓ 已复制'); };
+    function fallback() { var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { flash(btn, '复制失败'); } document.body.removeChild(ta); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, fallback); else fallback();
+  });
+  $('c-page').addEventListener('click', function () {
+    var btn = this; btn.disabled = true; var old = btn.textContent; btn.textContent = '生成中…';
+    TX.loadScript(TX.CDN.h2c).then(function () {
+      document.body.classList.add('exporting');
+      return (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () { return html2canvas($('st4'), { scale: 2.5, backgroundColor: '#faf7f2', useCORS: true, logging: false }); });
+    }).then(function (cv) { document.body.classList.remove('exporting'); var a = document.createElement('a'); a.href = cv.toDataURL('image/png'); a.download = '缘起行动卡·结语.png'; a.click(); btn.disabled = false; btn.textContent = old; flash(btn, '✓ 已导出'); },
+            function () { document.body.classList.remove('exporting'); btn.disabled = false; btn.textContent = old; flash(btn, '导出失败'); });
+  });
+  $('c-png').addEventListener('click', function () {
+    var btn = this; btn.disabled = true; var old = btn.textContent; btn.textContent = '生成中…';
+    TX.loadScript(TX.CDN.h2c).then(function () {
+      return (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () { return html2canvas($('card'), { scale: 3, backgroundColor: '#faf7f2', useCORS: true, logging: false }); });
+    }).then(function (cv) { var a = document.createElement('a'); a.href = cv.toDataURL('image/png'); a.download = '缘起行动卡.png'; a.click(); btn.disabled = false; btn.textContent = old; flash(btn, '✓ 已保存'); },
+            function () { btn.disabled = false; btn.textContent = old; flash(btn, '保存失败'); });
+  });
+
+  function rest() { corr(); renderPlan(); card(); }
+  document.addEventListener('tx-change', function () { applyType(); refs(); refOutcome(); syncNodes(); render(); if (S.sel) panel(); rest(); });
+
+  load(); applyType(); refs(); refOutcome(); syncNodes(); render(); panel(); rest();
+})();
+</script>
+</body>
+</html>
