@@ -35,6 +35,13 @@
   .line { font-size:11.5px; color:var(--ink-light); line-height:1.8; margin-top:8px; }
   .line b { color:var(--accent); font-weight:500; }
 
+  .obst { margin-top:12px; background:linear-gradient(170deg,#eef0f8,#e3e6f5); border:1px solid #c8cdea; padding:12px 14px 10px; }
+  .obst .ot { font-family:'Noto Serif SC',serif; font-size:13.5px; font-weight:600; color:#3f4470; letter-spacing:0.08em; margin-bottom:8px; }
+  .obst .ot small { font-family:'Noto Sans SC',sans-serif; font-weight:300; font-size:10.5px; color:#6c72a0; letter-spacing:0.02em; margin-left:6px; }
+  .steps { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .st { background:rgba(255,255,255,0.75); border:1px solid #d5d9ee; padding:8px 10px; font-size:11.5px; line-height:1.7; color:var(--ink-light); }
+  .st b { display:block; font-family:'Noto Serif SC',serif; font-size:12.5px; color:#3f4470; margin-bottom:2px; }
+  .oe { font-size:11px; color:#6c72a0; margin-top:8px; line-height:1.6; }
   .medit { background:linear-gradient(170deg,#3f3a52 0%,#4a4560 55%,#565073 100%); color:#ece8f2; padding:16px 18px; margin:8px 0; }
   .medit .ttl { display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
   .medit .ttl b { font-family:'Noto Serif SC',serif; font-size:14px; letter-spacing:0.06em; }
@@ -120,7 +127,7 @@
   .tools .note { font-size:10.5px; color:var(--ink-faint); flex:1 1 100%; line-height:1.6; }
   .foot { text-align:center; font-size:10px; color:var(--ink-faint); letter-spacing:0.1em; margin-top:24px; padding-top:12px; border-top:1px solid var(--paper-line); line-height:1.8; }
   @media print { body { background:#fff; padding:0; } .page { box-shadow:none; max-width:none; } .tools, audio, .fallback, .seat .nav, .rowbtn { display:none !important; } }
-  @media (max-width:600px) { .page-inner { padding:18px 14px 28px; } .pts { grid-template-columns:1fr; } .stat { grid-template-columns:1fr 1fr; } .stat div { padding:6px 6px; font-size:10px; } .seat .nav { margin-left:0; } }
+  @media (max-width:600px) { .page-inner { padding:18px 14px 28px; } .pts, .steps { grid-template-columns:1fr; } .stat { grid-template-columns:1fr 1fr; } .stat div { padding:6px 6px; font-size:10px; } .seat .nav { margin-left:0; } }
 </style>
 </head>
 <body>
@@ -143,8 +150,18 @@
     <div class="pt"><b>阳光观想</b>每一句话像冬日的暖阳照在身上，暖融融的，消除敌意、危险、精神与身体的痛苦。</div>
   </div>
   <div class="line"><b>三个阶段</b>：先对自己 → 再对身边人（先从容易生起慈心的人开始，再按组群扩展）→ 再对一切众生（打开心量，撤除内心的设定）。可以分阶段修，也可以轮番修。<br>
-  <b>遇到障碍</b>：对自己不接纳、对某人生不起慈心时，做缘起思维——有漏的生命不完美是无始贪嗔痴所致，每个人都是贪嗔痴的受害者；同时感恩暇满，生命里有无尽宝藏。<br>
   <b>每日练习</b>：座上 15 分钟；座下经常重复真诚祝愿，每天对三个人默默发送慈心祝愿；一周练五天以上，在班群分享练习和心得。</div>
+
+  <div class="obst">
+    <div class="ot">消除障碍 <small>对自己难以生起慈心时，走这四步（辅助材料·思惟修习）</small></div>
+    <div class="steps">
+      <div class="st"><b>① 觉察不接纳</b>我对自己的某些方面（性格、情绪、习惯或某些经历）不接纳吗？"不接纳"出现时，我的身心状态是怎样的？</div>
+      <div class="st"><b>② 缘起思维</b>用缘起的视角看自己：这些"不完美"是由哪些因缘和合而成的？每一个生命因为无明，注定会有种种烦恼和不完美。</div>
+      <div class="st"><b>③ 感恩暇满</b>尽管有种种不完美，依托这个生命我才能走向觉醒、走向解脱；生命蕴含着无尽的宝藏，对它心怀感恩。</div>
+      <div class="st"><b>④ 接纳与生起慈心</b>用缘起的智慧和友善的态度看待自己的"不完美"，内心会有哪些改变？我愿意更温暖、友善地对待自己，真诚祝福自己的生命更美好。</div>
+    </div>
+    <div class="oe">对身边人生不起慈心时同理：每个人都是贪嗔痴的受害者，伤害别人的同时也在伤害自己。</div>
+  </div>
 
   <h2 class="sec">座上修<small>引导音频 · 20 分钟 · 对自己修（换对象时用心一样）</small></h2>
   <div class="medit">
