@@ -256,7 +256,25 @@
   var tm; function schedule() { clearTimeout(tm); tm = setTimeout(save, 500); }
   window.addEventListener('beforeunload', save); window.addEventListener('pagehide', save);
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') save(); });
-  try { var raw = JSON.parse(localStorage.getItem(KEY) || 'null'); if (raw && typeof raw === 'object') { D = raw; D.k = D.k || {}; D.days = D.days || {}; } } catch (e) {}
+  /* 只接受合法结构：日期键、数字分、1/2/3 对象、字符串字段（导入文件与本机数据都过一遍） */
+  function cleanDays(src) {
+    var out = {}; if (!src || typeof src !== 'object') return out;
+    Object.keys(src).forEach(function (k) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(k)) return; var x = src[k]; if (!x || typeof x !== 'object') return;
+      var r = {};
+      r.obj = (x.obj === 1 || x.obj === 2 || x.obj === 3) ? x.obj : null;
+      r.dur = (x.dur === '' || x.dur === null || x.dur === undefined) ? '' : String(Math.max(0, parseInt(x.dur, 10) || 0));
+      r.done = !!x.done; r.act = !!x.act;
+      r.m = Array.isArray(x.m) ? x.m.filter(function (v) { return typeof v === 'string'; }).map(function (v) { return v.slice(0, 20); }) : [];
+      r.ms = {}; if (x.ms && typeof x.ms === 'object') Object.keys(x.ms).forEach(function (n) { var v = x.ms[n]; if (typeof n === 'string' && typeof v === 'number' && isFinite(v) && v >= 0 && v <= 5) r.ms[n.slice(0, 20)] = Math.round(v); });
+      r.score = (typeof x.score === 'number' && isFinite(x.score) && x.score >= 0 && x.score <= 5) ? x.score : null;
+      r.actIdx = (typeof x.actIdx === 'number' && x.actIdx >= 0 && x.actIdx < ACTIONS.length) ? Math.floor(x.actIdx) : null;
+      ['other', 'q2', 'q3', 'q4', 'actNote', 'notes', 'snote'].forEach(function (f) { r[f] = typeof x[f] === 'string' ? x[f].slice(0, 5000) : ''; });
+      out[k] = r;
+    });
+    return out;
+  }
+  try { var raw = JSON.parse(localStorage.getItem(KEY) || 'null'); if (raw && typeof raw === 'object') { D = { name: typeof raw.name === 'string' ? raw.name.slice(0, 50) : '', start: typeof raw.start === 'string' ? raw.start : '', k: (raw.k && typeof raw.k === 'object') ? raw.k : {}, days: cleanDays(raw.days) }; } } catch (e) {}
 
   var cells = Array.prototype.slice.call(document.querySelectorAll('.cell'));
   cells.forEach(function (el) { el.setAttribute('contenteditable', 'true'); el._sync = function () { el.classList.toggle('empty', el.innerText.trim() === ''); }; el.addEventListener('blur', el._sync); el._sync(); });
@@ -361,7 +379,9 @@
       var ch = document.createElement('div'); ch.className = 'chips';
       months[k].forEach(function (s) {
         var r = D.days[s]; var c = document.createElement('div'); c.className = 'chip' + (s === cur ? ' sel' : ''); c.setAttribute('data-s', s);
-        c.innerHTML = '<span class="d">' + s.slice(8) + '</span><span class="o">' + V[objOf(r, s)].name.replace('对', '') + '</span><i class="s' + (r.done ? ' on' : '') + '"></i><i class="x' + (hasDaily(r) ? ' on' : '') + '"></i><i class="a' + (r.act ? ' on' : '') + '"></i>' + (r.score !== null && r.score !== undefined ? '<span class="sc">' + r.score + '</span>' : '');
+        c.innerHTML = '<span class="d"></span><span class="o"></span><i class="s' + (r.done ? ' on' : '') + '"></i><i class="x' + (hasDaily(r) ? ' on' : '') + '"></i><i class="a' + (r.act ? ' on' : '') + '"></i>';
+        c.querySelector('.d').textContent = s.slice(8); c.querySelector('.o').textContent = V[objOf(r, s)].name.replace('对', '');
+        if (r.score !== null && r.score !== undefined) { var scv = document.createElement('span'); scv.className = 'sc'; scv.textContent = String(r.score); c.appendChild(scv); }
         c.addEventListener('click', function () { showDay(this.getAttribute('data-s')); $('d-date').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
         ch.appendChild(c);
       });
@@ -387,7 +407,7 @@
   });
   $('im-json').addEventListener('change', function () {
     var f = this.files && this.files[0]; if (!f) return; var rd = new FileReader();
-    rd.onload = function () { try { var x = JSON.parse(rd.result); if (!x || typeof x !== 'object' || !x.days) throw 0; if (!window.confirm('导入会与本机记录合并（同一天以导入为准）。继续？')) return; D.name = x.name || D.name; Object.keys(x.days).forEach(function (k) { D.days[k] = x.days[k]; }); save(); showDay(cur); } catch (e) { window.alert('不是有效的记录文件'); } };
+    rd.onload = function () { try { var x = JSON.parse(rd.result); if (!x || typeof x !== 'object' || !x.days) throw 0; if (!window.confirm('导入会与本机记录合并（同一天以导入为准）。继续？')) return; if (typeof x.name === 'string' && x.name) D.name = x.name.slice(0, 50); var cd = cleanDays(x.days); Object.keys(cd).forEach(function (k) { D.days[k] = cd[k]; }); save(); showDay(cur); } catch (e) { window.alert('不是有效的记录文件'); } };
     rd.readAsText(f); this.value = '';
   });
   if (SUBMIT_URL) { $('ex-submit').style.display = ''; $('ex-submit').addEventListener('click', function () {
