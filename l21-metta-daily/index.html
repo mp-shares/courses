@@ -66,11 +66,13 @@
   .chk input:checked + .bx { background:var(--accent); border-color:var(--accent); }
   .chk input:checked + .bx::after { content:'✓'; color:#fff; font-size:10px; line-height:1; }
   .oth { border:none; border-bottom:1px solid var(--paper-line); background:transparent; font-family:inherit; font-size:12px; width:100px; outline:none; color:var(--ink); }
-  .mrow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:3px 0; }
+  .mrow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:4px 0 0; }
+  #d-scores { margin-top:6px; padding-top:6px; border-top:1px dotted var(--paper-line); }
+  #d-scores:empty { display:none; }
   .mini { display:inline-flex; gap:3px; }
   .mini .sb { width:24px; height:24px; font-size:11px; }
   .mini .sb:disabled { opacity:.35; cursor:default; }
-  .mrow .lab { font-size:11px; color:var(--ink-faint); }
+  .mrow .lab { font-size:11.5px; color:var(--ink-light); min-width:96px; }
   .score { display:flex; align-items:center; gap:6px; margin:6px 0 2px; flex-wrap:wrap; }
   .score label { font-size:11.5px; color:var(--ink-light); }
   .sb { width:28px; height:28px; border-radius:50%; border:1.5px solid var(--paper-line); background:transparent; cursor:pointer; font-family:inherit; font-size:12px; color:var(--ink-light); }
@@ -290,24 +292,30 @@
   ACTIONS.forEach(function (a, i) { var o = document.createElement('option'); o.value = i; o.textContent = (i + 1) + ' · ' + a.t.slice(0, 12) + (a.t.length > 12 ? '…' : ''); sel.appendChild(o); });
   function actFor(r, s) { if (r.actIdx !== null && r.actIdx !== undefined) return r.actIdx; var n = Math.round((parse(s) - new Date(2026, 0, 1)) / 86400000); return ((n % ACTIONS.length) + ACTIONS.length) % ACTIONS.length; }
   function readMoments() { var r = dayRec(cur); r.ms = r.ms || {}; r.m = []; Array.prototype.slice.call($('d-moments').querySelectorAll('input[type=checkbox]')).forEach(function (b) { if (b.checked) r.m.push(b.getAttribute('data-m')); }); var o = $('d-other'); r.other = o ? o.value : ''; Object.keys(r.ms).forEach(function (k) { if (r.m.indexOf(k) < 0) delete r.ms[k]; }); var vs = Object.keys(r.ms).map(function (k) { return r.ms[k]; }); r.score = vs.length ? Math.round(vs.reduce(function (a, b) { return a + b; }, 0) / vs.length * 10) / 10 : null; }
-  function paintMini() { var r = dayRec(cur); r.ms = r.ms || {}; Array.prototype.slice.call($('d-moments').querySelectorAll('.mini')).forEach(function (mn) { var m = mn.getAttribute('data-for'); Array.prototype.slice.call(mn.querySelectorAll('.sb')).forEach(function (b) { b.classList.toggle('active', r.ms[m] === +b.getAttribute('data-v')); }); }); var n = Object.keys(r.ms).length; $('d-avg').textContent = n ? '今日平均 ' + r.score + ' / 5' : '每一项 0–5 分，5 分＝非常真切'; }
+  /* 勾选后才出现该项的评分行 */
+  function paintMini() {
+    var r = dayRec(cur); r.ms = r.ms || {}; var box = $('d-scores'); if (!box) return; box.innerHTML = '';
+    r.m.forEach(function (m) {
+      var row = document.createElement('div'); row.className = 'mrow';
+      var nm = document.createElement('span'); nm.className = 'lab'; nm.textContent = (m === '其他' ? ('其他' + (r.other ? '（' + r.other + '）' : '')) : m) + ' 评分'; row.appendChild(nm);
+      var mn = document.createElement('span'); mn.className = 'mini'; mn.setAttribute('data-for', m);
+      for (var i = 0; i <= 5; i++) { var b = document.createElement('button'); b.type = 'button'; b.className = 'sb' + (r.ms[m] === i ? ' active' : ''); b.setAttribute('data-v', i); b.textContent = i; b.addEventListener('click', function () { var val = +this.getAttribute('data-v'); if (r.ms[m] === val) delete r.ms[m]; else r.ms[m] = val; readMoments(); paintMini(); schedule(); renderRecords(); }); mn.appendChild(b); }
+      row.appendChild(mn); box.appendChild(row);
+    });
+    var n = Object.keys(r.ms).length;
+    $('d-avg').textContent = r.m.length ? (n ? '今日平均 ' + r.score + ' / 5' : '请给勾选的每一项打分，0–5 分，5 分＝非常真切') : '勾选时刻后，逐项打分';
+  }
   function renderForm(r, s) {
     var v = V[objOf(r, s)];
     $('d-obj').value = objOf(r, s); $('d-seatobj').textContent = v.seat; $('d-intro').textContent = v.intro;
     $('d-q1').textContent = v.q1; $('d-scorelabel').textContent = v.sl;
     var html = '';
     r.ms = r.ms || {};
-    function mini(m) { var on = r.m.indexOf(m) >= 0; var h = '<span class="mini" data-for="' + m + '">'; for (var i = 0; i <= 5; i++) h += '<button type="button" class="sb' + (on && r.ms[m] === i ? ' active' : '') + '" data-v="' + i + '">' + i + '</button>'; return h + '</span>'; }
-    v.m.forEach(function (m) { html += '<div class="mrow"><label class="chk" style="margin:0;min-width:70px"><input type="checkbox" data-m="' + m + '"' + (r.m.indexOf(m) >= 0 ? ' checked' : '') + '><span class="bx"></span>' + m + '</label><span class="lab">评分</span>' + mini(m) + '</div>'; });
-    html += '<div class="mrow"><label class="chk" style="margin:0"><input type="checkbox" data-m="其他"' + (r.m.indexOf('其他') >= 0 ? ' checked' : '') + '><span class="bx"></span>其他：</label><input class="oth" type="text" id="d-other" placeholder="请填写" value="' + (r.other || '').replace(/"/g, '&quot;') + '"><span class="lab">评分</span>' + mini('其他') + '</div>';
+    v.m.forEach(function (m) { html += '<label class="chk"><input type="checkbox" data-m="' + m + '"' + (r.m.indexOf(m) >= 0 ? ' checked' : '') + '><span class="bx"></span>' + m + '</label>'; });
+    html += '<label class="chk" style="margin-right:4px"><input type="checkbox" data-m="其他"' + (r.m.indexOf('其他') >= 0 ? ' checked' : '') + '><span class="bx"></span>其他：</label><input class="oth" type="text" id="d-other" placeholder="请填写" value="' + (r.other || '').replace(/"/g, '&quot;') + '">';
+    html += '<div id="d-scores"></div>';
     $('d-moments').innerHTML = html;
     Array.prototype.slice.call($('d-moments').querySelectorAll('input[type=checkbox]')).forEach(function (b) { b.addEventListener('change', function () { if (!b.checked) delete r.ms[b.getAttribute('data-m')]; readMoments(); paintMini(); schedule(); renderRecords(); }); });
-    Array.prototype.slice.call($('d-moments').querySelectorAll('.mini .sb')).forEach(function (sb) { sb.addEventListener('click', function () {
-      var m = sb.parentNode.getAttribute('data-for'), val = +sb.getAttribute('data-v');
-      var cb = $('d-moments').querySelector('input[data-m="' + m + '"]');
-      if (r.ms[m] === val) { delete r.ms[m]; } else { r.ms[m] = val; if (cb && !cb.checked) cb.checked = true; }
-      readMoments(); paintMini(); schedule(); renderRecords();
-    }); });
     $('d-other').addEventListener('input', function () { if (this.value.trim()) { var ob = $('d-moments').querySelector('input[data-m="其他"]'); if (ob && !ob.checked) ob.checked = true; } readMoments(); paintMini(); schedule(); });
     paintMini();
     $('d-q2').textContent = v.q2; $('d-q3').textContent = v.q3;
