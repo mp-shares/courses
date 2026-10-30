@@ -251,8 +251,10 @@
   var TODAY = iso(new Date());
   function blank() { return { obj: null, dur: '', done: false, m: [], other: '', score: null, q2: '', q3: '', q4: '', act: false, actIdx: null, actNote: '', notes: '' }; }
   function dayRec(s) { if (!D.days[s]) D.days[s] = blank(); return D.days[s]; }
-  function hasData(r) { return !!(r && (r.done || r.dur || r.m.length || r.other || r.q2 || r.q3 || r.q4 || r.act || r.actNote || r.notes || (r.score !== null && r.score !== undefined))); }
-  function hasDaily(r) { return !!(r && (r.m.length || r.q2 || r.q3 || r.q4 || (r.score !== null && r.score !== undefined))); }
+  function nz(s) { return typeof s === 'string' && s.trim() !== ''; }
+  function hasScore(r) { return r.score !== null && r.score !== undefined; }
+  function hasData(r) { return !!(r && (r.done || nz(r.dur) || (r.m && r.m.length) || nz(r.q2) || nz(r.q3) || nz(r.q4) || r.act || nz(r.actNote) || nz(r.notes) || hasScore(r))); }
+  function hasDaily(r) { return !!(r && ((r.m && r.m.length) || nz(r.q2) || nz(r.q3) || nz(r.q4) || hasScore(r))); }
   function recorded() { return Object.keys(D.days).filter(function (s) { return hasData(D.days[s]); }).sort(); }
   /* 对象默认：本日已选 > 最近一次记录的对象 > 对自己 */
   function objOf(r, s) { if (r.obj) return r.obj; var ds = recorded().filter(function (x) { return x < s; }); for (var i = ds.length - 1; i >= 0; i--) { var o = D.days[ds[i]].obj; if (o) return o; } return 1; }
@@ -359,7 +361,7 @@
   $('d-dur').addEventListener('input', function () { dayRec(cur).dur = this.value; touched(); schedule(); renderRecords(); });
   $('d-done').addEventListener('change', function () { dayRec(cur).done = this.checked; touched(); schedule(); renderRecords(); });
   $('d-act').addEventListener('change', function () { dayRec(cur).act = this.checked; touched(); schedule(); renderRecords(); });
-  dcells.forEach(function (el) { el.addEventListener('input', function () { dayRec(cur)[el.getAttribute('data-d')] = el.innerText; touched(); el._sync(); schedule(); renderRecords(); }); });
+  dcells.forEach(function (el) { el.addEventListener('input', function () { var v = el.innerText; dayRec(cur)[el.getAttribute('data-d')] = v.trim() === '' ? '' : v; touched(); el._sync(); schedule(); renderRecords(); }); });
   sel.addEventListener('change', function () { var r = dayRec(cur); r.actIdx = +this.value; $('act-txt').textContent = ACTIONS[r.actIdx].t; $('act-card').className = 'action-card w' + ACTIONS[r.actIdx].w; schedule(); });
 
   function dayText(s) {
