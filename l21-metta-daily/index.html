@@ -198,7 +198,6 @@
 
   <div class="tools">
     <button type="button" id="ex-diary">今日日记存图片</button>
-    <button type="button" id="ex-print">打印 / 存 PDF</button>
     <button type="button" id="ex-sum">复制汇总文字</button>
     <button type="button" id="ex-json">导出记录文件</button>
     <label class="btn-s">导入记录文件<input type="file" id="im-json" accept="application/json,.json"></label>
@@ -432,7 +431,6 @@
       .then(function (cv) { var a = document.createElement('a'); a.download = name + (D.name ? '·' + D.name : '') + '·' + TODAY + '.png'; a.href = cv.toDataURL('image/png'); a.click(); btn.textContent = '已生成'; setTimeout(function () { btn.disabled = false; btn.textContent = old; }, 2000); })
       .catch(function () { btn.textContent = '失败，请用打印'; setTimeout(function () { btn.disabled = false; btn.textContent = old; }, 2600); });
   }
-  $('ex-print').addEventListener('click', function () { window.print(); });
   $('ex-diary').addEventListener('click', function () { shot($('diary'), '慈心日记', this); });
 
   showDay(TODAY);
