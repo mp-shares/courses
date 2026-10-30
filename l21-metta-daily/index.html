@@ -66,6 +66,9 @@
   .chk input:checked + .bx { background:var(--accent); border-color:var(--accent); }
   .chk input:checked + .bx::after { content:'✓'; color:#fff; font-size:10px; line-height:1; }
   .oth { border:none; border-bottom:1px solid var(--paper-line); background:transparent; font-family:inherit; font-size:12px; width:100px; outline:none; color:var(--ink); }
+  .addrow { display:inline-flex; align-items:center; gap:6px; margin:3px 0; }
+  .addrow .lab { font-size:12.5px; }
+  .chk.custom .bx { border-color:var(--accent); }
   .mrow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:4px 0 0; }
   #d-scores { margin-top:6px; padding-top:6px; border-top:1px dotted var(--paper-line); }
   #d-scores:empty { display:none; }
@@ -290,13 +293,13 @@
   var sel = $('act-sel');
   ACTIONS.forEach(function (a, i) { var o = document.createElement('option'); o.value = i; o.textContent = (i + 1) + ' · ' + a.t.slice(0, 12) + (a.t.length > 12 ? '…' : ''); sel.appendChild(o); });
   function actFor(r, s) { if (r.actIdx !== null && r.actIdx !== undefined) return r.actIdx; var n = Math.round((parse(s) - new Date(2026, 0, 1)) / 86400000); return ((n % ACTIONS.length) + ACTIONS.length) % ACTIONS.length; }
-  function readMoments() { var r = dayRec(cur); r.ms = r.ms || {}; r.m = []; Array.prototype.slice.call($('d-moments').querySelectorAll('input[type=checkbox]')).forEach(function (b) { if (b.checked) r.m.push(b.getAttribute('data-m')); }); var o = $('d-other'); r.other = o ? o.value : ''; Object.keys(r.ms).forEach(function (k) { if (r.m.indexOf(k) < 0) delete r.ms[k]; }); var vs = Object.keys(r.ms).map(function (k) { return r.ms[k]; }); r.score = vs.length ? Math.round(vs.reduce(function (a, b) { return a + b; }, 0) / vs.length * 10) / 10 : null; }
+  function readMoments() { var r = dayRec(cur); r.ms = r.ms || {}; var keep = []; Array.prototype.slice.call($('d-moments').querySelectorAll('input[type=checkbox]')).forEach(function (b) { if (b.checked) keep.push(b.getAttribute('data-m')); }); r.m = keep; Object.keys(r.ms).forEach(function (k) { if (r.m.indexOf(k) < 0) delete r.ms[k]; }); var vs = Object.keys(r.ms).map(function (k) { return r.ms[k]; }); r.score = vs.length ? Math.round(vs.reduce(function (a, b) { return a + b; }, 0) / vs.length * 10) / 10 : null; }
   /* 勾选后才出现该项的评分行 */
   function paintMini() {
     var r = dayRec(cur); r.ms = r.ms || {}; var box = $('d-scores'); if (!box) return; box.innerHTML = '';
     r.m.forEach(function (m) {
       var row = document.createElement('div'); row.className = 'mrow';
-      var nm = document.createElement('span'); nm.className = 'lab'; nm.textContent = (m === '其他' ? ('其他' + (r.other ? '（' + r.other + '）' : '')) : m) + ' 评分'; row.appendChild(nm);
+      var nm = document.createElement('span'); nm.className = 'lab'; nm.textContent = m + ' 评分'; row.appendChild(nm);
       var mn = document.createElement('span'); mn.className = 'mini'; mn.setAttribute('data-for', m);
       for (var i = 0; i <= 5; i++) { var b = document.createElement('button'); b.type = 'button'; b.className = 'sb' + (r.ms[m] === i ? ' active' : ''); b.setAttribute('data-v', i); b.textContent = i; b.addEventListener('click', function () { var val = +this.getAttribute('data-v'); if (r.ms[m] === val) delete r.ms[m]; else r.ms[m] = val; readMoments(); paintMini(); schedule(); renderRecords(); }); mn.appendChild(b); }
       row.appendChild(mn); box.appendChild(row);
@@ -310,13 +313,28 @@
     $('d-q1').textContent = v.q1; $('d-scorelabel').textContent = v.sl;
     var html = '';
     r.ms = r.ms || {};
+    /* 旧数据：「其他」＋文字 → 自定义项 */
+    if (r.m.indexOf('其他') >= 0) { var nm0 = (r.other || '其他').trim().slice(0, 20) || '其他'; r.m[r.m.indexOf('其他')] = nm0; if (r.ms['其他'] !== undefined) { r.ms[nm0] = r.ms['其他']; delete r.ms['其他']; } r.other = ''; }
     v.m.forEach(function (m) { html += '<label class="chk"><input type="checkbox" data-m="' + m + '"' + (r.m.indexOf(m) >= 0 ? ' checked' : '') + '><span class="bx"></span>' + m + '</label>'; });
-    html += '<label class="chk" style="margin-right:4px"><input type="checkbox" data-m="其他"' + (r.m.indexOf('其他') >= 0 ? ' checked' : '') + '><span class="bx"></span>其他：</label><input class="oth" type="text" id="d-other" placeholder="请填写" value="' + (r.other || '').replace(/"/g, '&quot;') + '">';
+    html += '<span id="d-custom"></span><span class="addrow"><span class="lab">其他：</span><input class="oth" type="text" id="d-other" placeholder="写一个时刻，回车添加" maxlength="20"><button type="button" class="btn-s" id="d-add">添加</button></span>';
     html += '<div id="d-scores"></div>';
     $('d-moments').innerHTML = html;
+    function paintCustom() {
+      var box = $('d-custom'); box.innerHTML = '';
+      r.m.filter(function (m) { return v.m.indexOf(m) < 0; }).forEach(function (m) {
+        var lb = document.createElement('label'); lb.className = 'chk custom';
+        var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = true; cb.setAttribute('data-m', m);
+        var bx = document.createElement('span'); bx.className = 'bx'; var tx = document.createElement('span'); tx.textContent = m;
+        lb.appendChild(cb); lb.appendChild(bx); lb.appendChild(tx);
+        cb.addEventListener('change', function () { r.m = r.m.filter(function (x) { return x !== m; }); delete r.ms[m]; paintCustom(); readMoments(); paintMini(); schedule(); renderRecords(); });
+        box.appendChild(lb);
+      });
+    }
+    function addCustom() { var inp = $('d-other'); var nm = (inp.value || '').trim().slice(0, 20); if (!nm) return; if (r.m.indexOf(nm) < 0) r.m.push(nm); inp.value = ''; paintCustom(); readMoments(); paintMini(); schedule(); renderRecords(); inp.focus(); }
     Array.prototype.slice.call($('d-moments').querySelectorAll('input[type=checkbox]')).forEach(function (b) { b.addEventListener('change', function () { if (!b.checked) delete r.ms[b.getAttribute('data-m')]; readMoments(); paintMini(); schedule(); renderRecords(); }); });
-    $('d-other').addEventListener('input', function () { if (this.value.trim()) { var ob = $('d-moments').querySelector('input[data-m="其他"]'); if (ob && !ob.checked) ob.checked = true; } readMoments(); paintMini(); schedule(); });
-    paintMini();
+    $('d-add').addEventListener('click', addCustom);
+    $('d-other').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addCustom(); } });
+    paintCustom(); paintMini();
     $('d-q2').textContent = v.q2; $('d-q3').textContent = v.q3;
     $('d-q4box').style.display = v.q4 ? '' : 'none'; if (v.q4) $('d-q4').textContent = v.q4;
   }
@@ -348,7 +366,7 @@
     var r = dayRec(s); var v = V[objOf(r, s)]; var a = ACTIONS[actFor(r, s)];
     var lines = ['【慈心实践 · ' + s + ' · ' + v.name + '】' + (D.name ? ' ' + D.name : ''),
       '座上修：' + (r.done ? '已完成' : '未完成') + (r.dur ? ' ' + r.dur + ' 分钟' : ''),
-      v.q1.split('？')[0].replace(/^\d\. /, '') + '：' + (r.m.length ? r.m.map(function (m) { var nm = m === '其他' ? '其他(' + (r.other || '') + ')' : m; return nm + (r.ms && r.ms[m] !== undefined ? ' ' + r.ms[m] : ''); }).join('、') : '—') + (r.score !== null && r.score !== undefined ? '｜' + v.sl + '平均 ' + r.score + '/5' : ''),
+      v.q1.split('？')[0].replace(/^\d\. /, '') + '：' + (r.m.length ? r.m.map(function (m) { return m + (r.ms && r.ms[m] !== undefined ? ' ' + r.ms[m] : ''); }).join('、') : '—') + (r.score !== null && r.score !== undefined ? '｜' + v.sl + '平均 ' + r.score + '/5' : ''),
       v.q2.split('（')[0].replace(/^\d\. /, '') + '：' + (r.q2 || '—'), v.q3.split('（')[0].replace(/^\d\. /, '') + '：' + (r.q3 || '—')];
     if (v.q4) lines.push(v.q4.split('（')[0].replace(/^\d\. /, '') + '：' + (r.q4 || '—'));
     lines.push('慈心行动：' + (r.act ? '✓ ' : '') + a.t + (r.actNote ? '｜' + r.actNote : ''));
