@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>慈心每日练习｜初级慈经禅修</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#2a2118; --ink-light:#6b5f52; --ink-faint:#a89880; --paper:#faf7f2; --paper-warm:#f3ede3; --paper-line:#e2d9cc;
+    --accent:#7b5e3a; --accent-soft:#c4a882; --green:#5a7a52; --sun:#c98a2e; --sun-soft:#f6e3b8; --dusk:#4a4560; --shadow:rgba(42,33,24,0.08); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#ede7dc; font-family:'Noto Sans SC',sans-serif; color:var(--ink); padding:18px 12px 90px;
+    background-image:radial-gradient(ellipse at 20% 10%, rgba(201,138,46,0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 90%, rgba(74,69,96,0.07) 0%, transparent 60%); }
+  .page { max-width:720px; margin:0 auto; background:var(--paper); box-shadow:0 2px 4px var(--shadow),0 8px 24px rgba(42,33,24,0.12); }
+  .page-inner { padding:26px 28px 34px; }
+  .header { text-align:center; padding-bottom:12px; border-bottom:1.5px solid var(--paper-line); margin-bottom:12px; }
+  .header-stage { font-size:10px; letter-spacing:0.28em; color:var(--accent-soft); margin-bottom:5px; }
+  .header h1 { font-family:'Noto Serif SC',serif; font-size:20px; font-weight:600; letter-spacing:0.06em; line-height:1.4; }
+  .header-sub { font-size:11.5px; color:var(--ink-light); letter-spacing:0.08em; margin-top:5px; }
+  .meta-row { display:flex; gap:18px; justify-content:flex-end; margin:8px 0 14px; flex-wrap:wrap; }
+  .meta-item { display:flex; align-items:center; gap:6px; }
+  .meta-item label { font-size:11px; color:var(--ink-faint); letter-spacing:0.1em; white-space:nowrap; }
+  .meta-input { background:transparent; border:none; border-bottom:1px solid var(--paper-line); padding:2px 4px; font-family:inherit; font-size:12.5px; color:var(--ink); width:120px; outline:none; }
+  .meta-input:focus { border-bottom-color:var(--accent-soft); }
+
+  h2.sec { font-family:'Noto Serif SC',serif; font-size:14px; letter-spacing:0.15em; color:var(--accent); margin:22px 0 10px; display:flex; align-items:center; gap:10px; }
+  h2.sec::after { content:''; flex:1; height:1px; background:var(--paper-line); }
+  h2.sec small { font-size:10.5px; color:var(--ink-faint); letter-spacing:0.05em; font-family:'Noto Sans SC',sans-serif; font-weight:300; }
+
+  .four { background:linear-gradient(170deg,#fff6e3,#fbe9c4); border:1px solid #ecd39a; padding:14px 16px; text-align:center; margin:8px 0 10px; }
+  .four p { font-family:'Noto Serif SC',serif; font-size:16px; letter-spacing:0.1em; line-height:1.9; color:#5a4320; }
+  .pts { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+  .pt { background:var(--paper-warm); border:1px solid var(--paper-line); padding:9px 11px; font-size:12px; line-height:1.7; }
+  .pt b { display:block; font-family:'Noto Serif SC',serif; color:var(--accent); font-weight:600; font-size:12.5px; margin-bottom:2px; }
+  .line { font-size:11.5px; color:var(--ink-light); line-height:1.8; margin-top:8px; }
+  .line b { color:var(--accent); font-weight:500; }
+
+  .medit { background:linear-gradient(170deg,#3f3a52 0%,#4a4560 55%,#565073 100%); color:#ece8f2; padding:16px 18px; margin:8px 0; }
+  .medit .ttl { display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
+  .medit .ttl b { font-family:'Noto Serif SC',serif; font-size:14px; letter-spacing:0.06em; }
+  .medit .ttl small { font-size:10.5px; color:#c9c3d8; }
+  .medit p { font-size:11.5px; color:#d6d1e2; line-height:1.7; margin-top:8px; }
+  audio { width:100%; height:36px; }
+  .fallback { display:none; font-size:11.5px; color:#ffe3a3; margin-top:8px; line-height:1.7; }
+  .fallback.show { display:block; }
+  .fallback input { font-size:11px; color:#ece8f2; }
+
+  .cell { min-height:40px; font-size:12.5px; line-height:1.8; color:var(--ink); outline:none; padding:3px 2px;
+    background-image:repeating-linear-gradient(transparent, transparent 21px, rgba(180,160,130,0.22) 21px, rgba(180,160,130,0.22) 22px); }
+  .cell:focus { background-color:rgba(196,168,130,0.09); }
+  .cell.empty::before { content:attr(data-ph); color:var(--ink-faint); font-size:10.5px; opacity:0.85; }
+  .cell.tall { min-height:80px; }
+  .qbox { border:1px solid var(--paper-line); padding:9px 12px 7px; margin-bottom:8px; background:#fff8; }
+  .qbox .q { font-size:12.5px; line-height:1.65; margin-bottom:3px; }
+  .seat { display:flex; gap:14px; align-items:center; flex-wrap:wrap; background:var(--paper-warm); padding:8px 12px; margin-bottom:8px; font-size:12.5px; }
+  .seat input[type=number] { width:56px; text-align:center; border:none; border-bottom:1px solid var(--paper-line); background:transparent; font-family:inherit; font-size:14px; color:var(--accent); outline:none; }
+  .seat select { font-family:inherit; font-size:11.5px; border:1px solid var(--paper-line); background:#fff; padding:3px 6px; }
+  .seat .nav { margin-left:auto; display:flex; gap:5px; }
+  .btn-s { font-family:inherit; font-size:11px; color:var(--accent); background:transparent; border:1px solid var(--paper-line); padding:4px 10px; cursor:pointer; }
+  .btn-s:hover { background:var(--paper); border-color:var(--accent-soft); }
+  .which { font-size:11px; color:var(--ink-faint); }
+  .intro-s { font-size:11.5px; color:var(--ink-light); line-height:1.75; margin-bottom:8px; }
+  .chk { display:inline-flex; align-items:center; gap:6px; cursor:pointer; user-select:none; font-size:12.5px; margin:3px 12px 3px 0; }
+  .chk input { display:none; }
+  .chk .bx { width:16px; height:16px; border:1.5px solid var(--accent-soft); border-radius:2px; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .chk input:checked + .bx { background:var(--accent); border-color:var(--accent); }
+  .chk input:checked + .bx::after { content:'✓'; color:#fff; font-size:10px; line-height:1; }
+  .oth { border:none; border-bottom:1px solid var(--paper-line); background:transparent; font-family:inherit; font-size:12px; width:100px; outline:none; color:var(--ink); }
+  .mrow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:3px 0; }
+  .mini { display:inline-flex; gap:3px; }
+  .mini .sb { width:24px; height:24px; font-size:11px; }
+  .mini .sb:disabled { opacity:.35; cursor:default; }
+  .mrow .lab { font-size:11px; color:var(--ink-faint); }
+  .score { display:flex; align-items:center; gap:6px; margin:6px 0 2px; flex-wrap:wrap; }
+  .score label { font-size:11.5px; color:var(--ink-light); }
+  .sb { width:28px; height:28px; border-radius:50%; border:1.5px solid var(--paper-line); background:transparent; cursor:pointer; font-family:inherit; font-size:12px; color:var(--ink-light); }
+  .sb.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .score small { font-size:10.5px; color:var(--ink-faint); }
+  .action-card { background:#e8ebf8; border:1px solid #c8cdea; padding:10px 12px; margin:8px 0; }
+  .action-card .top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; }
+  .action-card .tag { font-size:10px; letter-spacing:0.2em; color:#5c6190; }
+  .action-card .txt { font-family:'Noto Serif SC',serif; font-size:14px; color:#2f3350; line-height:1.6; margin:4px 0; }
+  .action-card.w2 { background:#f5e6e6; border-color:#e3c9c9; } .action-card.w4 { background:#fdf0cc; border-color:#ecd39a; }
+  .action-card select { font-family:inherit; font-size:11px; border:1px solid var(--paper-line); background:#fff; padding:2px 5px; max-width:200px; }
+  .rowbtn { display:flex; gap:8px; justify-content:flex-end; align-items:center; flex-wrap:wrap; margin-top:6px; }
+  .ok { font-size:10.5px; color:var(--green); }
+
+  /* 练习记录 */
+  #diary { padding:2px 0; }
+  #records { background:#fff; border:1px solid var(--paper-line); padding:12px 14px; }
+  #records .rh { display:flex; justify-content:space-between; align-items:baseline; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+  #records .rh b { font-family:'Noto Serif SC',serif; font-size:13px; color:var(--accent); letter-spacing:0.08em; }
+  #records .rh small { font-size:10.5px; color:var(--ink-faint); }
+  .stat { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:4px 0 10px; }
+  .stat div { background:var(--paper-warm); padding:8px 10px; font-size:11px; color:var(--ink-light); line-height:1.6; }
+  .stat b { display:inline-block; margin:0 4px; font-family:'Noto Serif SC',serif; font-size:18px; color:var(--accent); font-weight:600; }
+  .legend { display:flex; gap:12px; font-size:10.5px; color:var(--ink-light); margin:2px 0 6px; flex-wrap:wrap; }
+  .legend i { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:4px; vertical-align:-1px; }
+  .month { margin-bottom:8px; }
+  .month .mt { font-size:10.5px; color:var(--ink-faint); letter-spacing:0.1em; margin-bottom:4px; }
+  .chips { display:flex; flex-wrap:wrap; gap:5px; }
+  .chip { border:1px solid var(--paper-line); background:var(--paper); padding:4px 7px; cursor:pointer; font-size:10.5px; display:flex; align-items:center; gap:5px; }
+  .chip:hover { border-color:var(--accent-soft); }
+  .chip.sel { background:var(--sun-soft); }
+  .chip .d { font-family:'Noto Serif SC',serif; font-size:11px; color:var(--ink); }
+  .chip .o { font-size:9.5px; color:var(--ink-faint); }
+  .chip i { display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--paper-line); }
+  .chip i.s.on { background:var(--dusk); } .chip i.x.on { background:var(--sun); } .chip i.a.on { background:#6c72b0; }
+  .chip .sc { font-size:10px; color:var(--accent); }
+  .empty-note { font-size:11px; color:var(--ink-faint); }
+
+  .tools { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  .tools button, .tools label.btn-s { font-family:inherit; font-size:11px; color:var(--accent); background:#fff; border:1px solid var(--accent-soft); padding:7px 12px; cursor:pointer; }
+  .tools input[type=file] { display:none; }
+  .tools .note { font-size:10.5px; color:var(--ink-faint); flex:1 1 100%; line-height:1.6; }
+  .foot { text-align:center; font-size:10px; color:var(--ink-faint); letter-spacing:0.1em; margin-top:24px; padding-top:12px; border-top:1px solid var(--paper-line); line-height:1.8; }
+  @media print { body { background:#fff; padding:0; } .page { box-shadow:none; max-width:none; } .tools, audio, .fallback, .seat .nav, .rowbtn { display:none !important; } }
+  @media (max-width:600px) { .page-inner { padding:18px 14px 28px; } .pts { grid-template-columns:1fr; } .stat { grid-template-columns:1fr 1fr; } .stat div { padding:6px 6px; font-size:10px; } .seat .nav { margin-left:0; } }
+</style>
+</head>
+<body>
+<div class="page"><div class="page-inner">
+
+  <div class="header">
+    <div class="header-stage">静心学堂 · 同喜班 · 慈心实践课 · 学员每日练习</div>
+    <h1>慈心每日练习 · 初级慈经禅修</h1>
+    <div class="header-sub">要点 · 20 分钟引导 · 今日日记 · 练习记录</div>
+  </div>
+  <div class="meta-row">
+    <div class="meta-item"><label>法名/姓名</label><input class="meta-input" id="f-name" type="text"></div>
+  </div>
+
+  <h2 class="sec">观修要点<small>导师开示《初级慈经禅修》· 课件要领</small></h2>
+  <div class="four"><p>愿我无敌意、无危险　愿我无精神的痛苦<br>愿我无身体的痛苦　愿我保持快乐</p></div>
+  <div class="pts">
+    <div class="pt"><b>真诚祝愿</b>把每一句话变成发自内心的愿望，不断重复、强化；"不是一个说词"。</div>
+    <div class="pt"><b>依托正念</b>以四句话为锚点，缓缓默念；念的时候清清楚楚知道在念，没念的时候清清楚楚知道没在念。</div>
+    <div class="pt"><b>阳光观想</b>每一句话像冬日的暖阳照在身上，暖融融的，消除敌意、危险、精神与身体的痛苦。</div>
+  </div>
+  <div class="line"><b>三个阶段</b>：先对自己 → 再对身边人（先从容易生起慈心的人开始，再按组群扩展）→ 再对一切众生（打开心量，撤除内心的设定）。可以分阶段修，也可以轮番修。<br>
+  <b>遇到障碍</b>：对自己不接纳、对某人生不起慈心时，做缘起思维——有漏的生命不完美是无始贪嗔痴所致，每个人都是贪嗔痴的受害者；同时感恩暇满，生命里有无尽宝藏。<br>
+  <b>每日练习</b>：座上 15 分钟；座下经常重复真诚祝愿，每天对三个人默默发送慈心祝愿；一周练五天以上，在班群分享练习和心得。</div>
+
+  <h2 class="sec">座上修<small>引导音频 · 20 分钟 · 对自己修（换对象时用心一样）</small></h2>
+  <div class="medit">
+    <div class="ttl"><b>初级慈心禅修——对自己修</b><small>第一周：初级慈心禅修-对自己修（20分钟）.mp3</small></div>
+    <audio id="au-main" controls preload="none" src="audio/metta-self-20min.mp3"></audio>
+    <div class="fallback" id="fb-main">找不到音频文件。从本机选择音频：<input type="file" accept="audio/*"></div>
+    <p>把心安住在四句话上，缓缓地默念，保持清清楚楚；观想慈心的祝愿就像冬日的暖阳照耀在自己身上。座上建立、强化慈心的愿望，座下落实和检验慈心。</p>
+  </div>
+
+  <div id="diary">
+  <h2 class="sec">今日日记<small>晚上回顾一天的练习 · 自动保存在本机</small></h2>
+  <div class="seat">
+    <span>日期 <input class="meta-input" type="date" id="d-date" style="width:128px"></span>
+    <span class="which" id="d-which"></span>
+    <span>对象 <select id="d-obj"><option value="1">练习 1 · 对自己</option><option value="2">练习 2 · 对身边人</option><option value="3">练习 3 · 对一切众生</option></select></span>
+    <span class="nav"><button class="btn-s" type="button" id="d-prev">←</button><button class="btn-s" type="button" id="d-today">今天</button><button class="btn-s" type="button" id="d-next">→</button></span>
+  </div>
+  <div class="seat" style="background:#fff;border:1px solid var(--paper-line)">
+    <span style="color:var(--accent)">座上修</span>
+    <span>时长 <input type="number" min="0" id="d-dur"> 分钟</span>
+    <label class="chk"><input type="checkbox" id="d-done"><span class="bx"></span>已完成</label>
+    <span class="which" id="d-seatobj"></span>
+  </div>
+  <div class="intro-s" id="d-intro"></div>
+  <div class="qbox">
+    <div class="q" id="d-q1"></div>
+    <div id="d-moments"></div>
+    <div class="score"><label id="d-scorelabel"></label><small id="d-avg"></small></div>
+  </div>
+  <div class="qbox"><div class="q" id="d-q2"></div><div class="cell" data-ph="" data-d="q2"></div></div>
+  <div class="qbox"><div class="q" id="d-q3"></div><div class="cell" data-ph="" data-d="q3"></div></div>
+  <div class="qbox" id="d-q4box"><div class="q" id="d-q4"></div><div class="cell" data-ph="" data-d="q4"></div></div>
+  <div class="action-card" id="act-card">
+    <div class="top"><span class="tag">今日慈心行动 · 可选</span><span><label class="chk" style="margin:0 8px 0 0"><input type="checkbox" id="d-act"><span class="bx"></span>做了</label><select id="act-sel"></select></span></div>
+    <div class="txt" id="act-txt"></div>
+    <div class="cell" style="min-height:32px" data-ph="做了什么、有什么反应（一句话）" data-d="actNote"></div>
+  </div>
+  <div class="qbox"><div class="q">其他心得（法义、座上修、慈心行动等）</div><div class="cell tall" data-ph="" data-d="notes"></div>
+    <div class="rowbtn"><span class="ok" id="d-copied"></span><button class="btn-s" type="button" id="d-copy">复制今日记录 → 发班群</button></div></div>
+
+  </div>
+  <h2 class="sec">练习记录<small>按实际记录过的日子统计 · 点日期可回看、补记</small></h2>
+  <div id="records">
+    <div class="rh"><b id="r-title">我的慈心练习记录</b><small id="r-range"></small></div>
+    <div class="stat">
+      <div id="st-days">记录<b>0</b>天</div>
+      <div id="st-seat">座上<b>0</b>天 · <span id="st-mins">0</span> 分钟</div>
+      <div id="st-score">平均慈心程度<b>–</b></div>
+      <div id="st-streak">最近连续<b>0</b>天</div>
+    </div>
+    <div class="legend"><span><i style="background:var(--dusk)"></i>座上</span><span><i style="background:var(--sun)"></i>座下祝愿</span><span><i style="background:#6c72b0"></i>慈心行动</span><span>数字＝当日慈心强烈程度</span></div>
+    <div id="r-months"></div>
+  </div>
+
+  <div class="tools">
+    <button type="button" id="ex-diary">今日日记存图片</button>
+    <button type="button" id="ex-print">打印 / 存 PDF</button>
+    <button type="button" id="ex-sum">复制汇总文字</button>
+    <button type="button" id="ex-json">导出记录文件</button>
+    <label class="btn-s">导入记录文件<input type="file" id="im-json" accept="application/json,.json"></label>
+    <button type="button" id="ex-submit" style="display:none">提交到班级汇总表</button>
+    <div class="note">记录只存在本机浏览器（每人各自的手机或电脑），不上传。换设备：先「导出记录文件」，在新设备「导入」。</div>
+  </div>
+
+  <div class="foot">静心学堂 · 同喜班 · 第二十一课 慈心实践课 ｜ 素材：导师开示《初级〈慈经〉禅修》、《慈心实践课 PPT》练习 1／2／3、辅助材料、利他禅修营慈心行动卡</div>
+</div></div>
+
+<script>
+(function () {
+  /* 与完整版共用同一份本机数据 */
+  var KEY = 'tx-l21-metta-v2';
+  /* 可选：班级汇总表接收地址（如 Google Apps Script 网页应用）。留空则不显示提交按钮。 */
+  var SUBMIT_URL = '';
+  var D = { name: '', start: '', k: {}, days: {} };
+  var ACTIONS = [
+    { w: 1, t: '向你感激的人表示谢意，并告诉他们原因' }, { w: 1, t: '今天请慷慨地分享，用食物、爱心和善意注满别人的内心' }, { w: 1, t: '原谅过去曾伤害过你的人' },
+    { w: 1, t: '发现今天遇到的每个人身上的优点' }, { w: 1, t: '与不太相熟的人友好地闲谈' }, { w: 1, t: '跟每个与你交谈的人多说些积极的话' },
+    { w: 2, t: '每当听到正念钟声响起时，带着微笑回到当下' }, { w: 2, t: '闲暇时，回到呼吸，对自己微笑' }, { w: 2, t: '繁忙时，回到呼吸，用微笑提醒自己松弛有度' },
+    { w: 2, t: '向今天遇到的人微笑，并友善地对待他们' }, { w: 2, t: '行走时，微笑' }, { w: 2, t: '清晨醒来时，微笑；晚上入睡时，微笑' },
+    { w: 3, t: '晒太阳' }, { w: 3, t: '代入一位友善又有智慧的好朋友，想象一下，ta 会如何对待我的缺点？' }, { w: 3, t: '回想自己的某个善心善行或成就，随喜自己，为自己点赞' },
+    { w: 3, t: '有意识地做三件善待自己的小事（如喝水、早睡……）' }, { w: 3, t: '伸个懒腰，或拉伸一下，放松身体' }, { w: 3, t: '慈心拥抱：双手环抱肩膀／手臂，或把手放在心口' },
+    { w: 4, t: '丢掉自我批评，友好地跟自己说话' }, { w: 4, t: '在忙碌的时候允许自己暂停下来，放松一下' }, { w: 4, t: '注意到你做得好的事，无论多小' },
+    { w: 4, t: '问问你信任的朋友，他们在你身上看到了什么力量' }, { w: 4, t: '写下最欣赏自己的三个品质' }, { w: 4, t: '与人相处时主动分享自己的感受，在有需要的时候寻求帮助' }
+  ];
+  var V = {
+    1: { name: '对自己', seat: '对自己修，15 分钟', intro: '生活中，时时对自己发送慈心祝愿。可以事先列出一天中必定会发生的几个日常事件，作为对自己发送慈心祝愿的时刻。',
+      q1: '1. 今天我都在哪些时刻对自己发送了慈心祝愿？真诚程度如何（0–5 分）', m: ['起床时', '喝水时', '乘车时'], sl: '真诚程度',
+      q2: '2. 今日在发送慈心祝愿时，有何感受？（胸口一暖、肩膀放松、眉头舒展，还是没什么感觉？记最明显的一点）',
+      q3: '3. 今天是否在心情不好、有烦恼时用了这个练习？用了之后，内心感受有什么变化？',
+      q4: '4. 今天有没有一个瞬间，觉得自己自然地、温柔地对待了自己？' },
+    2: { name: '对身边人', seat: '对身边人修，15 分钟', intro: '每天早上预想：今天可能会遇到哪些人？提醒自己：今天我要向遇到的身边人发送慈心祝愿。晚上回顾一天的修习情况。',
+      q1: '1. 今天我都对哪些身边人发送了慈心祝愿？慈心强烈程度如何（0–5 分）', m: ['家人', '同事', '邻居'], sl: '慈心强烈程度',
+      q2: '2. 今日在发送慈心祝愿时，有何感受？（记最明显的一点）',
+      q3: '3. 今天在跟身边人的相处中有没有一些积极（更有慈心）的变化？这种变化带给自己怎样的感受？',
+      q4: '4. 今天对身边人发送慈心祝愿时，有没有难以生起慈心的对象？你觉得原因是什么？' },
+    3: { name: '对一切众生', seat: '对一切众生修，15 分钟', intro: '生活中，时时对一切众生发送慈心祝愿。可以事先列出一天中必定会发生的几个日常事件，作为发送祝愿的时刻。',
+      q1: '1. 今天我在哪些时刻，对一切众生发送了慈心祝愿？慈心强烈程度如何（0–5 分）', m: ['走路时', '吃饭时'], sl: '慈心强烈程度',
+      q2: '2. 今天在面对众生时有没有一些积极（更有慈心）的变化（比如走路时小心不踩到昆虫）？这种变化带给自己怎样的感受？',
+      q3: '3. 今日在发送慈心祝愿时，有何感受？（记最明显的一点）', q4: null }
+  };
+  function $(id) { return document.getElementById(id); }
+  function iso(d) { var m = d.getMonth() + 1, dd = d.getDate(); return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (dd < 10 ? '0' : '') + dd; }
+  function parse(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function addDays(s, n) { var d = parse(s); d.setDate(d.getDate() + n); return iso(d); }
+  var TODAY = iso(new Date());
+  function blank() { return { obj: null, dur: '', done: false, m: [], other: '', score: null, q2: '', q3: '', q4: '', act: false, actIdx: null, actNote: '', notes: '' }; }
+  function dayRec(s) { if (!D.days[s]) D.days[s] = blank(); return D.days[s]; }
+  function hasData(r) { return !!(r && (r.done || r.dur || r.m.length || r.other || r.q2 || r.q3 || r.q4 || r.act || r.actNote || r.notes || (r.score !== null && r.score !== undefined))); }
+  function hasDaily(r) { return !!(r && (r.m.length || r.q2 || r.q3 || r.q4 || (r.score !== null && r.score !== undefined))); }
+  function recorded() { return Object.keys(D.days).filter(function (s) { return hasData(D.days[s]); }).sort(); }
+  /* 对象默认：本日已选 > 最近一次记录的对象 > 对自己 */
+  function objOf(r, s) { if (r.obj) return r.obj; var ds = recorded().filter(function (x) { return x < s; }); for (var i = ds.length - 1; i >= 0; i--) { var o = D.days[ds[i]].obj; if (o) return o; } return 1; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {} }
+  var tm; function schedule() { clearTimeout(tm); tm = setTimeout(save, 500); }
+  window.addEventListener('beforeunload', save); window.addEventListener('pagehide', save);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') save(); });
+  try { var raw = JSON.parse(localStorage.getItem(KEY) || 'null'); if (raw && typeof raw === 'object') { D = raw; D.k = D.k || {}; D.days = D.days || {}; } } catch (e) {}
+
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.cell'));
+  cells.forEach(function (el) { el.setAttribute('contenteditable', 'true'); el._sync = function () { el.classList.toggle('empty', el.innerText.trim() === ''); }; el.addEventListener('blur', el._sync); el._sync(); });
+  $('f-name').addEventListener('input', function () { D.name = this.value; schedule(); renderRecords(); });
+
+  var au = $('au-main'), fb = $('fb-main');
+  au.addEventListener('error', function () { fb.classList.add('show'); });
+  fb.querySelector('input').addEventListener('change', function () { var f = this.files && this.files[0]; if (!f) return; au.src = URL.createObjectURL(f); fb.classList.remove('show'); au.play(); });
+
+  var cur = TODAY;
+  var dcells = Array.prototype.slice.call(document.querySelectorAll('[data-d]'));
+  var sel = $('act-sel');
+  ACTIONS.forEach(function (a, i) { var o = document.createElement('option'); o.value = i; o.textContent = (i + 1) + ' · ' + a.t.slice(0, 12) + (a.t.length > 12 ? '…' : ''); sel.appendChild(o); });
+  function actFor(r, s) { if (r.actIdx !== null && r.actIdx !== undefined) return r.actIdx; var n = Math.round((parse(s) - new Date(2026, 0, 1)) / 86400000); return ((n % ACTIONS.length) + ACTIONS.length) % ACTIONS.length; }
+  function readMoments() { var r = dayRec(cur); r.ms = r.ms || {}; r.m = []; Array.prototype.slice.call($('d-moments').querySelectorAll('input[type=checkbox]')).forEach(function (b) { if (b.checked) r.m.push(b.getAttribute('data-m')); }); var o = $('d-other'); r.other = o ? o.value : ''; Object.keys(r.ms).forEach(function (k) { if (r.m.indexOf(k) < 0) delete r.ms[k]; }); var vs = Object.keys(r.ms).map(function (k) { return r.ms[k]; }); r.score = vs.length ? Math.round(vs.reduce(function (a, b) { return a + b; }, 0) / vs.length * 10) / 10 : null; }
+  function paintMini() { var r = dayRec(cur); r.ms = r.ms || {}; Array.prototype.slice.call($('d-moments').querySelectorAll('.mini')).forEach(function (mn) { var m = mn.getAttribute('data-for'); Array.prototype.slice.call(mn.querySelectorAll('.sb')).forEach(function (b) { b.classList.toggle('active', r.ms[m] === +b.getAttribute('data-v')); }); }); var n = Object.keys(r.ms).length; $('d-avg').textContent = n ? '今日平均 ' + r.score + ' / 5' : '每一项 0–5 分，5 分＝非常真切'; }
+  function renderForm(r, s) {
+    var v = V[objOf(r, s)];
+    $('d-obj').value = objOf(r, s); $('d-seatobj').textContent = v.seat; $('d-intro').textContent = v.intro;
+    $('d-q1').textContent = v.q1; $('d-scorelabel').textContent = v.sl;
+    var html = '';
+    r.ms = r.ms || {};
+    function mini(m) { var on = r.m.indexOf(m) >= 0; var h = '<span class="mini" data-for="' + m + '">'; for (var i = 0; i <= 5; i++) h += '<button type="button" class="sb' + (on && r.ms[m] === i ? ' active' : '') + '" data-v="' + i + '">' + i + '</button>'; return h + '</span>'; }
+    v.m.forEach(function (m) { html += '<div class="mrow"><label class="chk" style="margin:0;min-width:70px"><input type="checkbox" data-m="' + m + '"' + (r.m.indexOf(m) >= 0 ? ' checked' : '') + '><span class="bx"></span>' + m + '</label><span class="lab">评分</span>' + mini(m) + '</div>'; });
+    html += '<div class="mrow"><label class="chk" style="margin:0"><input type="checkbox" data-m="其他"' + (r.m.indexOf('其他') >= 0 ? ' checked' : '') + '><span class="bx"></span>其他：</label><input class="oth" type="text" id="d-other" placeholder="请填写" value="' + (r.other || '').replace(/"/g, '&quot;') + '"><span class="lab">评分</span>' + mini('其他') + '</div>';
+    $('d-moments').innerHTML = html;
+    Array.prototype.slice.call($('d-moments').querySelectorAll('input[type=checkbox]')).forEach(function (b) { b.addEventListener('change', function () { if (!b.checked) delete r.ms[b.getAttribute('data-m')]; readMoments(); paintMini(); schedule(); renderRecords(); }); });
+    Array.prototype.slice.call($('d-moments').querySelectorAll('.mini .sb')).forEach(function (sb) { sb.addEventListener('click', function () {
+      var m = sb.parentNode.getAttribute('data-for'), val = +sb.getAttribute('data-v');
+      var cb = $('d-moments').querySelector('input[data-m="' + m + '"]');
+      if (r.ms[m] === val) { delete r.ms[m]; } else { r.ms[m] = val; if (cb && !cb.checked) cb.checked = true; }
+      readMoments(); paintMini(); schedule(); renderRecords();
+    }); });
+    $('d-other').addEventListener('input', function () { if (this.value.trim()) { var ob = $('d-moments').querySelector('input[data-m="其他"]'); if (ob && !ob.checked) ob.checked = true; } readMoments(); paintMini(); schedule(); });
+    paintMini();
+    $('d-q2').textContent = v.q2; $('d-q3').textContent = v.q3;
+    $('d-q4box').style.display = v.q4 ? '' : 'none'; if (v.q4) $('d-q4').textContent = v.q4;
+  }
+  var WD = ['日', '一', '二', '三', '四', '五', '六'];
+  function showDay(s) {
+    cur = s; var r = dayRec(s);
+    $('f-name').value = D.name || ''; $('d-date').value = s;
+    $('d-which').textContent = '周' + WD[parse(s).getDay()] + (s === TODAY ? ' · 今天' : '') + (hasData(r) ? '' : ' · 未记录');
+    $('d-dur').value = r.dur; $('d-done').checked = !!r.done;
+    renderForm(r, s);
+    dcells.forEach(function (el) { el.innerText = r[el.getAttribute('data-d')] || ''; el._sync(); });
+    $('d-act').checked = !!r.act;
+    var ai = actFor(r, s); $('act-txt').textContent = ACTIONS[ai].t; sel.value = ai; $('act-card').className = 'action-card w' + ACTIONS[ai].w;
+    renderRecords();
+  }
+  function touched() { var r = dayRec(cur); if (!r.obj) r.obj = +$('d-obj').value; }
+  $('d-date').addEventListener('change', function () { if (this.value) showDay(this.value); });
+  $('d-prev').addEventListener('click', function () { showDay(addDays(cur, -1)); });
+  $('d-next').addEventListener('click', function () { showDay(addDays(cur, 1)); });
+  $('d-today').addEventListener('click', function () { showDay(TODAY); });
+  $('d-obj').addEventListener('change', function () { var r = dayRec(cur); r.obj = +this.value; renderForm(r, cur); schedule(); renderRecords(); });
+  $('d-dur').addEventListener('input', function () { dayRec(cur).dur = this.value; touched(); schedule(); renderRecords(); });
+  $('d-done').addEventListener('change', function () { dayRec(cur).done = this.checked; touched(); schedule(); renderRecords(); });
+  $('d-act').addEventListener('change', function () { dayRec(cur).act = this.checked; touched(); schedule(); renderRecords(); });
+  dcells.forEach(function (el) { el.addEventListener('input', function () { dayRec(cur)[el.getAttribute('data-d')] = el.innerText; touched(); el._sync(); schedule(); renderRecords(); }); });
+  sel.addEventListener('change', function () { var r = dayRec(cur); r.actIdx = +this.value; $('act-txt').textContent = ACTIONS[r.actIdx].t; $('act-card').className = 'action-card w' + ACTIONS[r.actIdx].w; schedule(); });
+
+  function dayText(s) {
+    var r = dayRec(s); var v = V[objOf(r, s)]; var a = ACTIONS[actFor(r, s)];
+    var lines = ['【慈心实践 · ' + s + ' · ' + v.name + '】' + (D.name ? ' ' + D.name : ''),
+      '座上修：' + (r.done ? '已完成' : '未完成') + (r.dur ? ' ' + r.dur + ' 分钟' : ''),
+      v.q1.split('？')[0].replace(/^\d\. /, '') + '：' + (r.m.length ? r.m.map(function (m) { var nm = m === '其他' ? '其他(' + (r.other || '') + ')' : m; return nm + (r.ms && r.ms[m] !== undefined ? ' ' + r.ms[m] : ''); }).join('、') : '—') + (r.score !== null && r.score !== undefined ? '｜' + v.sl + '平均 ' + r.score + '/5' : ''),
+      v.q2.split('（')[0].replace(/^\d\. /, '') + '：' + (r.q2 || '—'), v.q3.split('（')[0].replace(/^\d\. /, '') + '：' + (r.q3 || '—')];
+    if (v.q4) lines.push(v.q4.split('（')[0].replace(/^\d\. /, '') + '：' + (r.q4 || '—'));
+    lines.push('慈心行动：' + (r.act ? '✓ ' : '') + a.t + (r.actNote ? '｜' + r.actNote : ''));
+    lines.push('心得：' + (r.notes || '—'));
+    return lines.join('\n');
+  }
+  function copyText(t, el) {
+    function ok() { if (el) { el.textContent = '已复制'; setTimeout(function () { el.textContent = ''; }, 2000); } }
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, function () { window.prompt('复制下面的文字', t); }); else window.prompt('复制下面的文字', t);
+  }
+  $('d-copy').addEventListener('click', function () { copyText(dayText(cur), $('d-copied')); });
+
+  /* ---------- 统计：按实际记录过的日子 ---------- */
+  function stats(list) {
+    var o = { days: list.length, seat: 0, mins: 0, sc: [], obj: { 1: 0, 2: 0, 3: 0 } };
+    list.forEach(function (s) { var r = D.days[s]; if (r.done) { o.seat++; o.mins += (+r.dur || 0); } if (r.score !== null && r.score !== undefined) o.sc.push(r.score); o.obj[objOf(r, s)]++; });
+    o.avg = o.sc.length ? (o.sc.reduce(function (a, b) { return a + b; }, 0) / o.sc.length).toFixed(1) : '–';
+    return o;
+  }
+  function streak(list) { var n = 0, s = TODAY; if (list.indexOf(s) < 0) s = addDays(s, -1); while (list.indexOf(s) >= 0) { n++; s = addDays(s, -1); } return n; }
+  function renderRecords() {
+    var list = recorded(); var st = stats(list);
+    $('r-title').textContent = (D.name ? D.name + ' 的' : '我的') + '慈心练习记录';
+    $('r-range').textContent = list.length ? (list[0] + ' ～ ' + list[list.length - 1]) : '还没有记录';
+    $('st-days').innerHTML = '记录<b>' + st.days + '</b>天';
+    $('st-seat').innerHTML = '座上<b>' + st.seat + '</b>天 · ' + st.mins + ' 分钟';
+    $('st-score').innerHTML = '平均慈心程度<b>' + st.avg + '</b>';
+    $('st-streak').innerHTML = '最近连续<b>' + streak(list) + '</b>天';
+    var box = $('r-months'); box.innerHTML = '';
+    if (!list.length) { box.innerHTML = '<div class="empty-note">写下第一天的记录，这里就会出现。</div>'; return; }
+    var months = {}; list.forEach(function (s) { var k = s.slice(0, 7); (months[k] = months[k] || []).push(s); });
+    Object.keys(months).sort().forEach(function (k) {
+      var m = document.createElement('div'); m.className = 'month';
+      m.innerHTML = '<div class="mt">' + k.replace('-', ' 年 ') + ' 月 · ' + months[k].length + ' 天</div>';
+      var ch = document.createElement('div'); ch.className = 'chips';
+      months[k].forEach(function (s) {
+        var r = D.days[s]; var c = document.createElement('div'); c.className = 'chip' + (s === cur ? ' sel' : ''); c.setAttribute('data-s', s);
+        c.innerHTML = '<span class="d">' + s.slice(8) + '</span><span class="o">' + V[objOf(r, s)].name.replace('对', '') + '</span><i class="s' + (r.done ? ' on' : '') + '"></i><i class="x' + (hasDaily(r) ? ' on' : '') + '"></i><i class="a' + (r.act ? ' on' : '') + '"></i>' + (r.score !== null && r.score !== undefined ? '<span class="sc">' + r.score + '</span>' : '');
+        c.addEventListener('click', function () { showDay(this.getAttribute('data-s')); $('d-date').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+        ch.appendChild(c);
+      });
+      m.appendChild(ch); box.appendChild(m);
+    });
+  }
+
+  /* 汇总文字：全部 + 最近 7 天 */
+  function summaryText() {
+    var list = recorded(); var all = stats(list);
+    var from = addDays(TODAY, -6); var last = list.filter(function (s) { return s >= from && s <= TODAY; }); var l7 = stats(last);
+    var lines = ['【慈心实践汇总】' + (D.name ? ' ' + D.name : '') + '　' + TODAY,
+      '全部：记录 ' + all.days + ' 天（对自己 ' + all.obj[1] + '／身边人 ' + all.obj[2] + '／一切众生 ' + all.obj[3] + '），座上 ' + all.seat + ' 天共 ' + all.mins + ' 分钟，平均慈心程度 ' + all.avg + '/5，最近连续 ' + streak(list) + ' 天',
+      '最近 7 天：记录 ' + l7.days + ' 天，座上 ' + l7.seat + ' 天共 ' + l7.mins + ' 分钟，平均慈心程度 ' + l7.avg + '/5'];
+    last.forEach(function (s) { var r = D.days[s]; var tag = (r.done ? '座' : '') + (hasDaily(r) ? '祝' : '') + (r.act ? '行' : ''); lines.push(s.slice(5) + ' ' + V[objOf(r, s)].name + ' ' + tag + (r.score !== null && r.score !== undefined ? ' ' + r.score : '') + (r.notes ? '｜' + r.notes.slice(0, 40) : '')); });
+    return lines.join('\n');
+  }
+  $('ex-sum').addEventListener('click', function () { var b = this, o = b.textContent; copyText(summaryText()); b.textContent = '已复制'; setTimeout(function () { b.textContent = o; }, 2000); });
+
+  $('ex-json').addEventListener('click', function () {
+    save(); var blob = new Blob([JSON.stringify(D, null, 1)], { type: 'application/json' });
+    var a = document.createElement('a'); a.download = '慈心实践记录' + (D.name ? '·' + D.name : '') + '·' + TODAY + '.json'; a.href = URL.createObjectURL(blob); a.click();
+  });
+  $('im-json').addEventListener('change', function () {
+    var f = this.files && this.files[0]; if (!f) return; var rd = new FileReader();
+    rd.onload = function () { try { var x = JSON.parse(rd.result); if (!x || typeof x !== 'object' || !x.days) throw 0; if (!window.confirm('导入会与本机记录合并（同一天以导入为准）。继续？')) return; D.name = x.name || D.name; Object.keys(x.days).forEach(function (k) { D.days[k] = x.days[k]; }); save(); showDay(cur); } catch (e) { window.alert('不是有效的记录文件'); } };
+    rd.readAsText(f); this.value = '';
+  });
+  if (SUBMIT_URL) { $('ex-submit').style.display = ''; $('ex-submit').addEventListener('click', function () {
+    var b = this, o = b.textContent; b.disabled = true; b.textContent = '提交中…';
+    fetch(SUBMIT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ name: D.name, date: cur, day: dayRec(cur), summary: summaryText() }) })
+      .then(function () { b.textContent = '已提交'; }, function () { b.textContent = '提交失败'; }).then(function () { setTimeout(function () { b.disabled = false; b.textContent = o; }, 2200); });
+  }); }
+
+  function loadScript(src) { return new Promise(function (ok, no) { var el = document.createElement('script'); el.src = src; el.onload = ok; el.onerror = function () { no(new Error('x')); }; document.head.appendChild(el); }); }
+  function shot(el, name, btn) {
+    var old = btn.textContent; btn.disabled = true; btn.textContent = '生成中…';
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js').then(function () { return (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()); })
+      .then(function () { var w = el.scrollWidth, h = el.scrollHeight; var scale = Math.max(1, Math.min(3, 15000 / h, 15000 / w)); return html2canvas(el, { scale: scale, backgroundColor: '#faf7f2', useCORS: true, logging: false, windowWidth: document.documentElement.scrollWidth, width: w, height: h }); })
+      .then(function (cv) { var a = document.createElement('a'); a.download = name + (D.name ? '·' + D.name : '') + '·' + TODAY + '.png'; a.href = cv.toDataURL('image/png'); a.click(); btn.textContent = '已生成'; setTimeout(function () { btn.disabled = false; btn.textContent = old; }, 2000); })
+      .catch(function () { btn.textContent = '失败，请用打印'; setTimeout(function () { btn.disabled = false; btn.textContent = old; }, 2600); });
+  }
+  $('ex-print').addEventListener('click', function () { window.print(); });
+  $('ex-diary').addEventListener('click', function () { shot($('diary'), '慈心日记', this); });
+
+  showDay(TODAY);
+})();
+</script>
+</body>
+</html>
